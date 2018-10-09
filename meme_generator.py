@@ -1,7 +1,14 @@
 from PIL import Image, ImageDraw, ImageFont
 import textwrap
+import argparse as arg
 
-def meme_generator(image_path, top_text, bottom_text='', font_path='impact/impact.ttf', font_size=9):
+parser = arg.ArgumentParser('Meme Generator')
+
+parser.add_argument("format", metavar='', help="Enter the format type :")
+
+args = parser.parse_args()
+
+def meme_generator1(image_path, top_text, bottom_text='', font_path='impact/impact.ttf', font_size=9):
     
     
     img = Image.open(image_path)
@@ -41,6 +48,8 @@ def meme_generator(image_path, top_text, bottom_text='', font_path='impact/impac
     img.save('meme-' + img.filename.split('/')[-1])
 
 if __name__ == '__main__':
-    top_text = "Input the top line here"
-    bottom_text = "Input the bottom line here"
-meme_generator('input_image.jpg', top_text, bottom_text)
+	if(args.format == "1"):
+		img = input("Enter the image path: ")
+		top_text = input("Input the top line here: ")
+		bottom_text = input("Input the bottom line here: ")
+		meme_generator1(img, top_text, bottom_text)
