@@ -40,7 +40,35 @@ def meme_generator_1(image_path, top_text, font_path='impact/impact.ttf', font_s
     img.show()
 
 #format-2
-def meme_generator_2(image_path, top_text, bottom_text, font_path='impact/impact.ttf', font_size=9):
+def meme_generator_2(image_path, bottom_text, font_path='impact/impact.ttf', font_size=9):
+    
+    
+    img = Image.open(image_path)
+    draw = ImageDraw.Draw(img)
+    image_width, image_height = img.size
+    
+    
+    font = ImageFont.truetype(font = font_path, size = int(image_height*font_size)//100)
+    
+    
+    bottom_text = bottom_text.upper()
+
+    
+    char_width, char_height = font.getsize('A')
+    chars_per_line = image_width // char_width
+    bottom_lines = textwrap.wrap(bottom_text, width = chars_per_line)
+    
+    y = image_height - char_height * len(bottom_lines) - 15
+    for line in bottom_lines:
+        line_width, line_height = font.getsize(line)
+        x = (image_width - line_width)/2
+        draw.text((x,y), line, fill='white', font=font)
+        y += line_height
+
+    img.save('meme-' + img.filename.split('/')[-1])
+
+#format-3
+def meme_generator_3(image_path, top_text, bottom_text, font_path='impact/impact.ttf', font_size=9):
     
     
     img = Image.open(image_path)
@@ -78,8 +106,8 @@ def meme_generator_2(image_path, top_text, bottom_text, font_path='impact/impact
 
     img.save('meme-' + img.filename.split('/')[-1])
 
-#format-3
-def meme_generator_3(image1_path, image2_path, top_text, bottom_text, font_path='impact/impact.ttf', font_size=9):
+#format-4
+def meme_generator_4(image1_path, image2_path, top_text, bottom_text, font_path='impact/impact.ttf', font_size=9):
     
     
     img1 = Image.open(image1_path)
@@ -141,13 +169,18 @@ if __name__ == '__main__':
 
 	if(args.format == "2"):
 		img = input("Enter the image path: ")
-		top_text = input("Input the top line here: ")
 		bottom_text = input("Input the bottom line here: ")
-		meme_generator_2(img, top_text, bottom_text)
+		meme_generator_2(img, bottom_text)
 
 	if(args.format == "3"):
+		img = input("Enter the image path: ")
+		top_text = input("Input the top line here: ")
+		bottom_text = input("Input the bottom line here: ")
+		meme_generator_3(img, top_text, bottom_text)
+
+	if(args.format == "4"):
 		img1 = input("Enter image 1 path: ")
 		img2 = input("Enter image 2 path: ")
 		top_text = input("Input the top line here: ")
 		bottom_text = input("Input the bottom line here: ")
-		meme_generator_3(img1, img2, top_text, bottom_text)
+		meme_generator_4(img1, img2, top_text, bottom_text)
