@@ -110,14 +110,21 @@ def meme_generator_3(image_path, top_text, bottom_text, font_path='impact/impact
 def meme_generator_4(image1_path, image2_path, top_text, bottom_text, font_path='impact/impact.ttf', font_size=9):
     
     
-    img1 = Image.open(image1_path)
-    img2 = Image.open(image2_path)
+    img01 = Image.open(image1_path)
+    img02 = Image.open(image2_path)
     images = map(Image.open, [image1_path, image2_path])
- 
-    widths, heights = zip(*(i.size for i in images))
 
-    image_width = sum(widths)
-    image_height = max(heights)
+    size = 320,360
+    img1 = img01.resize((320,360), Image.ANTIALIAS)
+    img2 = img02.resize((320,360), Image.ANTIALIAS)
+    img1.save("short1.jpg")
+    img2.save("short2.jpg")
+    images = map(Image.open, ["short1.jpg", "short2.jpg"])
+
+    #widths, heights = zip(*(i.size for i in images))
+
+    image_width = 640 #sum(widths)
+    image_height = 360 #max(heights)
 
     img = Image.new('RGB', (image_width, image_height))
 
@@ -156,7 +163,8 @@ def meme_generator_4(image1_path, image2_path, top_text, bottom_text, font_path=
         y += line_height
 
     
-    img.save('meme-' + img1.filename.split('/')[-1] + img2.filename.split('/')[-1] )
+    #img.save("meme3.jpg")
+    img.save('meme-' + img01.filename.split('.')[0] + img02.filename.split('/')[-1])
 
     
 
