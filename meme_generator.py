@@ -15,19 +15,18 @@ args = parser.parse_args()
 
 #random_image_generator
 def random_meme(show = "True"):
-	x = show
-	if x == "True":
-		folder = r"images"
-
-		a = random.choice(os.listdir(folder))
-		#print(a)
-
-		file = folder+ "/" + a
-		Image.open(file).show()
-
-	else:
-		with open('index.json') as f:
+	
+	with open('index.json') as f:
 			data = json.load(f)
+	x = len(data['data'])
+
+	if show == "True":
+		folder = r"images"
+		imgName = data["data"][random.randint(1,x)]["name"]
+		file = folder+ "/" + imgName
+		Image.open(file).show()
+	else:
+		
 		print(data["data"][random.randint(1,5)]["description"])
 
 #format-1 
