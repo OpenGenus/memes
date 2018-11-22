@@ -3,13 +3,32 @@ import textwrap
 import argparse as arg
 import numpy as np
 import sys
-
+import os, random
+import json 
+from pprint import pprint
 
 parser = arg.ArgumentParser('Meme Generator')
 
 parser.add_argument("format", metavar='', help="Enter the format type :")
 
 args = parser.parse_args()
+
+#random_image_generator
+def random_meme(show = "True"):
+	x = show
+	if x == "True":
+		folder = r"images"
+
+		a = random.choice(os.listdir(folder))
+		#print(a)
+
+		file = folder+ "/" + a
+		Image.open(file).show()
+
+	else:
+		with open('index.json') as f:
+			data = json.load(f)
+		print(data["data"][random.randint(1,5)]["description"])
 
 #format-1 
 def meme_generator_1(image_path, top_text, font_path='impact/impact.ttf', font_size=9):
@@ -170,6 +189,10 @@ def meme_generator_4(image1_path, image2_path, top_text, bottom_text, font_path=
 
 #main function
 if __name__ == '__main__':
+	if(args.format == "0"):
+		show = input("Generate random image? True/False:")
+		random_meme(show)
+
 	if(args.format == "1"):
 		img = input("Enter the image path: ")
 		top_text = input("Input the top line here: ")
