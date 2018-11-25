@@ -27,7 +27,7 @@ def random_meme(show = "True"):
 		Image.open(file).show()
 	else:
 		
-		print(data["data"][random.randint(1,5)]["description"])
+		print(data["data"][random.randint(1,x)]["description"])
 
 #format-1 
 def meme_generator_1(image_path, top_text, font_path='impact/impact.ttf', font_size=9):
