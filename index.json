@@ -1,0 +1,29 @@
+{
+	"data": [
+		{
+			"name": "got01.jpg",
+			"description": "Daenerys Targaryen",
+			"location": "data/got_memes/images"
+		},
+		{
+			"name": "got02.jpg",
+			"description": "Battle of Bastards",
+			"location": "data/got_memes/images"
+		},
+		{
+			"name": "got03.jpg",
+			"description": "Tyrion",
+			"location": "data/got_memes/images"
+		},
+		{
+			"name": "got04.jpg",
+			"description": "Ellaria",
+			"location": "data/got_memes/images"
+		},
+		{
+			"name": "got05.jpg",
+			"description": "gameOfThrones",
+			"location": "data/got_memes/images"
+		}
+	]
+}
