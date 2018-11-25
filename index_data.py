@@ -13,6 +13,6 @@ for subdir, dirs, files in os.walk('.'):
         	#print(file)
 
 with open('index.json', 'w') as f:
-	json.dump({'data' : [{"description": "game of thrones" ,"name": data[y], "location" : path[y]} for y in range(0,len(path))]},f,sort_keys = True, indent = 4, 
+	json.dump({'data' : [{"description": "game of thrones" ,"name": x, "location" : y} for x,y in zip(data,path)]},f,sort_keys = True, indent = 4, 
 		ensure_ascii = False)
         
