@@ -1,8 +1,16 @@
 import os
 from PIL import Image 
+import argparse as arg
 
-basewidth = 600
-rootDir = 'data'
+parser = arg.ArgumentParser()
+
+parser.add_argument('--data', type=str , help="Enter image path")
+parser.add_argument('--width', type=int , help="Enter width of image")
+
+args = parser.parse_args()
+
+basewidth = args.width
+rootDir = args.data
 
 for dirName, subdirList, fileList in os.walk(rootDir):
 
