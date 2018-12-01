@@ -4,8 +4,8 @@ import argparse as arg
 
 parser = arg.ArgumentParser()
 
-parser.add_argument('--data', type=str , help="Enter image path")
-parser.add_argument('--width', type=int , help="Enter width of image")
+parser.add_argument('--data', type=str , help="Enter image path", default="data")
+parser.add_argument('--width', type=int , help="Enter width of image", default=600)
 
 args = parser.parse_args()
 
