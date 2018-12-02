@@ -9,15 +9,14 @@ from pprint import pprint
 
 parser = arg.ArgumentParser('Meme Generator')
 
+parser.add_argument("--mode" , default = None , help="Choose from two modes 0-Command line 1-Interactive")
+
 parser.add_argument("--format" , default = None , help="Enter the format type")
 parser.add_argument("--image1", type = str , default = None , help="Enter the image path for 1st image")
 parser.add_argument("--image2", type = str , default = None , help="Enter the image path for 2nd image")
-parser.add_argument("--text1", type = str  , default = None , help="Enter the text1")
-parser.add_argument("--text2", type = str , default = None , help="Enter the text2")
+parser.add_argument("--text1", type = str  , default = None , help="Enter bottom text")
+parser.add_argument("--text2", type = str , default = None , help="Enter top text")
 parser.add_argument("--random", type = str , default = None , help="Enter either True or False required for format-0")
-
-parser.add_argument("--mode" , default = None , help="Enter the interactive mode")
-
 
 args = parser.parse_args()
 
@@ -199,37 +198,6 @@ def meme_generator_4(image1_path, image2_path, top_text, bottom_text, font_path=
 if __name__ == '__main__':
 	
 	if(args.mode == "0"):
-		format = input("Enter the format type :")
-
-		if(format == "0"):
-			show = input("Generate random image? True/False:")
-			random_meme(show)
-
-		if(format == "1"):
-			img = input("Enter the image path: ")
-			print(img)
-			top_text = input("Input the top line here: ")
-			meme_generator_1(img, top_text)
-
-		if(format == "2"):
-			img = input("Enter the image path: ")
-			bottom_text = input("Input the bottom line here: ")
-			meme_generator_2(img, bottom_text)
-
-		if(format == "3"):
-			img = input("Enter the image path: ")
-			top_text = input("Input the top line here: ")
-			bottom_text = input("Input the bottom line here: ")
-			meme_generator_3(img, top_text, bottom_text)
-
-		if(format == "4"):
-			img1 = input("Enter image 1 path: ")
-			img2 = input("Enter image 2 path: ")
-			top_text = input("Input the top line here: ")
-			bottom_text = input("Input the bottom line here: ")
-			meme_generator_4(img1, img2, top_text, bottom_text)
-	
-	if(args.mode == "1"):
 		
 		if(args.format == "0"):
 			if(args.random == 'True' or args.random == 'False'):
@@ -259,4 +227,39 @@ if __name__ == '__main__':
 			if(args.image1 is not None and args.text1 is not None and args.image2 is not None and args.text2 is not None):
 				meme_generator_4(args.image1, args.image2, args.text1, args.text2)
 			else:
-				print('Missing arguments')					
+				print('Missing arguments')
+
+	if(args.mode == "1"):
+		if(args.format is not None):
+			format = args.format
+		else:
+			format = input("Enter the format type :")
+
+		if(format == "0"):
+			show = input("Generate random image? True/False:")
+			random_meme(show)
+
+		if(format == "1"):
+			img = input("Enter the image path: ")
+			print(img)
+			top_text = input("Input the top line here: ")
+			meme_generator_1(img, top_text)
+
+		if(format == "2"):
+			img = input("Enter the image path: ")
+			bottom_text = input("Input the bottom line here: ")
+			meme_generator_2(img, bottom_text)
+
+		if(format == "3"):
+			img = input("Enter the image path: ")
+			top_text = input("Input the top line here: ")
+			bottom_text = input("Input the bottom line here: ")
+			meme_generator_3(img, top_text, bottom_text)
+
+		if(format == "4"):
+			img1 = input("Enter image 1 path: ")
+			img2 = input("Enter image 2 path: ")
+			top_text = input("Input the top line here: ")
+			bottom_text = input("Input the bottom line here: ")
+			meme_generator_4(img1, img2, top_text, bottom_text)
+									
