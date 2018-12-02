@@ -241,7 +241,6 @@ if __name__ == '__main__':
 
 		if(format == "1"):
 			img = input("Enter the image path: ")
-			print(img)
 			top_text = input("Input the top line here: ")
 			meme_generator_1(img, top_text)
 
