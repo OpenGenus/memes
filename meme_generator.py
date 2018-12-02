@@ -14,8 +14,8 @@ parser.add_argument("--mode" , default = None , help="Choose from two modes 0-Co
 parser.add_argument("--format" , default = None , help="Enter the format type")
 parser.add_argument("--image1", type = str , default = None , help="Enter the image path for 1st image")
 parser.add_argument("--image2", type = str , default = None , help="Enter the image path for 2nd image")
-parser.add_argument("--text1", type = str  , default = None , help="Enter bottom text")
-parser.add_argument("--text2", type = str , default = None , help="Enter top text")
+parser.add_argument("--text1", type = str  , default = None , help="Enter text1")
+parser.add_argument("--text2", type = str , default = None , help="Enter text2")
 parser.add_argument("--random", type = str , default = None , help="Enter either True or False required for format-0")
 
 args = parser.parse_args()
