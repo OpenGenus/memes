@@ -197,60 +197,66 @@ def meme_generator_4(image1_path, image2_path, top_text, bottom_text, font_path=
 
 #main function
 if __name__ == '__main__':
+	
 	if(args.mode == "0"):
-		show = input("Generate random image? True/False:")
-		random_meme(show)
+		format = input("Enter the format type :")
 
+		if(format == "0"):
+			show = input("Generate random image? True/False:")
+			random_meme(show)
+
+		if(format == "1"):
+			img = input("Enter the image path: ")
+			print(img)
+			top_text = input("Input the top line here: ")
+			meme_generator_1(img, top_text)
+
+		if(format == "2"):
+			img = input("Enter the image path: ")
+			bottom_text = input("Input the bottom line here: ")
+			meme_generator_2(img, bottom_text)
+
+		if(format == "3"):
+			img = input("Enter the image path: ")
+			top_text = input("Input the top line here: ")
+			bottom_text = input("Input the bottom line here: ")
+			meme_generator_3(img, top_text, bottom_text)
+
+		if(format == "4"):
+			img1 = input("Enter image 1 path: ")
+			img2 = input("Enter image 2 path: ")
+			top_text = input("Input the top line here: ")
+			bottom_text = input("Input the bottom line here: ")
+			meme_generator_4(img1, img2, top_text, bottom_text)
+	
 	if(args.mode == "1"):
-		img = input("Enter the image path: ")
-		print(img)
-		top_text = input("Input the top line here: ")
-		meme_generator_1(img, top_text)
+		
+		if(args.format == "0"):
+			if(args.random == 'True' or args.random == 'False'):
+				random_meme(args.random)	
+			else:
+				print('Empty or invalid arguments')
 
-	if(args.mode == "2"):
-		img = input("Enter the image path: ")
-		bottom_text = input("Input the bottom line here: ")
-		meme_generator_2(img, bottom_text)
+		if(args.format == "1"):
+			if(args.image1 is not None and args.text1 is not None):
+				meme_generator_1(args.image1, args.text1)
+			else:
+				print('Missing arguments')	
 
-	if(args.mode == "3"):
-		img = input("Enter the image path: ")
-		top_text = input("Input the top line here: ")
-		bottom_text = input("Input the bottom line here: ")
-		meme_generator_3(img, top_text, bottom_text)
+		if(args.format == "2"):
+			if(args.image1 is not None and args.text1 is not None):
+				meme_generator_2(args.image1, args.text1)
+			else:
+				print('Missing arguments')
 
-	if(args.mode == "4"):
-		img1 = input("Enter image 1 path: ")
-		img2 = input("Enter image 2 path: ")
-		top_text = input("Input the top line here: ")
-		bottom_text = input("Input the bottom line here: ")
-		meme_generator_4(img1, img2, top_text, bottom_text)
+		if(args.format == "3"):
+			if(args.image1 is not None and args.text1 is not None and args.text2 is not None):
+				meme_generator_3(args.image1, args.text1, args.text2)
+			else:
+				print('Missing arguments')
 
-	if(args.format == "0"):
-		if(args.random == 'True' or args.random == 'False'):
-			random_meme(args.random)	
-		else:
-			print('Empty or invalid arguments')
-
-	if(args.format == "1"):
-		if(args.image1 is not None and args.text1 is not None):
-			meme_generator_1(args.image1, args.text1)
-		else:
-			print('Missing arguments')	
-
-	if(args.format == "2"):
-		if(args.image1 is not None and args.text1 is not None):
-			meme_generator_2(args.image1, args.text1)
-		else:
-			print('Missing arguments')
-
-	if(args.format == "3"):
-		if(args.image1 is not None and args.text1 is not None and args.text2 is not None):
-			meme_generator_3(args.image1, args.text1, args.text2)
-		else:
-			print('Missing arguments')
-
-	if(args.format == "4"):
-		if(args.image1 is not None and args.text1 is not None and args.image2 is not None and args.text2 is not None):
-			meme_generator_4(args.image1, args.image2, args.text1, args.text2)
-		else:
-			print('Missing arguments')					
+		if(args.format == "4"):
+			if(args.image1 is not None and args.text1 is not None and args.image2 is not None and args.text2 is not None):
+				meme_generator_4(args.image1, args.image2, args.text1, args.text2)
+			else:
+				print('Missing arguments')					
