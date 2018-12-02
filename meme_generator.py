@@ -230,6 +230,7 @@ if __name__ == '__main__':
 				print('Missing arguments')
 
 	if(args.mode == "1"):
+		
 		if(args.format is not None):
 			format = args.format
 		else:
