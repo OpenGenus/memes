@@ -28,8 +28,10 @@ def random_meme(show = "True"):
     x = len(data['data'])
 
     if show == "True":
-        folder = r"data/got_memes/images"
-        imgName = data["data"][random.randint(1,x)]["name"]
+        randomIdx = random.randint(1, x)
+        folder = data["data"][randomIdx]["location"]
+        folder = os.sep.join(folder.split('/'))
+        imgName = data["data"][randomIdx]["name"]
         file = folder + os.sep + imgName
         Image.open(file).show()
     else:
