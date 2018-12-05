@@ -32,7 +32,7 @@ python preprocess.py --data="path" --width=600
 Preprocessed images are scaled according to the width provided and converted to jpg format.
 
 ### Indexing
-Index script maintains index.json which contains the description of images present in the data. Description varies depending on the presence of <img>.json.
+Index script maintains index.json which contains the description of images present in the data. Description varies depending on the presence of img.json.
 ```
 python index_data.py
 ```
