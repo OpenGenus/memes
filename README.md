@@ -1,4 +1,5 @@
 # Memes 
+
 Script to convert images to memes.
 
 ## Usage
@@ -70,3 +71,4 @@ Above formats can also be accessed interactively using mode=1
 ```
 python meme_generator.py --mode=1 --format=1 
 ```
+
