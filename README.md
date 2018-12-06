@@ -8,7 +8,6 @@ Script to convert images to memes.
 
 * argparse==1.1
 * json==2.0.9
-* numpy==1.14.3
 * PILLOW==5.1.0
 
 ### Structure
