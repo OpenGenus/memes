@@ -39,8 +39,8 @@ def random_meme(show='True'):
         folder = data['data'][random_idx]['location']
         Image.open(folder).show()
     else:
-        print data['data'][random.randint(1,
-                           num_of_images)]['description']
+        print (data['data'][random.randint(1,
+                           num_of_images)]['description'])
 
 
 # Main Function
@@ -51,26 +51,26 @@ if __name__ == '__main__':
             if args.random == 'True' or args.random == 'False':
                 random_meme(args.random)
             else:
-                print 'Empty or invalid arguments'
+                print ('Empty or invalid arguments')
 
         if args.format == '1':
             if args.image1 is not None and args.text1 is not None:
                 meme_generator_1(args.image1, args.text1)
             else:
-                print 'Missing arguments'
+                print ('Missing arguments')
 
         if args.format == '2':
             if args.image1 is not None and args.text1 is not None:
                 meme_generator_2(args.image1, args.text1)
             else:
-                print 'Missing arguments'
+                print ('Missing arguments')
 
         if args.format == '3':
             if args.image1 is not None and args.text1 is not None \
                 and args.text2 is not None:
                 meme_generator_3(args.image1, args.text1, args.text2)
             else:
-                print 'Missing arguments'
+                print ('Missing arguments')
 
         if args.format == '4':
             if args.image1 is not None and args.text1 is not None \
@@ -78,7 +78,7 @@ if __name__ == '__main__':
                 meme_generator_4(args.image1, args.image2, args.text1,
                                  args.text2)
             else:
-                print 'Missing arguments'
+                print ('Missing arguments')
 
     if args.mode == '1':
         if args.format is not None:
@@ -111,4 +111,4 @@ if __name__ == '__main__':
             img2 = input('Enter image 2 path: ')
             top_text = input('Input the top line here: ')
             bottom_text = input('Input the bottom line here: ')
-meme_generator_4(img1, img2, top_text, bottom_text)
+            meme_generator_4(img1, img2, top_text, bottom_text)
