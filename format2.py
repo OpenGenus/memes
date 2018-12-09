@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 import os
