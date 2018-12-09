@@ -1,5 +1,3 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 import os
@@ -18,6 +16,7 @@ class Format4:
         font_path='impact/impact.ttf',
         font_size=9,
         ):
+
         self.image1_path = image1_path
         self.image2_path = image2_path
         self.top_text = top_text
@@ -76,6 +75,6 @@ class Format4:
 
         # img.save("meme3.jpg")
 
-        img.save('meme-' + (img01.filename.split('.')[0]
-                 + img02.filename.split(os.sep)[-1]).split(os.sep)[-1])
+        img.save('meme-{}{}.jpg'.format(os.path.basename(image1_path).split('.'
+                 )[0], os.path.basename(image2_path).split('.')[0]))
         img.show()
