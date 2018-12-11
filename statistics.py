@@ -1,13 +1,16 @@
 import os
+import argparse
 
-loc = input('Enter directory path: ')
+parser = argparse.ArgumentParser('Statistics')
+parser.add_argument("--data", type=str, default=".", help="Enter directory path")
+args = parser.parse_args()
 print()
 
 data_size = 0
 images = 0
 sub_dirs = 0
 
-for root, dirs, files in os.walk(loc):
+for root, dirs, files in os.walk(args.data):
 	for item in files:
 		if item.endswith(('.jpg', '.png', '.bmp', '.tif', '.gif')):
 			images += 1
