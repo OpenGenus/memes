@@ -192,7 +192,7 @@ def meme_generator_4(image1_path, image2_path, top_text, bottom_text, font_path=
 
     
     #img.save("meme3.jpg")
-    img.save('meme-' + (img01.filename.split('.')[0] + img02.filename.split(os.sep)[-1]).split(os.sep)[-1])
+    img.save('meme-{}{}.jpg'.format(os.path.basename(image1_path).split('.')[0], os.path.basename(image2_path).split('.')[0]))
     img.show()
     
 
