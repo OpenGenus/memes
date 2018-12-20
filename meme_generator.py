@@ -6,6 +6,7 @@ from format1 import *
 from format2 import *
 from format3 import *
 from format4 import *
+from preprocess import preprocessImages
 
 parser = arg.ArgumentParser('Meme Generator')
 
@@ -58,6 +59,7 @@ if __name__ == '__main__':
 
         if args.format == '1':
             if args.image1 is not None and args.text1 is not None:
+                preprocessImages(args.image1)
                 formatObj = Format1(args.image1, args.text1)
                 formatObj.generate()
             else:
@@ -65,6 +67,7 @@ if __name__ == '__main__':
 
         if args.format == '2':
             if args.image1 is not None and args.text1 is not None:
+                preprocessImages(args.image1)
                 formatObj = Format2(args.image1, args.text1)
                 formatObj.generate()
             else:
@@ -73,6 +76,7 @@ if __name__ == '__main__':
         if args.format == '3':
             if args.image1 is not None and args.text1 is not None \
                 and args.text2 is not None:
+                preprocessImages(args.image1)
                 formatObj = Format3(args.image1, args.text1, args.text2)
                 formatObj.generate()
             else:
@@ -81,6 +85,8 @@ if __name__ == '__main__':
         if args.format == '4':
             if args.image1 is not None and args.text1 is not None \
                 and args.image2 is not None and args.text2 is not None:
+                preprocessImages(args.image1)
+                preprocessImages(args.image2)
                 formatObj = Format4(args.image1, args.image2, args.text1, args.text2)
                 formatObj.generate()
             else:
@@ -99,12 +105,14 @@ if __name__ == '__main__':
         if format == '1':
             img = input('Enter the image path: ')
             top_text = input('Input the top line here: ')
+            preprocessImages(img)
             formatObj = Format1(img, top_text)
             formatObj.generate()
 
         if format == '2':
             img = input('Enter the image path: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img)
             formatObj = Format2(img, bottom_text)
             formatObj.generate()
 
@@ -112,6 +120,7 @@ if __name__ == '__main__':
             img = input('Enter the image path: ')
             top_text = input('Input the top line here: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img)
             formatObj = Format3(img, top_text, bottom_text)
             formatObj.generate()
 
@@ -120,5 +129,7 @@ if __name__ == '__main__':
             img2 = input('Enter image 2 path: ')
             top_text = input('Input the top line here: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img1)
+            preprocessImages(img2)
             formatObj = Format4(img1, img2, top_text, bottom_text)
             formatObj.generate()

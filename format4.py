@@ -75,6 +75,6 @@ class Format4:
 
         # img.save("meme3.jpg")
 
-        img.save('meme-{}{}.jpg'.format(os.path.basename(image1_path).split('.'
-                 )[0], os.path.basename(image2_path).split('.')[0]))
+        img.save('meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split('.'
+                 )[0], os.path.basename(self.image2_path).split('.')[0]))
         img.show()
