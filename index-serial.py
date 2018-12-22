@@ -14,6 +14,7 @@ m = defaultdict(list)
 for i in range(0,x):
 	desc = data['data'][i]['description'].split(' ')
 	for words in desc:
+		words = words.lower()
 		if(t.has_key(words)):
 			m[t[words]].append(i)
 			continue
@@ -21,6 +22,7 @@ for i in range(0,x):
 			t[words] = cnt
 			m[t[words]].append(i)
 			cnt+=1		
+'''
 print(m)
 
 with open('searchtrie.json', 'w') as f:
@@ -28,7 +30,7 @@ with open('searchtrie.json', 'w') as f:
 with open('searchdict.json', 'w') as f:
 	json.dump(m,f,indent=2)
 
-'''
+
 l = pygtrie.CharTrie()
 p = defaultdict(list)
 with open('searchtrie.json') as f:
@@ -36,6 +38,6 @@ with open('searchtrie.json') as f:
 with open('searchdict.json') as f:
 	p = json.load(f)
 
-print(l['Tyrion'])
-print(p[str(l['Tyrion'])])
+print(sorted(l['tyr':]))
+print(p[str(l['tyrion'])])
 '''
