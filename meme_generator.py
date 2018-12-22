@@ -2,11 +2,12 @@ import argparse as arg
 import os
 import random
 import json
-import urllib.request
 from format1 import *
 from format2 import *
 from format3 import *
 from format4 import *
+from preprocess import preprocessImages
+import urllib.request
 
 parser = arg.ArgumentParser('Meme Generator')
 
@@ -24,6 +25,7 @@ parser.add_argument('--random', type=str, default=None, help='Enter either True 
 args = parser.parse_args()
 
 # Download image from URL.
+
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
 
@@ -39,7 +41,9 @@ def random_meme(show='True'):
         folder = data['data'][random_idx]['location']
         Image.open(folder).show()
     else:
-        print (data['data'][random.randint(1, num_of_images)]['description'])
+        print (data['data'][random.randint(1,
+                           num_of_images)]['description'])
+
         
 # Main Function
 
@@ -53,6 +57,7 @@ if __name__ == '__main__':
 
         if args.format == '1':
             if args.image1 is not None and args.text1 is not None:
+                preprocessImages(args.image1)
                 formatObj = Format1(args.image1, args.text1)
                 formatObj.generate()
             else:
@@ -60,6 +65,7 @@ if __name__ == '__main__':
 
         if args.format == '2':
             if args.image1 is not None and args.text1 is not None:
+                preprocessImages(args.image1)
                 formatObj = Format2(args.image1, args.text1)
                 formatObj.generate()
             else:
@@ -68,6 +74,7 @@ if __name__ == '__main__':
         if args.format == '3':
             if args.image1 is not None and args.text1 is not None \
                 and args.text2 is not None:
+                preprocessImages(args.image1)
                 formatObj = Format3(args.image1, args.text1, args.text2)
                 formatObj.generate()
             else:
@@ -76,6 +83,8 @@ if __name__ == '__main__':
         if args.format == '4':
             if args.image1 is not None and args.text1 is not None \
                 and args.image2 is not None and args.text2 is not None:
+                preprocessImages(args.image1)
+                preprocessImages(args.image2)
                 formatObj = Format4(args.image1, args.image2, args.text1, args.text2)
                 formatObj.generate()
             else:
@@ -94,12 +103,14 @@ if __name__ == '__main__':
         if format == '1':
             img = input('Enter the image path: ')
             top_text = input('Input the top line here: ')
+            preprocessImages(img)
             formatObj = Format1(img, top_text)
             formatObj.generate()
 
         if format == '2':
             img = input('Enter the image path: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img)
             formatObj = Format2(img, bottom_text)
             formatObj.generate()
 
@@ -107,6 +118,7 @@ if __name__ == '__main__':
             img = input('Enter the image path: ')
             top_text = input('Input the top line here: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img)
             formatObj = Format3(img, top_text, bottom_text)
             formatObj.generate()
 
@@ -115,6 +127,8 @@ if __name__ == '__main__':
             img2 = input('Enter image 2 path: ')
             top_text = input('Input the top line here: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img1)
+            preprocessImages(img2)
             formatObj = Format4(img1, img2, top_text, bottom_text)
             formatObj.generate()
 
@@ -136,6 +150,7 @@ if __name__ == '__main__':
             download(url, 'meme_img')
             img = 'meme_img.jpg'
             top_text = input('Input the top line here: ')
+            preprocessImages(img)
             formatObj = Format1(img, top_text)
             formatObj.generate()
 
@@ -147,6 +162,7 @@ if __name__ == '__main__':
             download(url, 'meme_img')
             img = 'meme_img.jpg'
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img)
             formatObj = Format2(img, bottom_text)
             formatObj.generate()
 
@@ -159,6 +175,7 @@ if __name__ == '__main__':
             img = 'meme_img.jpg'
             top_text = input('Input the top line here: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img)
             formatObj = Format3(img, top_text, bottom_text)
             formatObj.generate()
 
@@ -177,5 +194,7 @@ if __name__ == '__main__':
             img2 = 'meme_img2.jpg'
             top_text = input('Input the top line here: ')
             bottom_text = input('Input the bottom line here: ')
+            preprocessImages(img1)
+            preprocessImages(img2)
             formatObj = Format4(img1, img2, top_text, bottom_text)
             formatObj.generate()
