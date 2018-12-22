@@ -22,6 +22,7 @@ for i in range(0,x):
 			t[words] = cnt
 			m[t[words]].append(i)
 			cnt+=1		
+'''
 print(m)
 
 with open('searchtrie.json', 'w') as f:
@@ -39,4 +40,4 @@ with open('searchdict.json') as f:
 
 print(sorted(l['tyr':]))
 print(p[str(l['tyrion'])])
-
+'''
