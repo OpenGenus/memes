@@ -9,13 +9,7 @@ def set_desktop_background(img_path):
         '''
         Windows32
         '''
-        ctypes.windll.user32.SystemParametersInfoW(20, 0, ima_path , 0)
-
-    elif platform == 'win64':
-        '''
-        Windows64
-        '''
-        pass
+        ctypes.windll.user32.SystemParametersInfoW(20, 0, img_path , 0)
 
     elif platform == 'Darwin':
         '''
@@ -32,13 +26,13 @@ def set_desktop_background(img_path):
         if sessionName == 'gnome':
             os.system("gsettings set org.gnome.desktop.background picture-uri file:" + img_path)
 
-        if sessionName == 'kde':
+        elif sessionName == 'kde':
             pass
 
-        if sessionName == 'xfce':
+        elif sessionName == 'xfce':
             pass
 
-        if sessionName == 'i3':
+        elif sessionName == 'i3':
             os.system("feh --bg-scale " + img_path)
 
 if __name__ == '__main__':
