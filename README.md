@@ -71,3 +71,11 @@ Above formats can also be accessed interactively using mode=1
 python meme_generator.py --mode=1 --format=1 
 ```
 
+## Features 
+* Use the generated meme to set as desktop background. 
+
+```
+# Under development. To try the script run:
+python utilities.py "<image-path>"
+```
+
