@@ -2,6 +2,9 @@ import os
 import sys
 import ctypes # for windows
 
+# import for uploading images to imgur
+from imgurpython import ImgurClient
+from requests.exception import ConnectionError
 def set_desktop_background(img_path):
     platform = sys.platform
 
@@ -35,6 +38,20 @@ def set_desktop_background(img_path):
         elif sessionName == 'i3':
             os.system("feh --bg-scale " + img_path)
 
+def upload_to_imgur(img_path):
+    client_id = 'ad9097da8570318'
+    client_secret = 'fec2165f7736d3b17d35b25e9bf168b9a3d8af15'
+
+    try:
+        client = ImgurClient(client_id, client_secret)
+        response = client.upload_from_path(img_path)
+    except ConnectionError:
+        print('Check your internet connection.')
+    else:
+        print('Upload Successful!')
+        print(response['link'])
+
+
+
 if __name__ == '__main__':
     set_desktop_background(sys.argv[1])
-
