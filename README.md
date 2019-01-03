@@ -47,17 +47,15 @@ There are two types of search:
 Each of the types have two modes:
 
 * Command Line
-
-'''
+```
 python searchp.py --mode=0 --search_str=string 
 python searchp.py --mode=0 --index_search=1 --search_idx=index
-'''
+```
 
 * Interactive
-
-'''
+```
 python searchp.py --mode=1 
-'''
+```
 
 ## Meme Generation
 The current version of the script has the ability to create memes in four different formats using custom user defined images.
