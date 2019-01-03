@@ -51,7 +51,5 @@ def upload_to_imgur(img_path):
         print('Upload Successful!')
         print(response['link'])
 
-
-
 if __name__ == '__main__':
     set_desktop_background(sys.argv[1])
