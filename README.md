@@ -38,17 +38,23 @@ python index_data.py
 ```
 ### Searching
 With searchp script now you can search for images present index json file. Current version compares the search string to the description of images.
+
 There are two types of search:
-*Index - Displays image in accordance with input .Can be enabled by setting index_search to 1
-*String - Displays image from search string entered .Enabled by default. 
+
+* Index - Displays image in accordance with input .Can be enabled by setting index_search to 1
+* String - Displays image from search string entered .Enabled by default. 
 
 Each of the types have two modes:
-*Command Line
+
+* Command Line
+
 '''
 python searchp.py --mode=0 --search_str=string 
 python searchp.py --mode=0 --index_search=1 --search_idx=index
 '''
-*Interactive
+
+* Interactive
+
 '''
 python searchp.py --mode=1 
 '''
