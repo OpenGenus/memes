@@ -22,15 +22,15 @@ for i in range(0,x):
 			t[words] = cnt
 			m[t[words]].append(i)
 			cnt+=1		
-'''
-print(m)
+#print(m)
 
 with open('searchtrie.json', 'w') as f:
 	json.dump(t._root.__getstate__(),f,indent=2)
 with open('searchdict.json', 'w') as f:
 	json.dump(m,f,indent=2)
 
-
+'''
+Reloading the json files
 l = pygtrie.CharTrie()
 p = defaultdict(list)
 with open('searchtrie.json') as f:
