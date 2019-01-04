@@ -4,3 +4,5 @@ numpy==1.14.3
 PILLOW==5.1.0
 imgurpython==1.1.7
 requests==2.21.0
+configparser==3.5.0
+selenium==3.141.0
