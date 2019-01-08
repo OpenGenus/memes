@@ -12,7 +12,7 @@ parser.add_argument('--search_str', type=str, default=None, help='Enter search s
 parser.add_argument('--index_search', type=int, default=0, help='Choose 1 to enable searching images from their indices')
 parser.add_argument('--search_idx', default=0, help='Enter image index: ')
 parser.add_argument('--result', type=int, default=0,  help='Enter number of images to display: ')
-#parser.add_argument('--display_info', default=0, help='Enter result format either image or information: ')
+parser.add_argument('--display_info', default=0, help='Enter result format 0-image(default) 1-text description: ')
 
 args = parser.parse_args()
 
@@ -59,22 +59,30 @@ def idx_search(index):
 def display(indices,string_search=True):
 	search_result_json(indices)
 	#print(args.result)
+	index_count = len(indices)
 	if args.result != 0:
 		index_count = min(args.result,len(indices))
-	#print(index_count)	
-	if string_search:
+
+	if args.display_info == 0:
+		if string_search:
+			for str_idx in indices:
+				if index_count > 0:
+					file = data["data"][str_idx]["location"]
+					Image.open(file).show()
+				index_count -=1	
+		else:
+			for idx in indices:
+				if index_count > 0:
+					file = data["data"][int(idx)]["location"]		
+					Image.open(file).show()
+				index_count -=1
+	else:
 		for str_idx in indices:
 			if index_count > 0:
-				file = data["data"][str_idx]["location"]
-				Image.open(file).show()
-			index_count -=1	
-	else:
-		for idx in indices:
-			if index_count > 0:
-				file = data["data"][int(idx)]["location"]		
-				Image.open(file).show()
-			index_count -=1	
-
+				text = data["data"][int(str_idx)]["description"]
+				print('-'*30)
+				print(text)				
+			index_count -= 1	
 
 def search_result_json(indices):#stores all search results
 	data1 = []
