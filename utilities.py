@@ -21,6 +21,7 @@ from requests_oauthlib import OAuth1
 from urllib.parse import parse_qs
 from TwitterAPI import TwitterAPI
 
+
 def set_desktop_background(img_path):
     platform = sys.platform
 
@@ -154,7 +155,7 @@ def upload_to_twitter(img_path):
     verifier = input("Enter the verifier token:")
 
     headers = {
-    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36'
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36'
     }
 
     oauth = OAuth1(consumer_key,
