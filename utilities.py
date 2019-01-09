@@ -15,6 +15,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.common.by import By
 
+# imports for twitterAPI
+import requests
+from requests_oauthlib import OAuth1
+from urllib.parse import parse_qs
+from TwitterAPI import TwitterAPI
 
 def set_desktop_background(img_path):
     platform = sys.platform
@@ -128,7 +133,86 @@ def upload_to_imgur(img_path):
 
 
 def upload_to_twitter(img_path):
-    pass
+
+    config = ConfigParser()
+    config.read('auth.ini')
+    consumer_key = config.get('twitter_credentials', 'api_key')
+    consumer_secret = config.get('twitter_credentials', 'api_secret')
+
+    oauth = OAuth1(consumer_key, consumer_secret)
+    res = requests.post(
+        url='https://api.twitter.com/oauth/request_token', auth=oauth)
+
+    credentials = parse_qs(res.text)
+    request_key = credentials.get('oauth_token')[0]
+    request_secret = credentials.get('oauth_token_secret')[0]
+
+    authorization_url = 'https://api.twitter.com/oauth/authorize?oauth_token=%s' % request_key
+
+    print('Go to the following URL to fetch the verifier token:', authorization_url)
+
+    verifier = input("Enter the verifier token:")
+
+    headers = {
+    'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36'
+    }
+
+    oauth = OAuth1(consumer_key,
+                   consumer_secret,
+                   request_key,
+                   request_secret,
+                   verifier=verifier
+                   )
+
+    res = requests.post(
+        url='https://api.twitter.com/oauth/access_token', auth=oauth)
+    credentials = parse_qs(res.text)
+    access_token_key = credentials.get('oauth_token')[0]
+    access_token_secret = credentials.get('oauth_token_secret')[0]
+
+    api = TwitterAPI(consumer_key,
+                     consumer_secret,
+                     access_token_key,
+                     access_token_secret)
+
+    tweet_text = input('Enter tweet message:')
+    file = open(img_path, "rb")
+    image_data = file.read()
+
+    res = api.request('media/upload', None, {'media': image_data})
+
+    if res.status_code == 200:
+        print('Media uploaded')
+    else:
+        print('Upload failed: ', res.text)
+
+    if res.status_code == 200:
+        media_id = res.json()['media_id']
+        res = api.request('statuses/update',
+                          {'status': tweet_text, 'media_ids': media_id})
+        if res.status_code == 200:
+            print('Status upload successful.')
+        else:
+            print('Status upload failed:', res.text)
+
+    # with requests.Session() as c:
+    #     USERNAME = input('Enter your username:')
+    #     PASSWORD = getpass('Enter your password:')
+    #     login_data = {
+    #             'oauth_token': request_key,
+    #             'session[username_or_email]': USERNAME,
+    #             'session[password]': PASSWORD,
+    #             'id':'oauth_form'
+    #     }
+    #     data = c.get(authorization_url, headers=headers)
+    #     # print(data.content)
+    #     soup = BeautifulSoup(data.content, 'html5lib')
+    #     login_data['authenticity_token'] = soup.find('input', attrs={'name': 'authenticity_token'})['value']
+    #     # a_token = c.cookies['authenticity_token']
+    #     # print (a_token)
+    #     c.post(authorization_url, data=login_data, headers=headers)
+    #     page = c.get('https://api.twitter.com/oauth/authorize')
+    #     pprint(page.text)
 
 
 if __name__ == '__main__':
