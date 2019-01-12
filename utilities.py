@@ -3,21 +3,13 @@ import sys
 import ctypes  # for windows
 from getpass import getpass
 from configparser import ConfigParser
+import requests
+from requests_oauthlib import OAuth1
 
 # import for uploading images to imgur
 from imgurpython import ImgurClient
 
-# imports for authenticating using selenium
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import TimeoutException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.common.by import By
-
 # imports for twitterAPI
-import requests
-from requests_oauthlib import OAuth1
 from urllib.parse import parse_qs
 from TwitterAPI import TwitterAPI
 
@@ -69,58 +61,48 @@ def upload_to_imgur(img_path):
     user_res = input("Do you want to upload anonymously to imgur?(yes/no)")
 
     if user_res.lower() == 'no':
-        try:
-            imgur_username = input("Enter username:")
-            imgur_password = getpass("Enter password:")
-            firefox_driver_path = os.getcwd() + os.sep + 'drivers' + os.sep + 'geckodriver'
 
-            authorization_url = client.get_auth_url('pin')
+        imgur_username = input("Enter username:")
+        imgur_password = getpass("Enter password:")
+        
+        login_data = {
+            'username':imgur_username,
+            'password':imgur_password
+            }
 
-            driver = webdriver.Firefox(executable_path=firefox_driver_path)
-            driver.get(authorization_url)
+        authorization_url = client.get_auth_url('pin')
 
-            username = driver.find_element_by_xpath('//*[@id="username"]')
-            password = driver.find_element_by_xpath('//*[@id="password"]')
-
-            username.clear()
-            password.clear()
-
-            username.send_keys(imgur_username)
-            password.send_keys(imgur_password)
-
-            driver.find_element_by_id("allow").click()
-
-            timeout = 5
-
-            try:
-                element_present = expected_conditions.presence_of_element_located(
-                    (By.ID, 'pin'))
-                WebDriverWait(driver, timeout).until(element_present)
-                pin_element = driver.find_element_by_id('pin')
-                pin = pin_element.get_attribute("value")
-
-            except TimeoutException as e:
-                print(e)
-
-            driver.close()
+        with requests.Session() as s:
+            headers = {
+                'user-agent':'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
+                }
+            
+            r = s.get(authorization_url, headers=headers)
+            soup = BeautifulSoup(r.content, 'html5lib')
+            
+            login_data['allow'] = soup.find('button', attrs={'name':'allow'})['value']
+            
+            r = s.post(authorization_url, data=login_data, headers=headers)
+            soup = BeautifulSoup(r.content, 'html5lib')
+            pin = soup.find('input', attrs={'name':'pin'})['value']
             # print(pin)
+            
             credentials = client.authorize(pin, 'pin')
             client.set_user_auth(
                 credentials['access_token'], credentials['refresh_token'])
 
             config = {
-                    'album': None,
-                    'name': 'test name',
-                    'title':  'test title',
-                    'description': 'test description'
-            }
+                'album': None,
+                'name': 'test name',
+                'title':  'test title',
+                'description': 'test description'
+                }
+            
             print("Uploading image...")
+            
             image = client.upload_from_path(
                 img_path, config=config, anon=False)
             print("Done! Check at", image['link'])
-
-        except Exception as e:
-            print(e)
 
     elif user_res.lower() == 'yes':
         try:
