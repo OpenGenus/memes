@@ -64,7 +64,7 @@ def upload_to_imgur(img_path):
 
         imgur_username = input("Enter username:")
         imgur_password = getpass("Enter password:")
-        
+
         login_data = {
             'username':imgur_username,
             'password':imgur_password
@@ -76,17 +76,17 @@ def upload_to_imgur(img_path):
             headers = {
                 'user-agent':'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
                 }
-            
+
             r = s.get(authorization_url, headers=headers)
             soup = BeautifulSoup(r.content, 'html5lib')
-            
+
             login_data['allow'] = soup.find('button', attrs={'name':'allow'})['value']
-            
+
             r = s.post(authorization_url, data=login_data, headers=headers)
             soup = BeautifulSoup(r.content, 'html5lib')
             pin = soup.find('input', attrs={'name':'pin'})['value']
             # print(pin)
-            
+
             credentials = client.authorize(pin, 'pin')
             client.set_user_auth(
                 credentials['access_token'], credentials['refresh_token'])
@@ -97,9 +97,9 @@ def upload_to_imgur(img_path):
                 'title':  'test title',
                 'description': 'test description'
                 }
-            
+
             print("Uploading image...")
-            
+
             image = client.upload_from_path(
                 img_path, config=config, anon=False)
             print("Done! Check at", image['link'])
@@ -117,6 +117,10 @@ def upload_to_imgur(img_path):
 
 def upload_to_twitter(img_path):
 
+    headers = {
+        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36'
+    }
+
     config = ConfigParser()
     config.read('auth.ini')
     consumer_key = config.get('twitter_credentials', 'api_key')
@@ -132,13 +136,26 @@ def upload_to_twitter(img_path):
 
     authorization_url = 'https://api.twitter.com/oauth/authorize?oauth_token=%s' % request_key
 
-    print('Go to the following URL to fetch the verifier token:', authorization_url)
+    with requests.Session() as s:
+        USERNAME = input('Enter your username:')
+        PASSWORD = getpass('Enter your password:')
 
-    verifier = input("Enter the verifier token:")
+        login_data = {
+                'session[username_or_email]': USERNAME,
+                'session[password]': PASSWORD,
+                'form_id':'oauth_form'
+        }
 
-    headers = {
-        'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36'
-    }
+        r = s.get(authorization_url, headers=headers)
+        soup = BeautifulSoup(r.content, 'html5lib')
+
+        login_data['authenticity_token'] = soup.find('input', attrs={'name':'authenticity_token'})['value']
+
+        r = s.post(authorization_url, data=login_data, headers=headers)
+
+        soup = BeautifulSoup(r.content, 'html5lib')
+        verifier = soup.findAll('code')[0].string
+
 
     oauth = OAuth1(consumer_key,
                    consumer_secret,
@@ -177,25 +194,6 @@ def upload_to_twitter(img_path):
             print('Status upload successful.')
         else:
             print('Status upload failed:', res.text)
-
-    # with requests.Session() as c:
-    #     USERNAME = input('Enter your username:')
-    #     PASSWORD = getpass('Enter your password:')
-    #     login_data = {
-    #             'oauth_token': request_key,
-    #             'session[username_or_email]': USERNAME,
-    #             'session[password]': PASSWORD,
-    #             'id':'oauth_form'
-    #     }
-    #     data = c.get(authorization_url, headers=headers)
-    #     # print(data.content)
-    #     soup = BeautifulSoup(data.content, 'html5lib')
-    #     login_data['authenticity_token'] = soup.find('input', attrs={'name': 'authenticity_token'})['value']
-    #     # a_token = c.cookies['authenticity_token']
-    #     # print (a_token)
-    #     c.post(authorization_url, data=login_data, headers=headers)
-    #     page = c.get('https://api.twitter.com/oauth/authorize')
-    #     pprint(page.text)
 
 
 if __name__ == '__main__':
