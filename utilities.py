@@ -204,8 +204,8 @@ def upload_to_facebook(img_path):
     app_key = config.get('facebook_credentials', 'app_key')
     app_key_secret = config.get('facebook_credentials', 'app_key_secret')
 
-    USERNAME = input('Enter your username:')
-    PASSWORD = getpass('Enter your password:')
+    username = input('Enter your email:')
+    password = getpass('Enter your password:')
 
     headers = {
         'user-agent':'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
@@ -216,8 +216,8 @@ def upload_to_facebook(img_path):
             + 'oauth?client_id=' + app_key + '&redirect_uri=' + redirect_url + "&scope=user_posts")
     with requests.Session() as s:
         login_data = {
-        'email':USERNAME,
-        'pass':'PASSWORD,
+        'email':email,
+        'pass':'password,
         'form_id':'login_form'
         }
 
@@ -242,7 +242,7 @@ def upload_to_facebook(img_path):
 
         print('Uploading photo')
 
-        image=open(img_path, 'rb')
+        image = open(img_path, 'rb')
         graph.put_photo(image, message='Test caption')
 
 if __name__ == '__main__':
