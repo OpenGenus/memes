@@ -51,9 +51,7 @@ def pieChart(display,fileSizes):
 def main():
         parser = argparse.ArgumentParser('Statistics')
         parser.add_argument("--data", type=str, default=".", help="Enter directory path")
-        parser.add_argument('chart',type = str,\
-                help = 'Generates and saves a pie chart of \
-                            sizes of each file format')
+        parser.add_argument("--chart",type = str, help = 'Generates and saves a pie chart of sizes of each file format')
 
         args = parser.parse_args()
         data_size = 0
