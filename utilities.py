@@ -217,7 +217,7 @@ def upload_to_facebook(img_path):
     with requests.Session() as s:
         login_data = {
         'email':email,
-        'pass':'password,
+        'pass':password,
         'form_id':'login_form'
         }
 
