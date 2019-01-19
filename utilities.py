@@ -204,7 +204,8 @@ def upload_to_facebook(img_path):
     app_key = config.get('facebook_credentials', 'app_key')
     app_key_secret = config.get('facebook_credentials', 'app_key_secret')
     user_access_token = config.get('facebook_credentials', 'user_access_token')
-
+    page_id = config.get('facebook_credentials', 'page_id')
+    
     graph = GraphAPI(user_access_token)
 
     resp = graph.get('me/accounts')
