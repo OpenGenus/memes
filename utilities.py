@@ -233,28 +233,28 @@ def upload_to_facebook(img_path):
     # access_url = ('https://www.facebook.com/dialog/'
     #         + 'oauth?client_id=' + app_key + '&redirect_uri=' + redirect_url + "&scope=user_posts")
     # with requests.Session() as s:
-        # login_data = {
-        # 'email':email,
-        # 'pass':password,
-        # 'form_id':'login_form'
-        # }
-        #
-        # r = s.get(access_url, headers=headers)
-        # soup = BeautifulSoup(r.content, 'html5lib')
-        # login_data['lgndim'] = soup.find('input', attrs={'name':'lgndim'})['value']
-        # login_data['lgnrnd'] = soup.find('input', attrs={'name':'lgnrnd'})['value']
-        # r = s.post(access_url, data=login_data, headers=headers, allow_redirects=True)
-        # print('Go to the link and authorize:', access_url)
-        #
-        # code = input('Enter code from the redirect URL')
-        #
-        # graph_auth_uri = ('https://graph.facebook.com/v2.2/oauth/'
-        #     + 'access_token?client_id=' + app_key + '&redirect_uri='
-        #     + redirect_url + '&client_secret=' + app_key_secret + '&code=%s') % code
-        #
-        # res = s.get(graph_auth_uri)
-        # data = res.json()
-        # access_token = data['access_token']
+    #     login_data = {
+    #     'email':email,
+    #     'pass':password,
+    #     'form_id':'login_form'
+    #     }
+    #
+    #     r = s.get(access_url, headers=headers)
+    #     soup = BeautifulSoup(r.content, 'html5lib')
+    #     login_data['lgndim'] = soup.find('input', attrs={'name':'lgndim'})['value']
+    #     login_data['lgnrnd'] = soup.find('input', attrs={'name':'lgnrnd'})['value']
+    #     r = s.post(access_url, data=login_data, headers=headers, allow_redirects=True)
+    #     print('Go to the link and authorize:', access_url)
+    #
+    #     code = input('Enter code from the redirect URL')
+    #
+    #     graph_auth_uri = ('https://graph.facebook.com/v2.2/oauth/'
+    #         + 'access_token?client_id=' + app_key + '&redirect_uri='
+    #         + redirect_url + '&client_secret=' + app_key_secret + '&code=%s') % code
+    #
+    #     res = s.get(graph_auth_uri)
+    #     data = res.json()
+    #     access_token = data['access_token']
 
 if __name__ == '__main__':
     set_desktop_background(sys.argv[1])
