@@ -1,6 +1,6 @@
 import os
 import sys
-import ctypes  # for windows
+import ctypes
 from getpass import getpass
 from configparser import ConfigParser
 import requests
@@ -13,6 +13,8 @@ from imgurpython import ImgurClient
 from urllib.parse import parse_qs
 from TwitterAPI import TwitterAPI
 
+# imports for facebook
+from facebook import GraphAPI
 
 def set_desktop_background(img_path):
     platform = sys.platform
@@ -195,6 +197,65 @@ def upload_to_twitter(img_path):
         else:
             print('Status upload failed:', res.text)
 
+def upload_to_facebook(img_path):
+    config = ConfigParser()
+    config.read('auth.ini')
+
+    app_key = config.get('facebook_credentials', 'app_key')
+    app_key_secret = config.get('facebook_credentials', 'app_key_secret')
+    user_access_token = config.get('facebook_credentials', 'user_access_token')
+    page_id = config.get('facebook_credentials', 'page_id')
+    
+    graph = GraphAPI(user_access_token)
+
+    resp = graph.get('me/accounts')
+    page_access_token = None
+
+    for page in resp['data']:
+        if page['id'] == page_id:
+            page_access_token = page['access_token']
+
+    graph = GraphAPI(page_access_token)
+
+    graph = GraphAPI(access_token=access_token, version="3.1")
+
+    print('Uploading photo...')
+    image = open(img_path, 'rb')
+    graph.put_photo(image, message='Test caption')
+
+    # username = input('Enter your email:')
+    # password = getpass('Enter your password:')
+    #
+    # headers = {
+    #     'user-agent':'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36'
+    # }
+    #
+    # redirect_url = 'https://localhost:3000/'
+    # access_url = ('https://www.facebook.com/dialog/'
+    #         + 'oauth?client_id=' + app_key + '&redirect_uri=' + redirect_url + "&scope=user_posts")
+    # with requests.Session() as s:
+    #     login_data = {
+    #     'email':email,
+    #     'pass':password,
+    #     'form_id':'login_form'
+    #     }
+    #
+    #     r = s.get(access_url, headers=headers)
+    #     soup = BeautifulSoup(r.content, 'html5lib')
+    #     login_data['lgndim'] = soup.find('input', attrs={'name':'lgndim'})['value']
+    #     login_data['lgnrnd'] = soup.find('input', attrs={'name':'lgnrnd'})['value']
+    #     r = s.post(access_url, data=login_data, headers=headers, allow_redirects=True)
+    #     print('Go to the link and authorize:', access_url)
+    #
+    #     code = input('Enter code from the redirect URL')
+    #
+    #     graph_auth_uri = ('https://graph.facebook.com/v2.2/oauth/'
+    #         + 'access_token?client_id=' + app_key + '&redirect_uri='
+    #         + redirect_url + '&client_secret=' + app_key_secret + '&code=%s') % code
+    #
+    #     res = s.get(graph_auth_uri)
+    #     data = res.json()
+    #     access_token = data['access_token']
 
 if __name__ == '__main__':
     set_desktop_background(sys.argv[1])
