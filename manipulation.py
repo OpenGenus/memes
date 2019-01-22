@@ -122,7 +122,11 @@ def image_join_along_length (image1, image2, resize=(None, None)):
 # op3 = text_in_bottom(text='Plain text data bottom', image=op2)
 # op4 = image_join_along_length(op, op3, )
 # op5 = text_in_bottom('random bottom text', op3)
+<<<<<<< HEAD
 # op = text_on_top('Test texttttttt on the toopppppppppppp',op3)
+=======
+# op = text_on_top('Test tattti on the toopppppppppppp',op3)
+>>>>>>> ab70a347f6840833b05c925ca8b057899271890c
 # op.show()
 # op2.show()
 # op4.show()
