@@ -21,22 +21,30 @@ class Format1:
 
     def generate(self):
         img = Image.open(self.image_path)
-        draw = ImageDraw.Draw(img)
-        (image_width, image_height) = img.size
-        font = ImageFont.truetype(font=self.font_path,
-                                  size=int(image_height
-                                  * self.font_size) // 100)
-        self.top_text = self.top_text.upper()
-        (char_width, char_height) = font.getsize('A')
-        chars_per_line = image_width // char_width
-        top_lines = textwrap.wrap(self.top_text, width=chars_per_line)
-        y = 10
 
-        for line in top_lines:
-            (line_width, line_height) = font.getsize(line)
-            x = (image_width - line_width) / 2
-            draw.text((x, y), line, fill='white', font=font)
-            y += line_height
+        image = text_on_top(self.top_text, img)
 
-        img.save('meme-' + img.filename.split(os.sep)[-1])
-        img.show()
+        image.save('meme-' + img.filename.split(os.sep)[-1])
+        image.show()
+
+    # def generate(self):
+    #     img = Image.open(self.image_path)
+    #     draw = ImageDraw.Draw(img)
+    #     (image_width, image_height) = img.size
+    #     font = ImageFont.truetype(font=self.font_path,
+    #                               size=int(image_height
+    #                               * self.font_size) // 100)
+    #     self.top_text = self.top_text.upper()
+    #     (char_width, char_height) = font.getsize('A')
+    #     chars_per_line = image_width // char_width
+    #     top_lines = textwrap.wrap(self.top_text, width=chars_per_line)
+    #     y = 10
+    #
+    #     for line in top_lines:
+    #         (line_width, line_height) = font.getsize(line)
+    #         x = (image_width - line_width) / 2
+    #         draw.text((x, y), line, fill='white', font=font)
+    #         y += line_height
+    #
+    #     img.save('meme-' + img.filename.split(os.sep)[-1])
+    #     img.show()

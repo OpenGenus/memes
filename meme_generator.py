@@ -44,7 +44,7 @@ def random_meme(show='True'):
         print (data['data'][random.randint(1,
                            num_of_images)]['description'])
 
-        
+
 # Main Function
 
 if __name__ == '__main__':
@@ -89,6 +89,38 @@ if __name__ == '__main__':
                 formatObj.generate()
             else:
                 print ('Missing arguments')
+
+        if args.format == '5':
+            if args.image1 is not None and args.text1 is not None \
+                    and args.image2 is not None and args.text2 is not None:
+                text_top = args.text1.split(',')
+                text_bottom = args.text2.split(',')
+                if text_top.__len__() > 2 or text_bottom.__len__() > 2:
+                    print("Too many arguements")
+                else:
+                    preprocessImages(args.image1)
+                    preprocessImages(args.image2)
+                    if text_top.__len__() == 2 and text_bottom.__len__() == 1:
+                        formatObj = Format5(image1_path=self.image1,
+                                     image2_path=self.image2,
+                                     text_individual1=text_top[0],
+                                     text_individual2=text_top[1],
+                                     top_text=None,
+                                     bottom_text=text_bottom[0])
+                        formatObj.generate()
+
+                    elif text_top.__len__() == 1 and text_bottom.__len__() == 2:
+                        formatObj = Format5(image1_path=args.image1,
+                                     image2_path=args.image2,
+                                     text_individual1=text_bottom[0],
+                                     text_individual2=text_bottom[1],
+                                     top_text=text_top[0],
+                                     bottom_text=None)
+                        formatObj.generate()
+                    else:
+                        print("Missing arguements")
+            else:
+                print("Missing arguements")
 
     if args.mode == '1':
         if args.format is not None:
@@ -158,7 +190,7 @@ if __name__ == '__main__':
             if args.url1 is not None:
                 url = args.url1
             else:
-                url = input('Enter image URL: ')            
+                url = input('Enter image URL: ')
             download(url, 'meme_img')
             img = 'meme_img.jpg'
             bottom_text = input('Input the bottom line here: ')
