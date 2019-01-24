@@ -6,6 +6,7 @@ from format1 import *
 from format2 import *
 from format3 import *
 from format4 import *
+from format5 import *
 from preprocess import preprocessImages
 import urllib.request
 
