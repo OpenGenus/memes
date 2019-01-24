@@ -1,4 +1,4 @@
-# Memes 
+# Memes
 
 Script to convert images to memes.
 
@@ -42,19 +42,19 @@ With searchp script now you can search for images present index json file. Curre
 There are two types of search:
 
 * Index - Displays image in accordance with input .Can be enabled by setting index_search to 1
-* String - Displays image from search string entered .Enabled by default. 
+* String - Displays image from search string entered .Enabled by default.
 
 Each of the types have two modes:
 
 * Command Line
 ```
-python searchp.py --mode=0 --search_str=string 
+python searchp.py --mode=0 --search_str=string
 python searchp.py --mode=0 --index_search=1 --search_idx=index
 ```
 
 * Interactive
 ```
-python searchp.py --mode=1 
+python searchp.py --mode=1
 ```
 
 ## Meme Generation
@@ -85,17 +85,47 @@ Two images are concatenated sideways and contains both the top and bottom text.
 ```
 python meme_generator.py --mode=0 --format=4 --image1=path --image2=path --text1=top --text2=bottom
 ```
+### Format 5
+Two images are concatenated sideways and text is added as shown below.
+
+```
+# For memes having the following layouts, use the respective commands
+# Type 1:    _______________________
+#            |    Long top text    |
+#            |          |          |
+#            |          |          |
+#            |   Text   |   Text   |
+#            |__________|__________|
+
+python meme_generator.py --mode 0 --format 5 \
+--text1  "<text_spread_on_top>" \
+--text2 "<bottom_text_for_image_on_left>","<bottom_text_for_image_on_right>" \
+--image1 <path_to_image1> --image2 <path_to_image2>
+
+
+# Type 2:    ______________________
+#            |    Text  |  Text   |
+#        	 |          |         |
+#            |          |         |
+#            |  Long bottom text  |
+#            |____________________|
+
+python meme_generator.py --mode 0 --format 5 \
+--text1 "<upper_text_for_image_on_left>","<upper_text_for_image_on_right>" \
+--text2 "<text_spread_in_bottom>" \
+--image1 <path_to_image1> --image2 <path_to_image2>
+```
+
 Above formats can also be accessed interactively using mode=1
 
 ```
-python meme_generator.py --mode=1 --format=1 
+python meme_generator.py --mode=1 --format=1
 ```
 
-## Features 
-* Use the generated meme to set as desktop background. 
+## Features
+* Use the generated meme to set as desktop background.
 
 ```
 # Under development. To try the script run:
 python utilities.py "<image-path>"
 ```
-

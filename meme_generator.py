@@ -165,6 +165,36 @@ if __name__ == '__main__':
             formatObj = Format4(img1, img2, top_text, bottom_text)
             formatObj.generate()
 
+        if format == '5':
+            img1 = input('Enter image 1 path: ')
+            img2 = input('Enter image 2 path: ')
+            preprocessImages(img1)
+            preprocessImages(img2)
+            print(format5type1, format5type2)
+            type = input('Select the layout of meme (default : 1): ')
+            if type == '1' or type == '':
+                top_text = input('Input the top spreading text: ')
+                text1 = input('Input the line for first image: ')
+                text2 = input('Input the line for second image: ')
+                formatObj = Format5(image1_path=img1,
+                             image2_path=img2,
+                             text_individual1=text1,
+                             text_individual2=text2,
+                             top_text=top_text,
+                             bottom_text=None)
+                formatObj.generate()
+            elif type == '2':
+                text1 = input('Input the line for first image: ')
+                text2 = input('Input the line for second image: ')
+                bottom_text = input('Input the bottom spreading line: ')
+                formatObj = Format5(image1_path=img1,
+                             image2_path=img2,
+                             text_individual1=text1,
+                             text_individual2=text2,
+                             top_text=None,
+                             bottom_text=bottom_text)
+                formatObj.generate()
+
     if args.mode == '2':
         if args.format is not None:
             format = args.format
@@ -231,3 +261,43 @@ if __name__ == '__main__':
             preprocessImages(img2)
             formatObj = Format4(img1, img2, top_text, bottom_text)
             formatObj.generate()
+
+        if format == '5':
+            if args.url1 is not None:
+                url1 = args.url1
+            else:
+                url1 = input('Enter URL for first Image: ')
+            if args.url2 is not None:
+                url2 = args.url2
+            else:
+                url2 = input('Enter URL for second Image: ')
+            download(url1, 'meme_img1')
+            download(url2, 'meme_img2')
+            img1 = 'meme_img1.jpg'
+            img2 = 'meme_img2.jpg'
+
+            print(format5type1, format5type2)
+            type = input('Select the layout of meme (default : 1): ')
+
+            if type == '1' or type == '':
+                top_text = input('Input the top spreading text: ')
+                text1 = input('Input the line for first image: ')
+                text2 = input('Input the line for second image: ')
+                formatObj = Format5(image1_path=img1,
+                             image2_path=img2,
+                             text_individual1=text1,
+                             text_individual2=text2,
+                             top_text=top_text,
+                             bottom_text=None)
+                formatObj.generate()
+            elif type == '2':
+                text1 = input('Input the line for first image: ')
+                text2 = input('Input the line for second image: ')
+                bottom_text = input('Input the bottom spreading line: ')
+                formatObj = Format5(image1_path=img1,
+                             image2_path=img2,
+                             text_individual1=text1,
+                             text_individual2=text2,
+                             top_text=None,
+                             bottom_text=bottom_text)
+                formatObj.generate()
