@@ -105,7 +105,7 @@ python meme_generator.py --mode 0 --format 5 \
 
 # Type 2:    ______________________
 #            |    Text  |  Text   |
-#        	 |          |         |
+#			 |          |         |
 #            |          |         |
 #            |  Long bottom text  |
 #            |____________________|
