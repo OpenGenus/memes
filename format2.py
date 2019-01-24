@@ -1,7 +1,4 @@
-from PIL import Image, ImageFont, ImageDraw
-import textwrap
-import os
-
+from manipulation import *
 
 class Format2:
 
