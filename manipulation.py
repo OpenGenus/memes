@@ -69,9 +69,10 @@ def image_join_along_breadth (image1, image2, resize=(None,None)):
     Returns the PIL Image object, its height and width
     '''
 
-    if resize != (None, None):
-        image1 = image1.resize(resize, Image.ANTIALIAS)
-        image2 = image2.resize(resize, Image.ANTIALIAS)
+    if size1 != (None, None):
+        image1 = image1.resize(size1, Image.ANTIALIAS)
+    if size2 != (None, None):
+        image2 = image2.resize(size2, Image.ANTIALIAS)
 
     image1.save('short1.jpg')
     image2.save('short2.jpg')
@@ -94,9 +95,10 @@ def image_join_along_length (image1, image2, resize=(None, None)):
     Concatenates images in a top to bottom fashion
     Returns PIL Image object, its height and width
     '''
-    if resize != (None, None):
-        image1 = image1.resize(resize, Image.ANTIALIAS)
-        image2 = image2.resize(resize, Image.ANTIALIAS)
+    if size1 != (None, None):
+        image1 = image1.resize(size1, Image.ANTIALIAS)
+    if size2 != (None, None):
+        image2 = image2.resize(size2, Image.ANTIALIAS)
 
     image1.save('short1.jpg')
     image2.save('short2.jpg')
