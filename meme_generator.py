@@ -2,6 +2,7 @@ import argparse as arg
 import os
 import random
 import json
+import sys
 from format1 import *
 from format2 import *
 from format3 import *
@@ -9,8 +10,12 @@ from format4 import *
 from format5 import *
 from preprocess import preprocessImages
 import urllib.request
+import logo
 
 parser = arg.ArgumentParser('Meme Generator')
+
+if sys.argv[1] == '--help' or sys.argv[1] == '-h':
+	logo.print_logo()
 
 parser.add_argument('--mode', default=0, help='Choose from two modes: 0-Command line 1-Interactive 2-URL')
 
@@ -124,6 +129,7 @@ if __name__ == '__main__':
                 print("Missing arguements")
 
     if args.mode == '1':
+        logo.print_logo()
         if args.format is not None:
             format = args.format
         else:

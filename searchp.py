@@ -1,11 +1,16 @@
 import os
+import sys
 import pygtrie as pygtrie
 import json
 import argparse as arg
 from PIL import Image
 from collections import defaultdict
+import logo
 
 parser = arg.ArgumentParser('searchp')
+
+if sys.argv[1] == '--help' or sys.argv[1] == '-h':
+	logo.print_logo()
 
 parser.add_argument('--mode', default=0, help='Choose from two modes: 0-Command line 1-Interactive')
 parser.add_argument('--search_str', type=str, default=None, help='Enter search string: ')
@@ -48,7 +53,7 @@ def str_search(inp):
 '''
 
 def idx_search(index):
- 
+
 	display(index,string_search=False)
 	'''
 	for idx in index:
@@ -69,11 +74,11 @@ def display(indices,string_search=True):
 				if index_count > 0:
 					file = data["data"][str_idx]["location"]
 					Image.open(file).show()
-				index_count -=1	
+				index_count -=1
 		else:
 			for idx in indices:
 				if index_count > 0:
-					file = data["data"][int(idx)]["location"]		
+					file = data["data"][int(idx)]["location"]
 					Image.open(file).show()
 				index_count -=1
 	else:
@@ -81,8 +86,8 @@ def display(indices,string_search=True):
 			if index_count > 0:
 				text = data["data"][int(str_idx)]["description"]
 				print('-'*30)
-				print(text)				
-			index_count -= 1	
+				print(text)
+			index_count -= 1
 
 def search_result_json(indices):#stores all search results
 	data1 = []
@@ -106,6 +111,7 @@ if args.index_search == 0:
 		else:
 			print('Missing arguments')
 	elif args.mode == '1':
+		logo.print_logo()
 		inp = input('Enter the search string: ')
 		str_search(inp)
 	else:
@@ -123,15 +129,15 @@ elif args.index_search == 1:
 			print('Missing arguments')
 
 	elif args.mode == '1':
+		logo.print_logo()
 		index = input('Enter image index: ')
 		idx_search(index)
 
 	else:
-		print('Unknown argument')			
+		print('Unknown argument')
 
 else:
 	print('Unknown argument')
 
 #print(sorted(l['Tyr':]))
 #print(p[str(l['Tyrion'])]))
-
