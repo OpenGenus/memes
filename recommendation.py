@@ -83,7 +83,7 @@ except:
 # Now we have got the description to match with other images and create some Recommendations
 final = []
 
-for root, dirs, files in os.walk('.\\data2'):
+for root, dirs, files in os.walk('.\\data'):
     for file in files:
         descExist = False
         cur_file = os.path.join(root, file)
@@ -110,8 +110,9 @@ if(len(recommended))==0:
     cprint("\n** Sorry, We have no recommendations for you currently ** \n", 'red')
 else:
     cprint("\n** We have generated some recommendations, have a look on these memes ** \n", 'green')
-    cprint("Index \t Name \t\t\t Location \t\t\t Score \n", 'green')
+    cprint("Index \t Name \t\t\t Location \n", 'green')
     index=1
     for meme in recommended:
-        print(index,' --> ', fileName(meme[1]), '\t', meme[1], '\t\t', meme[0], '\n')
-        index+=1
+        if meme[1]!=path:
+            print(index,' --> ', fileName(meme[1]), '\t', meme[1], '\n')
+            index+=1
