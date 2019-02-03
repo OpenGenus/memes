@@ -1,0 +1,14 @@
+{
+    "data": [
+        {
+            "name": "got_memes",
+            "description": "# Game of Thrones memes\n",
+            "location": "data\\got_memes\\data.txt"
+        },
+        {
+            "name": "Subcat",
+            "description": "",
+            "location": "data\\got_memes\\Subcat\\data.txt"
+        }
+    ]
+}
