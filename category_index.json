@@ -7,7 +7,7 @@
         },
         {
             "name": "Subcat",
-            "description": "",
+            "description": "#test description\n",
             "location": "data\\got_memes\\Subcat\\data.txt"
         }
     ]
