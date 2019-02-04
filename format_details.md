@@ -31,7 +31,7 @@ For meme generation, we currently have the following formats. It gives the textu
         |  Text on top   |
         |                |
         |                |
-        |                |
+        | Text in bottom |
         |________________|
 ```
 
