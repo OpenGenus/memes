@@ -56,7 +56,7 @@ python searchp.py --mode=0 --index_search=1 --search_idx=index
 ```
 python searchp.py --mode=1
 ```
-## Meme Recommendation
+## Recommendation
 The script has ability to recommend memes based on the meme location and the word match in the description of the meme.
 ```
 python recommendation.py --meme=image_path
