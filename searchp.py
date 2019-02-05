@@ -6,6 +6,7 @@ import argparse as arg
 from PIL import Image
 from collections import defaultdict
 import logo
+from difflib import get_close_matches
 
 parser = arg.ArgumentParser('searchp')
 
@@ -38,14 +39,33 @@ def str_search(inp):
 	image_idx = list()
 	inp = inp.split(' ')
 
-	for word in inp:
-		word = word.lower()
-		indices = sorted(l[word:])
+	try:
+		for word in inp:
+			word = word.lower()
+			indices = sorted(l[word:])
 
-		for str_idx in indices:
-			image_idx += p[str(str_idx)]
+			for str_idx in indices:
+				image_idx += p[str(str_idx)]
+	except:
+		try:
+			with open('memedb.json') as f:
+				data = json.load(f)
+			if args.mode=="1":
+				print ("Did you mean %s instead?" % get_close_matches(inp[0], data.keys())[0])
+				response = input("Enter y for yes and n for no - ")
+				if response == 'y':
+					image_idx = data[get_close_matches(inp[0], data.keys())[0]]
+				else:
+					image_idx = []
+			else:
+				image_idx = data[get_close_matches(inp[0], data.keys())[0]]
+		except:
+			pass
 
-	display(image_idx)
+	if len(image_idx)!=0:
+		display(image_idx)
+	else:
+		print("This meme or simmilar doesn't exist in our DB")
 	'''
 	for str_idx in image_idx:
 		file = data["data"][str_idx]["location"]

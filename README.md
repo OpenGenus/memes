@@ -56,6 +56,11 @@ python searchp.py --mode=0 --index_search=1 --search_idx=index
 ```
 python searchp.py --mode=1
 ```
+## Recommendation
+The script has ability to recommend memes based on the meme location and the word match in the description of the meme.
+```
+python recommendation.py --meme=image_path
+```
 
 ## Meme Generation
 The current version of the script has the ability to create memes in four different formats using custom user defined images.
