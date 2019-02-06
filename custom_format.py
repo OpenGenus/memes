@@ -1,4 +1,4 @@
-from definitions import *
+from manipulation import *
 
 class CustomFormat:
 
