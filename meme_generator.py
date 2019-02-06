@@ -3,11 +3,11 @@ import os
 import random
 import json
 import sys
-from format1 import *
-from format2 import *
-from format3 import *
-from format4 import *
-from format5 import *
+from formats.format1 import *
+from formats.format2 import *
+from formats.format3 import *
+from formats.format4 import *
+from formats.format5 import *
 from preprocess import preprocessImages
 import urllib.request
 import logo
