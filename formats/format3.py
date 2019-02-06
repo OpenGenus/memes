@@ -1,6 +1,10 @@
 from manipulation import *
 
 class Format3:
+    """
+    This format helps create memes of comparision as decsribed in the
+    format_details.md file.   
+    """
 
     def __init__(
         self,
