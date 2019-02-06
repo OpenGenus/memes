@@ -3,6 +3,7 @@ import os
 import json
 from termcolor import *
 import colorama
+import index_data
 
 colorama.init()
 parser = arg.ArgumentParser('Recommendation')
