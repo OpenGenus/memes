@@ -2,28 +2,71 @@ from manipulation import *
 
 class Format1:
 
-    '''Text on the top of the image.'''
+    """
+    Type 1 -> Text on the top of the image.
+    Type 2 -> Text in the bottom of the image.
+    Type 3 -> Text on top and bottom of the image.
+    """
 
     def __init__(
         self,
         image_path,
-        top_text,
+        top_text=None,
+        bottom_text=None,
         font_path='impact/impact.ttf',
         font_size=9,
         ):
         self.image_path = image_path
         self.top_text = top_text
+        self.bottom_text = bottom_text
         self.font_path = font_path
         self.font_size = font_size
 
     def generate(self):
         img = Image.open(self.image_path)
 
-        image = text_on_top(self.top_text, img)
+        if self.top_text and self.bottom_text:
+
+            img = text_on_top(self.top_text, img)
+            image = text_in_bottom(self.bottom_text, img)
+
+        elif self.top_text:
+
+            image = text_on_top(self.top_text, img)
+
+        elif self.bottom_text:
+
+            image = text_in_bottom(self.bottom_text, img)
 
         image.save('meme-' + img.filename.split(os.sep)[-1])
         image.show()
 
+format1type1 = """
+Type 1: __________________
+        |  Text on top   |
+        |                |
+        |                |
+        |                |
+        |________________|
+
+"""
+format1type2 = """
+Type 2: __________________
+        |                |
+        |                |
+        |                |
+        | Text in bottom |
+        |________________|
+
+"""
+format1type3 = """
+Type 3: __________________
+        |  Text on top   |
+        |                |
+        |                |
+        | Text in bottom |
+        |________________|
+"""
     # def generate(self):
     #     img = Image.open(self.image_path)
     #     draw = ImageDraw.Draw(img)
