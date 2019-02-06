@@ -1,6 +1,6 @@
 from manipulation import *
 
-class Format4:
+class Format2:
 
     '''Two images concatenated sideways and text on the top and bottom of the image.'''
 
