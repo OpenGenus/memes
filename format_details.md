@@ -5,19 +5,37 @@ For meme generation, we currently have the following formats. It gives the textu
 ### Format 1:
 
 ```
-        __________________
+Type 1: __________________
         |  Text on top   |
         |                |
         |                |
         |                |
         |________________|
+
+
+Type 2: __________________
+        |                |
+        |                |
+        |                |
+        | Text in bottom |
+        |________________|
+
+
+Type 3: __________________
+        |  Text on top   |
+        |                |
+        |                |
+        | Text in bottom |
+        |________________|
 ```
 
 ### Format 2:
-
-```
+```	   
         __________________
+        |  Text on top   |
         |                |
+        |                |
+        |________________|
         |                |
         |                |
         | Text in bottom |
@@ -27,29 +45,15 @@ For meme generation, we currently have the following formats. It gives the textu
 ### Format 3:
 
 ```
-        __________________
-        |  Text on top   |
-        |                |
-        |                |
-        | Text in bottom |
-        |________________|
-```
-
-### Format 4:
-
-```
-        __________________________
+Type 1: __________________________
         |    Text on the top     |
         |           |            |
         |           |            |
         |   Text in the bottom   |
         |___________|____________|
-```
 
-### Format 5:
 
-```
-Type 1: __________________________
+Type 2: __________________________
         |     Long top text      |
         |           |            |
         |           |            |
@@ -57,10 +61,17 @@ Type 1: __________________________
         |___________|____________|
 
 
-Type 2: __________________________
+Type 3: __________________________
         |   Text    |    Text    |
         |           |            |
         |           |            |
         |    Long bottom text    |
         |________________________|
+
+Type 4: __________________________
+        |   Text    |    Text    |
+        |           |            |
+        |           |            |
+        |   Text    |    Text    |
+        |___________|____________|
 ```
