@@ -1,4 +1,4 @@
-from definitions import *
+from manipulation import *
 
 class CustomFormat:
 
@@ -6,6 +6,7 @@ class CustomFormat:
         self,
         images,
         texts,
+        operations,
         font_path='impact/impact.ttf',
         font_size=9
     ):
