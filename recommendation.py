@@ -4,6 +4,7 @@ import time
 import json
 from termcolor import *
 import colorama
+from index_data import invokeUpdate
 
 colorama.init()
 parser = arg.ArgumentParser('Recommendation')
@@ -15,41 +16,8 @@ path = args.meme
 force = args.force_index
 
 #check for updates in the local directory
-updateTime = time.ctime(max(os.stat(root).st_mtime for root,_,_ in os.walk('.\\data')))
-
-def UpdateMemeDb():
-    with open('memedb.json') as f:
-        index=0
-        memeData = json.load(f)
-        for root,dirs,files in os.walk('.\\data'):
-            for file in files:
-                cur_file = os.path.join(root, file)
-                if file.endswith("json"):
-                    index+=1
-                    with open(cur_file) as data_file:
-                        data = json.loads(data_file.read())
-                    for key in data:
-                        desc = data[key]['description']
-                    try:
-                        memeExist = memeData[desc]
-                    except:
-                        memeData[desc] = [index]
-
-    with open('memedb.json', 'w') as f:
-            json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
-
-try:
-    with open('timestamp.json') as f:
-        data = json.load(f)
-    if data['last-updated'] != updateTime or force:
-        UpdateMemeDb()
-        with open('timestamp.json', 'w') as f:
-            json.dump({'last-updated':updateTime}, f)
-except:
-    with open('timestamp.json', 'w') as f:
-        json.dump({'last-updated':updateTime}, f)
-    UpdateMemeDb()
-
+if force == 1:
+    invokeUpdate(True)
 def matchScore(first, second, secondPath, json_fail, descExist):
     score = 0
     #creating a match score based on common descriptions
