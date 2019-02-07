@@ -79,23 +79,24 @@ with open('index.json', 'w') as f:
               for (w, x, y) in zip(data, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
 
-with open('memedb.json') as f:
-    index=0
-    empty = False
-    memeData = json.load(f)
-    for root,dirs,files in os.walk(dirName):
-        for file in files:
-            cur_file = os.path.join(root, file)
-            if file.endswith("json"):
-                index+=1
-                with open(cur_file) as data_file:
-                    data = json.loads(data_file.read())
-                for key in data:
-                    desc = data[key]['description']
-                try:
-                    memeExist = memeData[desc]
-                except:
-                    memeData[desc] = [index]
+def UpdateMemeDb():
+    with open('memedb.json') as f:
+        index=0
+        empty = False
+        memeData = json.load(f)
+        for root,dirs,files in os.walk(dirName):
+            for file in files:
+                cur_file = os.path.join(root, file)
+                if file.endswith("json"):
+                    index+=1
+                    with open(cur_file) as data_file:
+                        data = json.loads(data_file.read())
+                    for key in data:
+                        desc = data[key]['description']
+                    try:
+                        memeExist = memeData[desc]
+                    except:
+                        memeData[desc] = [index]
 
-with open('memedb.json', 'w') as f:
-        json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
+    with open('memedb.json', 'w') as f:
+            json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)

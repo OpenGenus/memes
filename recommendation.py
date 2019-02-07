@@ -1,9 +1,10 @@
 import argparse as arg
 import os
+import time
 import json
 from termcolor import *
 import colorama
-import index_data
+from index_data import UpdateMemeDb
 
 colorama.init()
 parser = arg.ArgumentParser('Recommendation')
@@ -11,6 +12,22 @@ parser = arg.ArgumentParser('Recommendation')
 parser.add_argument('--meme', type=str, default=None, help='Enter Image path for the meme')
 args = parser.parse_args()
 path = args.meme
+
+#check for updates in the local directory
+updateTime = time.ctime(max(os.stat(root).st_mtime for root,_,_ in os.walk('.\\data')))
+
+try:
+    with open('timestamp.json') as f:
+        data = json.load(f)
+    if data['last-updated'] != updateTime:
+        UpdateMemeDb()
+        with open('timestamp.json', 'w') as f:
+            json.dump({'last-updated':updateTime}, f)
+except:
+    with open('timestamp.json', 'w') as f:
+        json.dump({'last-updated':updateTime}, f)
+    UpdateMemeDb()
+
 
 def matchScore(first, second, secondPath, json_fail, descExist):
     score = 0
