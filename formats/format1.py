@@ -1,14 +1,18 @@
 from manipulation import *
 
-class Format3:
+class Format1:
 
-    '''Text on the top and bottom of the image.'''
+    """
+    Type 1 -> Text on the top of the image.
+    Type 2 -> Text in the bottom of the image.
+    Type 3 -> Text on top and bottom of the image.
+    """
 
     def __init__(
         self,
         image_path,
-        top_text,
-        bottom_text,
+        top_text=None,
+        bottom_text=None,
         font_path='impact/impact.ttf',
         font_size=9,
         ):
@@ -21,12 +25,48 @@ class Format3:
     def generate(self):
         img = Image.open(self.image_path)
 
-        top_text_image = text_on_top(self.top_text, img)
-        final_img = text_in_bottom(self.bottom_text, top_text_image)
+        if self.top_text and self.bottom_text:
 
-        final_img.save('meme-' + img.filename.split(os.sep)[-1])
-        final_img.show()
+            img = text_on_top(self.top_text, img)
+            image = text_in_bottom(self.bottom_text, img)
 
+        elif self.top_text:
+
+            image = text_on_top(self.top_text, img)
+
+        elif self.bottom_text:
+
+            image = text_in_bottom(self.bottom_text, img)
+
+        image.save('meme-' + img.filename.split(os.sep)[-1])
+        image.show()
+
+format1type1 = """
+Type 1: __________________
+        |  Text on top   |
+        |                |
+        |                |
+        |                |
+        |________________|
+
+"""
+format1type2 = """
+Type 2: __________________
+        |                |
+        |                |
+        |                |
+        | Text in bottom |
+        |________________|
+
+"""
+format1type3 = """
+Type 3: __________________
+        |  Text on top   |
+        |                |
+        |                |
+        | Text in bottom |
+        |________________|
+"""
     # def generate(self):
     #     img = Image.open(self.image_path)
     #     draw = ImageDraw.Draw(img)
@@ -35,23 +75,12 @@ class Format3:
     #                               size=int(image_height
     #                               * self.font_size) // 100)
     #     self.top_text = self.top_text.upper()
-    #     self.bottom_text = self.bottom_text.upper()
     #     (char_width, char_height) = font.getsize('A')
     #     chars_per_line = image_width // char_width
     #     top_lines = textwrap.wrap(self.top_text, width=chars_per_line)
-    #     bottom_lines = textwrap.wrap(self.bottom_text,
-    #             width=chars_per_line)
     #     y = 10
     #
     #     for line in top_lines:
-    #         (line_width, line_height) = font.getsize(line)
-    #         x = (image_width - line_width) / 2
-    #         draw.text((x, y), line, fill='white', font=font)
-    #         y += line_height
-    #
-    #     y = image_height - char_height * len(bottom_lines) - 15
-    #
-    #     for line in bottom_lines:
     #         (line_width, line_height) = font.getsize(line)
     #         x = (image_width - line_width) / 2
     #         draw.text((x, y), line, fill='white', font=font)

@@ -62,16 +62,17 @@ def text_in_bottom (text, image, resize=(None, None)):
 
     return image
 
-def image_join_along_breadth (image1, image2, resize=(None,None)):
+def image_join_along_breadth(image1, image2, size1=(None, None), size2=(None, None)):
     '''
     Concatenates two images side by side
     Input PIL Image obejct
     Returns the PIL Image object, its height and width
     '''
 
-    if resize != (None, None):
-        image1 = image1.resize(resize, Image.ANTIALIAS)
-        image2 = image2.resize(resize, Image.ANTIALIAS)
+    if size1 != (None, None):
+        image1 = image1.resize(size1, Image.ANTIALIAS)
+    if size2 != (None, None):
+        image2 = image2.resize(size2, Image.ANTIALIAS)
 
     image1.save('short1.jpg')
     image2.save('short2.jpg')
@@ -88,15 +89,17 @@ def image_join_along_breadth (image1, image2, resize=(None,None)):
 
     return image
 
-def image_join_along_length (image1, image2, resize=(None, None)):
+def image_join_along_length(image1, image2, size1=(None, None), size2=(None, None)):
     '''
     Input PIL Image obejct
     Concatenates images in a top to bottom fashion
     Returns PIL Image object, its height and width
     '''
-    if resize != (None, None):
-        image1 = image1.resize(resize, Image.ANTIALIAS)
-        image2 = image2.resize(resize, Image.ANTIALIAS)
+
+    if size1 != (None, None):
+        image1 = image1.resize(size1, Image.ANTIALIAS)
+    if size2 != (None, None):
+        image2 = image2.resize(size2, Image.ANTIALIAS)
 
     image1.save('short1.jpg')
     image2.save('short2.jpg')
@@ -112,17 +115,3 @@ def image_join_along_length (image1, image2, resize=(None, None)):
         y_offset += im.size[1]
 
     return image
-
-# img = Image.open('data/got_memes/images/got01.jpg')
-# img1 = Image.open('data/got_memes/images/got02.jpg')
-# img2 = Image.open('data/got_memes/images/got03.jpg')
-
-# op = text_on_top('random text to test the feature', img, resize=(320,360))
-# op2 = text_on_top(text='random text to test the feature', image=img1, resize=(320,360))
-# op3 = text_in_bottom(text='Plain text data bottom', image=op2)
-# op4 = image_join_along_length(op, op3, )
-# op5 = text_in_bottom('random bottom text', op3)
-# op = text_on_top('Test texttttttt on the toopppppppppppp',op3)
-# op.show()
-# op2.show()
-# op4.show()

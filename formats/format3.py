@@ -1,13 +1,15 @@
 from manipulation import *
 
-class Format5:
+class Format3:
+    """
+    This format helps create memes of comparision as decsribed in the
+    format_details.md file.   
+    """
 
     def __init__(
         self,
         image1_path,
         image2_path,
-        text_individual1,
-        text_individual2,
         top_text,
         bottom_text,
         font_path='impact/impact.ttf',
@@ -15,8 +17,6 @@ class Format5:
     ):
         self.image1_path = image1_path
         self.image2_path = image2_path
-        self.text_individual1 = text_individual1
-        self.text_individual2 = text_individual2
         self.top_text = top_text
         self.bottom_text = bottom_text
         self.font_path = font_path
@@ -27,25 +27,53 @@ class Format5:
         img02 = Image.open(self.image2_path)
 
         size = (320, 360)
-        if self.top_text == None:
-            img1 = text_on_top(self.text_individual1, img01, size)
-            img2 = text_on_top(self.text_individual2, img02, size)
+        if self.top_text.__len__() == 1 and self.bottom_text.__len__() == 1:
+            
+            merge_image = image_join_along_breadth(img01, img02, (320, 360), (320, 360))
+            top_text_image = text_on_top(self.top_text[0], merge_image)
+            
+            final_img = text_in_bottom(self.bottom_text[0], top_text_image)
+            
+        elif self.top_text.__len__() == 2 and self.bottom_text.__len__() == 1:
+            
+            img1 = text_on_top(self.top_text[0], img01, size)
+            img2 = text_on_top(self.top_text[1], img02, size)
+            
+            final_img = image_join_along_breadth(img1, img2)
+            final_img = text_in_bottom(self.bottom_text[0], final_img)
+
+        elif self.bottom_text.__len__() == 2 and self.top_text.__len__() == 1:
+
+            img1 = text_in_bottom(self.bottom_text[0], img01, size)
+            img2 = text_in_bottom(self.bottom_text[1], img02, size)
 
             final_img = image_join_along_breadth(img1, img2)
-            final_img = text_in_bottom(self.bottom_text, final_img)
+            final_img = text_on_top(self.top_text[0], final_img)
 
-        else:
-            img1 = text_in_bottom(self.text_individual1, img01, size)
-            img2 = text_in_bottom(self.text_individual2, img02, size)
+        elif self.top_text.__len__() == 2 and self.bottom_text.__len__() == 2:
+
+            img1 = text_in_bottom(self.bottom_text[0], img01, size)
+            img1 = text_on_top(self.top_text[0], img1, size)
+
+            img2 = text_in_bottom(self.bottom_text[1], img02, size)
+            img2 = text_on_top(self.top_text[1], img2, size)
 
             final_img = image_join_along_breadth(img1, img2)
-            final_img = text_on_top(self.top_text, final_img)
 
-        final_img.save('meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split('.')[0], os.path.basename(self.image2_path).split('.')[0]))
+        final_img.save('meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split(
+			'.')[0], os.path.basename(self.image2_path).split('.')[0]))
         final_img.show()
 
-format5type1 = """
+format3type1 = """
 Type 1:     _______________________
+            |    Long top text    |
+            |          |          |
+            |          |          |
+            |   Long bottom text  |
+            |__________|__________|
+"""
+format3type2 = """
+Type 2:     _______________________
             |    Long top text    |
             |          |          |
             |          |          |
@@ -53,14 +81,22 @@ Type 1:     _______________________
             |__________|__________|
 """
 
-format5type2 = """
-Type 2:     ______________________
-            |    Text  |  Text   |
-            |          |         |
-            |          |         |
-            |  Long bottom text  |
-            |____________________|
+format3type3 = """
+Type 3:     _______________________
+            |    Text  |  Text    |
+            |          |          |
+            |          |          |
+            |  Long bottom text   |
+            |_____________________|
+"""
 
+format3type4 = """
+Type 4:     _______________________
+            |   Text   |   Text   |
+            |          |          |
+            |          |          |
+            |   Text   |   Text   |
+            |__________|__________|
 """
 
     # def generate(self):
