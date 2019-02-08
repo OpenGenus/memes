@@ -13,11 +13,7 @@ parser.add_argument('--meme', type=str, default=None, help='Enter Image path for
 parser.add_argument('--force_index', type=int, default=0, help="Enter 1 to force indexing")
 args = parser.parse_args()
 path = args.meme
-force = args.force_index
 
-#check for updates in the local directory
-if force == 1:
-    invokeUpdate(True)
 def matchScore(first, second, secondPath, json_fail, descExist):
     score = 0
     #creating a match score based on common descriptions

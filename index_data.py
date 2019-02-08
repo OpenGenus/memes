@@ -1,6 +1,13 @@
 import os
+import argparse as arg
 import json
 import time
+
+parser = arg.ArgumentParser('IndexData')
+parser.add_argument('--force_index', type=int, default=0, help="Enter 1 to force indexing")
+args = parser.parse_args()
+
+force = args.force_index
 
 data = []
 path = []
@@ -103,17 +110,14 @@ def UpdateMemeDb():
     with open('memedb.json', 'w') as f:
             json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
 
-def invokeUpdate(force=False):
-    try:
-        with open('timestamp.json') as f:
-            data = json.load(f)
-        if data['last-updated'] != updateTime or force:
-            UpdateMemeDb()
-            with open('timestamp.json', 'w') as f:
-                json.dump({'last-updated':updateTime}, f)
-    except:
+try:
+    with open('timestamp.json') as f:
+        data = json.load(f)
+    if data['last-updated'] != updateTime or force==1:
+        UpdateMemeDb()
         with open('timestamp.json', 'w') as f:
             json.dump({'last-updated':updateTime}, f)
-        UpdateMemeDb()
-
-invokeUpdate()
+except:
+    with open('timestamp.json', 'w') as f:
+        json.dump({'last-updated':updateTime}, f)
+    UpdateMemeDb()
