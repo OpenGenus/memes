@@ -1,5 +1,13 @@
 import os
+import argparse as arg
 import json
+import time
+
+parser = arg.ArgumentParser('IndexData')
+parser.add_argument('--force_index', type=int, default=0, help="Enter 1 to force indexing")
+args = parser.parse_args()
+
+force = args.force_index
 
 data = []
 path = []
@@ -79,23 +87,37 @@ with open('index.json', 'w') as f:
               for (w, x, y) in zip(data, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
 
-with open('memedb.json') as f:
-    index=0
-    empty = False
-    memeData = json.load(f)
-    for root,dirs,files in os.walk(dirName):
-        for file in files:
-            cur_file = os.path.join(root, file)
-            if file.endswith("json"):
-                index+=1
-                with open(cur_file) as data_file:
-                    data = json.loads(data_file.read())
-                for key in data:
-                    desc = data[key]['description']
-                try:
-                    memeExist = memeData[desc]
-                except:
-                    memeData[desc] = [index]
+updateTime = time.ctime(max(os.stat(root).st_mtime for root,_,_ in os.walk('.\\data')))
 
-with open('memedb.json', 'w') as f:
-        json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
+def UpdateMemeDb():
+    with open('memedb.json') as f:
+        index=0
+        memeData = json.load(f)
+        for root,dirs,files in os.walk('.\\data'):
+            for file in files:
+                cur_file = os.path.join(root, file)
+                if file.endswith("json"):
+                    index+=1
+                    with open(cur_file) as data_file:
+                        data = json.loads(data_file.read())
+                    for key in data:
+                        desc = data[key]['description']
+                    try:
+                        memeExist = memeData[desc]
+                    except:
+                        memeData[desc] = [index]
+
+    with open('memedb.json', 'w') as f:
+            json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
+
+try:
+    with open('timestamp.json') as f:
+        data = json.load(f)
+    if data['last-updated'] != updateTime or force==1:
+        UpdateMemeDb()
+        with open('timestamp.json', 'w') as f:
+            json.dump({'last-updated':updateTime}, f)
+except:
+    with open('timestamp.json', 'w') as f:
+        json.dump({'last-updated':updateTime}, f)
+    UpdateMemeDb()

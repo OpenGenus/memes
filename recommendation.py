@@ -1,14 +1,16 @@
 import argparse as arg
 import os
+import time
 import json
 from termcolor import *
 import colorama
-import index_data
+from index_data import invokeUpdate
 
 colorama.init()
 parser = arg.ArgumentParser('Recommendation')
 
 parser.add_argument('--meme', type=str, default=None, help='Enter Image path for the meme')
+parser.add_argument('--force_index', type=int, default=0, help="Enter 1 to force indexing")
 args = parser.parse_args()
 path = args.meme
 
