@@ -19,7 +19,7 @@ parser.add_argument('--mode', default=0, help='Choose from two modes: 0-Command 
 
 parser.add_argument('--url1', default=None, help='Enter URL for first image')
 parser.add_argument('--url2', default=None, help='Enter URL for second image')
-parser.add_argument('--format', default=None, help='Enter the format type')
+parser.add_argument('--format', default=1, help='Enter the format type')
 parser.add_argument('--image1', type=str, default=None, help='Enter the image path for 1st image')
 parser.add_argument('--image2', type=str, default=None, help='Enter the image path for 2nd image')
 parser.add_argument('--text1', type=str, default=None, help='Enter text1')
@@ -60,6 +60,10 @@ if __name__ == '__main__':
                 print ('Empty or invalid arguments')
 
         if args.format == '1':
+            preprocessImages(args.image1)
+            formatObj = Format1(image_path=args.image1,
+								top_text=args.text1,
+								bottom_text=args.text2)
             if args.text1 and args.text2 and args.image1:
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,
@@ -124,6 +128,8 @@ if __name__ == '__main__':
 
         if format == '1':
             img = input('Enter the image path: ')
+            formatObj = Format1(image_path=img,
+									top_text='')
             print(format1type1, format1type2, format1type3)
             user_res = input('Select one of the formats (default : 1): ')
             if user_res == '1':
