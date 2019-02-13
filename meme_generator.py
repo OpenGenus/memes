@@ -52,6 +52,7 @@ def random_meme(show='True'):
 # Main Function
 
 if __name__ == '__main__':
+    formatObj = None
     if args.mode == '0':
         if args.format == '0':
             if args.random == 'True' or args.random == 'False':
@@ -128,8 +129,6 @@ if __name__ == '__main__':
 
         if format == '1':
             img = input('Enter the image path: ')
-            formatObj = Format1(image_path=img,
-									top_text='')
             print(format1type1, format1type2, format1type3)
             user_res = input('Select one of the formats (default : 1): ')
             if user_res == '1':
