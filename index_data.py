@@ -91,7 +91,7 @@ with open(os.path.join(indexpath, 'index.json'), 'w') as f:
 updateTime = time.ctime(max(os.stat(root).st_mtime for root,_,_ in os.walk('.\\data')))
 
 def UpdateMemeDb():
-    with open('memedb.json') as f:
+    with open(os.path.join(indexpath,'memedb.json')) as f:
         index=0
         memeData = json.load(f)
         for root,dirs,files in os.walk('.\\data'):
@@ -108,7 +108,7 @@ def UpdateMemeDb():
                     except:
                         memeData[desc] = [index]
 
-    with open('memedb.json', 'w') as f:
+    with open(os.path.join(indexpath,'memedb.json'), 'w') as f:
             json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
 
 try:

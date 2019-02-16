@@ -51,7 +51,7 @@ def str_search(inp):
 				image_idx += p[str(str_idx)]
 	except:
 		try:
-			with open('memedb.json') as f:
+			with open(os.path.join(indexpath,'memedb.json')) as f:
 				data = json.load(f)
 			if args.mode=="1":
 				print ("Did you mean %s instead?" % get_close_matches(inp[0], data.keys())[0])
