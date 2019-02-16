@@ -52,6 +52,7 @@ def random_meme(show='True'):
 # Main Function
 
 if __name__ == '__main__':
+    formatObj = None
     if args.mode == '0':
         if args.format == '0':
             if args.random == 'True' or args.random == 'False':
