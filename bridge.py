@@ -15,8 +15,8 @@ parser = arg.ArgumentParser('bridge')
 
 # Options for bridge #
 parser.add_argument('--recommend', default=0, help='Generate recommendations')
-parser.add_argument('--searchp', default=0, help='Search a photo')
-parser.add_argument('--pre', default=0, help='Preprocessing Data')
+parser.add_argument('--search', default=0, help='Search a photo')
+parser.add_argument('--preprocess', default=0, help='Preprocessing Data')
 parser.add_argument('--generate', default=0, help="Meme Generation service " )
 parser.add_argument('--meme', type=str, default=None, help='Enter Image path for the meme')
 
