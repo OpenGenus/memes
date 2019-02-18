@@ -25,7 +25,7 @@ class Format2:
         img01 = Image.open(self.image1_path)
         img02 = Image.open(self.image2_path)
 
-        merge_image = image_join_along_breadth(img01, img02, (320, 360), (320, 360))
+        merge_image = image_join_along_length(img01, img02, (320, 360), (320, 360))
         top_text_image = text_on_top(self.top_text, merge_image)
         final_img = text_in_bottom(self.bottom_text, top_text_image)
 
