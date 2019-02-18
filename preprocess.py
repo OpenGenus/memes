@@ -2,20 +2,14 @@ import os
 from PIL import Image
 import argparse as arg
 
-def preprocessImages(imagePath, imageWidth=600): 
+def preprocessImages(imagePath, imageWidth=600):
         img = Image.open(imagePath)
         wpercent = imageWidth / float(img.size[0])
         hsize = int(float(img.size[1]) * float(wpercent))
         img = img.resize((imageWidth, hsize), Image.ANTIALIAS)
         img.convert('RGB').save(imagePath)
 
-if __name__ == "__main__":
-    parser = arg.ArgumentParser()
-    parser.add_argument('--data', type=str, help='Enter image path',
-                        default='data')
-    parser.add_argument('--width', type=int, help='Enter width of image',
-                        default=600)
-    args = parser.parse_args()
+def start(args):
     basewidth = args.width
     rootDir = args.data
 

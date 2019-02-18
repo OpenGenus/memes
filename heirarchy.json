@@ -1,0 +1,12 @@
+{
+    "data": [
+        {
+            "parent": "data",
+            "name": "got_memes"
+        },
+        {
+            "parent": "got_memes",
+            "name": "Subcat"
+        }
+    ]
+}
