@@ -136,7 +136,7 @@ if __name__ == '__main__':
                 preprocessImages(img)
                 bottom_text = input('Input the bottom line here: ')
                 formatObj = Format1(image_path=img,
-									bottom_text=top_text)
+									bottom_text= bottom_text)
             elif user_res == '3':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')

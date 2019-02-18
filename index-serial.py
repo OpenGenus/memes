@@ -4,9 +4,11 @@ import json
 from collections import defaultdict
 
 t = pygtrie.CharTrie()
+currentpath = os.path.dirname(os.path.abspath(__file__))
+indexpath = os.path.join(currentpath, 'index')
 cnt=0
 
-with open('index.json') as f:
+with open(os.path.join(indexpath,'index.json')) as f:
 	data = json.load(f)
 x = len(data['data'])
 m = defaultdict(list)
@@ -24,9 +26,9 @@ for i in range(0,x):
 			cnt+=1		
 #print(m)
 
-with open('searchtrie.json', 'w') as f:
+with open(os.path.join(indexpath,'searchtrie.json'), 'w') as f:
 	json.dump(t._root.__getstate__(),f,indent=2)
-with open('searchdict.json', 'w') as f:
+with open(os.path.join(indexpath,'searchdict.json'), 'w') as f:
 	json.dump(m,f,indent=2)
 
 '''

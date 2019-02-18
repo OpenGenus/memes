@@ -9,6 +9,9 @@ import logo
 from difflib import get_close_matches
 
 parser = arg.ArgumentParser('searchp')
+currentpath = os.path.dirname(os.path.abspath(__file__))
+indexpath = os.path.join(currentpath, 'index')
+
 
 if sys.argv[1] == '--help' or sys.argv[1] == '-h':
 	logo.print_logo()
@@ -25,13 +28,13 @@ args = parser.parse_args()
 l = pygtrie.CharTrie()
 p = defaultdict(list)
 
-with open('searchtrie.json') as f:
+with open(os.path.join(indexpath,'searchtrie.json')) as f:
 	l._root.__setstate__(json.load(f))
 
-with open('searchdict.json') as f:
+with open(os.path.join(indexpath,'searchdict.json')) as f:
 	p = json.load(f)
 
-with open('index.json') as f:
+with open(os.path.join(indexpath,'index.json')) as f:
 	data = json.load(f)
 
 
@@ -48,7 +51,7 @@ def str_search(inp):
 				image_idx += p[str(str_idx)]
 	except:
 		try:
-			with open('memedb.json') as f:
+			with open(os.path.join(indexpath,'memedb.json')) as f:
 				data = json.load(f)
 			if args.mode=="1":
 				print ("Did you mean %s instead?" % get_close_matches(inp[0], data.keys())[0])
@@ -117,7 +120,7 @@ def search_result_json(indices):#stores all search results
 		data1.append(data["data"][int(i)]["name"])
 		description.append(data["data"][int(i)]["description"])
 		path.append(data["data"][int(i)]["location"])
-	with open('search_results.json', 'w') as f:
+	with open(os.path.join(indexpath,'search_results.json'), 'w') as f:
 		json.dump({'data': [{'name': w, 'description': x, 'location': y}
               for (w, x, y) in zip(data1, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
