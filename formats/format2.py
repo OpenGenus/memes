@@ -31,7 +31,7 @@ class Format2:
 
 
         final_img.save('meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split('.')[0], os.path.basename(self.image2_path).split('.')[0]))
-        final_img.show()
+        return final_img
 
     # def generate(self):
     #     img01 = Image.open(self.image1_path)
