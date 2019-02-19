@@ -3,7 +3,7 @@ from manipulation import *
 class Format3:
     """
     This format helps create memes of comparision as decsribed in the
-    format_details.md file.   
+    format_details.md file.
     """
 
     def __init__(
@@ -28,17 +28,17 @@ class Format3:
 
         size = (320, 360)
         if self.top_text.__len__() == 1 and self.bottom_text.__len__() == 1:
-            
+
             merge_image = image_join_along_breadth(img01, img02, (320, 360), (320, 360))
             top_text_image = text_on_top(self.top_text[0], merge_image)
-            
+
             final_img = text_in_bottom(self.bottom_text[0], top_text_image)
-            
+
         elif self.top_text.__len__() == 2 and self.bottom_text.__len__() == 1:
-            
+
             img1 = text_on_top(self.top_text[0], img01, size)
             img2 = text_on_top(self.top_text[1], img02, size)
-            
+
             final_img = image_join_along_breadth(img1, img2)
             final_img = text_in_bottom(self.bottom_text[0], final_img)
 
@@ -62,7 +62,7 @@ class Format3:
 
         final_img.save('meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split(
 			'.')[0], os.path.basename(self.image2_path).split('.')[0]))
-        final_img.show()
+        return final_img
 
 format3type1 = """
 Type 1:     _______________________
