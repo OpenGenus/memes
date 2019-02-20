@@ -30,9 +30,42 @@ args = parser.parse_args()
 
 # Download image from URL.
 
+
 def use(formatObj):
-	image = formatObj.generate()
-	image.show()
+    image = formatObj.generate()
+    img = logo_img(image.filename, 'data/got_memes/OpenGenus.png')
+    img = logo_txt(img.filename, 'OpenGenus')
+    img.show()
+
+
+def logo_img(meme_img_path, logo_img_path):
+    base_image = Image.open(meme_img_path)
+    logo_img = Image.open(logo_img_path)
+    w, h = logo_img.size
+    logo_img = logo_img.resize((int(w/2), int(h/2)), Image.ANTIALIAS)
+    width, height = base_image.size
+    mbox = base_image.getbbox()
+    sbox = logo_img.getbbox()
+    transparent = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+    position = (mbox[2] - sbox[2] - 5, mbox[3] - sbox[3] - 30)
+    transparent.paste(base_image, (0, 0))
+    transparent.paste(logo_img, position, mask=logo_img)
+    transparent.filename = meme_img_path[:-4]+'.png'
+    transparent.save(transparent.filename)
+    return transparent
+
+
+def logo_txt(img_path, txt):
+    base = Image.open(img_path).convert('RGBA')
+    new_img = Image.new('RGBA', base.size, (255, 255, 255, 0))
+    fnt = ImageFont.truetype('./impact/impact.ttf', 20)
+    d = ImageDraw.Draw(new_img)
+    y = base.size[0] - 100
+    x = base.size[1] - 35
+    d.text((y, x), txt, font=fnt, fill=(255, 255, 255, 200))
+    out_img = Image.alpha_composite(base, new_img)
+    out_img.save(img_path)
+    return out_img
 
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
@@ -158,7 +191,7 @@ if __name__ == '__main__':
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            use(formatobj)
+            use(formatObj)
 
         if format == '3':
             img1 = input('Enter image 1 path: ')
