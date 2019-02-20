@@ -68,7 +68,6 @@ The script can be either in interactive or command line depending on chosen mode
 
 ### Format 1
 Text can be added either at the top `type 1`, at the bottom `type 2`, or at both `type 3`.
-
 [See more](format_details.md)
 
 ```
