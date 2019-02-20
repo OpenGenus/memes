@@ -8,16 +8,19 @@ from collections import defaultdict
 import logo
 from difflib import get_close_matches
 
+currentpath = os.path.dirname(os.path.abspath(__file__))
+indexpath = os.path.join(currentpath, 'index')
+
 l = pygtrie.CharTrie()
 p = defaultdict(list)
 
-with open('searchtrie.json') as f:
+with open(os.path.join(indexpath,'searchtrie.json')) as f:
 	l._root.__setstate__(json.load(f))
 
-with open('searchdict.json') as f:
+with open(os.path.join(indexpath,'searchdict.json')) as f:
 	p = json.load(f)
 
-with open('index.json') as f:
+with open(os.path.join(indexpath,'index.json')) as f:
 	data = json.load(f)
 
 
@@ -34,19 +37,15 @@ def str_search(inp, args):
 				image_idx += p[str(str_idx)]
 	except:
 		try:
-			with open('memedb.json') as f:
+			with open(os.path.join(indexpath,'memedb.json')) as f:
 				data = json.load(f)
-			match = get_close_matches(inp[0], data.keys())[0]
 			if args.mode=="1":
-				if inp[0].lower() == match :
-					image_idx = data[match]
+				print ("Did you mean %s instead?" % get_close_matches(inp[0], data.keys())[0])
+				response = input("Enter y for yes and n for no - ")
+				if response == 'y':
+					image_idx = data[get_close_matches(inp[0], data.keys())[0]]
 				else:
-					print ("Did you mean %s instead?" % match)
-					response = input("Enter y for yes and n for no - ")
-					if response == 'y':
-						image_idx = data[match]
-					else:
-						image_idx = []
+					image_idx = []
 			else:
 				image_idx = data[get_close_matches(inp[0], data.keys())[0]]
 		except:
@@ -64,14 +63,14 @@ def str_search(inp, args):
 
 def idx_search(index, args):
 
-	display(index, args, string_search=False)
+	display(index,string_search=False)
 	'''
 	for idx in index:
 		file = data["data"][int(idx)]["location"]
 		Image.open(file).show()
 '''
 
-def display(indices, args, string_search=True):
+def display(indices,args,string_search=True):
 	search_result_json(indices)
 	#print(args.result)
 	index_count = len(indices)
@@ -107,11 +106,10 @@ def search_result_json(indices):#stores all search results
 		data1.append(data["data"][int(i)]["name"])
 		description.append(data["data"][int(i)]["description"])
 		path.append(data["data"][int(i)]["location"])
-	with open('search_results.json', 'w') as f:
+	with open(os.path.join(indexpath,'search_results.json'), 'w') as f:
 		json.dump({'data': [{'name': w, 'description': x, 'location': y}
               for (w, x, y) in zip(data1, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
-
 
 def start(args):
 	if args.index_search == 0:
@@ -143,12 +141,11 @@ def start(args):
 			logo.print_logo()
 			index = input('Enter image index: ')
 			idx_search(index, args)
-
 		else:
 			print('Unknown argument')
 
 	else:
 		print('Unknown argument')
 
-#print(sorted(l['Tyr':]))
-#print(p[str(l['Tyrion'])]))
+	#print(sorted(l['Tyr':]))
+	#print(p[str(l['Tyrion'])]))

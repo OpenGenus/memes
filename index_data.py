@@ -3,6 +3,9 @@ import argparse as arg
 import json
 import time
 
+currentpath = os.path.dirname(os.path.abspath(__file__))
+indexpath = os.path.join(currentpath, 'index')
+
 data = []
 path = []
 description = []
@@ -63,20 +66,20 @@ def heirarchy():
 category_index()
 heirarchy()
 
-with open('heirarchy.json', 'w') as f:
+with open(os.path.join(indexpath,'heirarchy.json'), 'w') as f:
     json.dump({'data': [{'parent': w, 'name': x}
               for (w, x) in zip(parent, child_cat)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
 
 
-with open('category_index.json', 'w') as f:
+with open(os.path.join(indexpath,'category_index.json'), 'w') as f:
     json.dump({'data': [{'name': w, 'description': x, 'location': y}
               for (w, x, y) in zip(cat, description_cat, path_cat)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
 
 
 
-with open('index.json', 'w') as f:
+with open(os.path.join(indexpath, 'index.json'), 'w') as f:
     json.dump({'data': [{'name': w, 'description': x, 'location': y}
               for (w, x, y) in zip(data, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
@@ -84,7 +87,7 @@ with open('index.json', 'w') as f:
 updateTime = time.ctime(max(os.stat(root).st_mtime for root,_,_ in os.walk('.\\data')))
 
 def UpdateMemeDb():
-    with open('memedb.json') as f:
+    with open(os.path.join(indexpath,'memedb.json')) as f:
         index=0
         memeData = json.load(f)
         for root,dirs,files in os.walk('.\\data'):
@@ -101,18 +104,18 @@ def UpdateMemeDb():
                     except:
                         memeData[desc] = [index]
 
-    with open('memedb.json', 'w') as f:
+    with open(os.path.join(indexpath,'memedb.json'), 'w') as f:
             json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
 
 def start(force):
     try:
-        with open('timestamp.json') as f:
+        with open(os.path.join(indexpath,'timestamp.json')) as f:
             data = json.load(f)
         if data['last-updated'] != updateTime or force==1:
             UpdateMemeDb()
-            with open('timestamp.json', 'w') as f:
+            with open(os.path.join(indexpath,'timestamp.json'), 'w') as f:
                 json.dump({'last-updated':updateTime}, f)
     except:
-        with open('timestamp.json', 'w') as f:
+        with open(os.path.join(indexpath,'timestamp.json'), 'w') as f:
             json.dump({'last-updated':updateTime}, f)
         UpdateMemeDb()
