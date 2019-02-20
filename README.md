@@ -69,7 +69,7 @@ The script can be either in interactive or command line depending on chosen mode
 ### Format 1
 Text can be added either at the top `type 1`, at the bottom `type 2`, or at both `type 3`.
 
-[See more](format_details.md#Format details:)
+[See more](format_details.md)
 
 ```
 python meme_generator.py --mode=0 --format=1 --image1=path --text1=text
@@ -77,13 +77,13 @@ python meme_generator.py --mode=0 --format=1 --image1=path --text1=text
 
 ### Format 2
 Two images are merged vertically and texts can be added to the top of image 1 and to the bottom of image 2.
-[See more](format_details.md#Format 2:)
+[See more](format_details.md)
 ```
 python meme_generator.py --mode=0 --format=2 --image1=path --image2=path --text1=text --text2=text
 ```
 ### Format 3
 Two images are merged horizontally and texts appear in four styles type 1, type 2, type 3, type 4.
-[See more](format_details.md#Format 3:)
+[See more](format_details.md)
 
 ```
 python meme_generator.py --mode=0 --format=3 --image1=path --image2 =path --text1=text --text2=text
