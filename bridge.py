@@ -52,9 +52,9 @@ def cli():
         recommendation.start(args.meme)
     if args.force_index:
         index_data.start(args.force_index)
-    if args.searchp:
+    if args.search:
         searchp.start(args)
-    if args.pre:
+    if args.preprocess:
         preprocess.start(args)
     if args.generate:
         meme_generator.start(args)
