@@ -2,7 +2,7 @@
 
 For meme generation, we currently have the following formats. It gives the textual representation of the memes after their creation.
 
-### Format 1
+### Format 1:
 
 ```
 Type 1: __________________
