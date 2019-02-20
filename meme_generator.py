@@ -10,7 +10,9 @@ from preprocess import preprocessImages
 import urllib.request
 import logo
 
-# Download image from URL.
+def use(formatObj):
+	image = formatObj.generate()
+	image.show()
 
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
@@ -31,6 +33,8 @@ def random_meme(show='True'):
                            num_of_images)]['description'])
 
 
+# Main Function
+
 def start(args):
     formatObj = None
     if args.mode == '0':
@@ -46,21 +50,21 @@ def start(args):
                 formatObj = Format1(image_path=args.image1,
 									top_text=args.text1,
 									bottom_text=args.text2)
-                formatObj.generate()
+                use(formatObj)
 
             elif args.text1 and args.image1:
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,
 									top_text=args.text1,
                                     bottom_text=None)
-                formatObj.generate()
+                use(formatObj)
 
             elif args.text2 and args.image1:
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,
 									top_text=None,
 									bottom_text=args.text2)
-                formatObj.generate()
+                use(formatObj)
             else:
                 print('Missing arguments')
 
@@ -70,7 +74,7 @@ def start(args):
                 preprocessImages(args.image1)
                 preprocessImages(args.image2)
                 formatObj = Format2(args.image1, args.image2, args.text1, args.text2)
-                formatObj.generate()
+                use(formatObj)
             else:
                 print ('Missing arguments')
 
@@ -88,7 +92,7 @@ def start(args):
 										image2_path=args.image2,
 										top_text=text_top,
 										bottom_text=text_bottom)
-                    formatObj.generate()
+                    use(formatObj)
             else:
                 print("Missing arguements")
 
@@ -116,7 +120,7 @@ def start(args):
                 preprocessImages(img)
                 bottom_text = input('Input the bottom line here: ')
                 formatObj = Format1(image_path=img,
-									bottom_text=top_text)
+									bottom_text= bottom_text)
             elif user_res == '3':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
@@ -124,7 +128,7 @@ def start(args):
                 formatObj = Format1(image_path=img,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            formatObj.generate()
+            use(formatObj)
 
         if format == '2':
             img1 = input('Enter image 1 path: ')
@@ -134,7 +138,7 @@ def start(args):
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            formatObj.generate()
+            use(formatobj)
 
         if format == '3':
             img1 = input('Enter image 1 path: ')
@@ -191,7 +195,7 @@ def start(args):
 									image2_path=img2,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            formatObj.generate()
+            use(formatobj)
 
     if args.mode == '2':
         if args.format is not None:
@@ -229,7 +233,7 @@ def start(args):
                 formatObj = Format1(image_path=img,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            formatObj.generate()
+            use(formatobj)
 
         if format == '2':
             if args.url1 is not None:
@@ -249,7 +253,7 @@ def start(args):
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            formatObj.generate()
+            use(formatobj)
 
         if format == '3':
             if args.url1 is not None:
@@ -315,4 +319,4 @@ def start(args):
 									image2_path=img2,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            formatObj.generate()
+            use(formatobj)
