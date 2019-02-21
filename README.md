@@ -23,11 +23,17 @@ Format of *img.json*
 }
 
 ```
+### Installation
+Project memes has been ported to package, now it can be installed using the following command from the memes directory.
+```
+pip install --editable .
+```
+This will install the memes project, Now it can be invoked using openmemes.
 
 ### Preprocessing
 Images in data folder can be preprocessed by running the following command.
 ```
-python preprocess.py --data="path" --width=600
+openmemes --preprocess=1 --data="path" --width=600
 ```
 Preprocessed images are scaled according to the width provided and converted to jpg format.
 
@@ -36,8 +42,13 @@ Index script maintains index.json which contains the description of images prese
 ```
 python index_data.py
 ```
+To force memedb indexing
+```
+openmemes --force_index=1
+```
+
 ### Searching
-With searchp script now you can search for images present index json file. Current version compares the search string to the description of images.
+With searchp script available under the search switch in package, now you can search for images present index json file. Current version compares the search string to the description of images.
 
 There are two types of search:
 
@@ -48,18 +59,18 @@ Each of the types have two modes:
 
 * Command Line
 ```
-python searchp.py --mode=0 --search_str=string
-python searchp.py --mode=0 --index_search=1 --search_idx=index
+openmemes --search=1 --mode=0 --search_str=string
+openmemes --search=1 --mode=0 --index_search=1 --search_idx=index
 ```
 
 * Interactive
 ```
-python searchp.py --mode=1
+openmemes --search=1 --mode=1
 ```
 ## Recommendation
 The script has ability to recommend memes based on the meme location and the word match in the description of the meme.
 ```
-python recommendation.py --meme=image_path
+openmemes --recommend=1 --meme=image_path
 ```
 
 ## Meme Generation
@@ -71,27 +82,33 @@ Text can be added either at the top `type 1`, at the bottom `type 2`, or at both
 [See more](format_details.md)
 
 ```
-python meme_generator.py --mode=0 --format=1 --image1=path --text1=text
+openmemes --generate=1 --mode=0 --format=1 --image1=path --text1=text
 ```
 
 ### Format 2
 Two images are merged vertically and texts can be added to the top of image 1 and to the bottom of image 2.
 [See more](format_details.md)
 ```
-python meme_generator.py --mode=0 --format=2 --image1=path --image2=path --text1=text --text2=text
+openmemes --generate=1 --mode=0 --format=2 --image1=path --image2=path --text1=text --text2=text
 ```
 ### Format 3
 Two images are merged horizontally and texts appear in four styles type 1, type 2, type 3, type 4.
 [See more](format_details.md)
 
 ```
-python meme_generator.py --mode=0 --format=3 --image1=path --image2 =path --text1=text --text2=text
+openmemes --generate=1 --mode=0 --format=3 --image1=path --image2 =path --text1=text --text2=text
 ```
 
 Above formats can also be accessed interactively using mode=1
 
 ```
-python meme_generator.py --mode=1 --format=1
+openmemes --generate=1 --mode=1 --format=1
+```
+
+## Note
+Even after porting to package, all the functionalities can be accessed using the bridge.py file without installation
+```
+python bridge.py <option-switch>=1 <arguments>
 ```
 
 ## Features
