@@ -67,58 +67,25 @@ The current version of the script has the ability to create memes in four differ
 The script can be either in interactive or command line depending on chosen mode.
 
 ### Format 1
-Text can be added to the top of the image in this format.
+Text can be added either at the top `type 1`, at the bottom `type 2`, or at both `type 3`.
+[See more](format_details.md)
 
 ```
 python meme_generator.py --mode=0 --format=1 --image1=path --text1=text
 ```
-### Format 2
-Text can be added to the bottom of the image.
 
+### Format 2
+Two images are merged vertically and texts can be added to the top of image 1 and to the bottom of image 2.
+[See more](format_details.md)
 ```
-python meme_generator.py --mode=0 --format=2 --image1=path --text1=text
+python meme_generator.py --mode=0 --format=2 --image1=path --image2=path --text1=text --text2=text
 ```
 ### Format 3
-Text can be added to both top and bottom of the image.
+Two images are merged horizontally and texts appear in four styles type 1, type 2, type 3, type 4.
+[See more](format_details.md)
 
 ```
-python meme_generator.py --mode=0 --format=3 --image1=path --text1=top --text2=bottom
-```
-### Format 4
-Two images are concatenated sideways and contains both the top and bottom text.
-
-```
-python meme_generator.py --mode=0 --format=4 --image1=path --image2=path --text1=top --text2=bottom
-```
-### Format 5
-Two images are concatenated sideways and text is added as shown below.
-
-```
-# For memes having the following layouts, use the respective commands
-# Type 1:    _______________________
-#            |    Long top text    |
-#            |          |          |
-#            |          |          |
-#            |   Text   |   Text   |
-#            |__________|__________|
-
-python meme_generator.py --mode 0 --format 5 \
---text1  "<text_spread_on_top>" \
---text2 "<bottom_text_for_image_on_left>","<bottom_text_for_image_on_right>" \
---image1 <path_to_image1> --image2 <path_to_image2>
-
-
-# Type 2:    ______________________
-#            |    Text  |  Text   |
-#            |          |         |
-#            |          |         |
-#            |  Long bottom text  |
-#            |____________________|
-
-python meme_generator.py --mode 0 --format 5 \
---text1 "<upper_text_for_image_on_left>","<upper_text_for_image_on_right>" \
---text2 "<text_spread_in_bottom>" \
---image1 <path_to_image1> --image2 <path_to_image2>
+python meme_generator.py --mode=0 --format=3 --image1=path --image2 =path --text1=text --text2=text
 ```
 
 Above formats can also be accessed interactively using mode=1

@@ -37,11 +37,11 @@ class Format1:
         elif self.bottom_text:
 
             image = text_in_bottom(self.bottom_text, img)
-        
+
         #image.save('meme-' + img.filename.split(os.sep)[-1])
         path, imagename =  os.path.split(img.filename)
         image.save(os.path.join(path,'meme-' + imagename))
-        image.show()
+        return image
 
 format1type1 = """
 Type 1: __________________

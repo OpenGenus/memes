@@ -14,6 +14,10 @@ def use(formatObj):
 	image = formatObj.generate()
 	image.show()
 
+def use(formatObj):
+	image = formatObj.generate()
+	image.show()
+
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
 
