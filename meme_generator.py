@@ -10,25 +10,9 @@ from preprocess import preprocessImages
 import urllib.request
 import logo
 
-parser = arg.ArgumentParser('Meme Generator')
-
-if sys.argv[1] == '--help' or sys.argv[1] == '-h':
-	logo.print_logo()
-
-parser.add_argument('--mode', default=0, help='Choose from two modes: 0-Command line 1-Interactive 2-URL')
-
-parser.add_argument('--url1', default=None, help='Enter URL for first image')
-parser.add_argument('--url2', default=None, help='Enter URL for second image')
-parser.add_argument('--format', default=None, help='Enter the format type')
-parser.add_argument('--image1', type=str, default=None, help='Enter the image path for 1st image')
-parser.add_argument('--image2', type=str, default=None, help='Enter the image path for 2nd image')
-parser.add_argument('--text1', type=str, default=None, help='Enter text1')
-parser.add_argument('--text2', type=str, default=None, help='Enter text2')
-parser.add_argument('--random', type=str, default=None, help='Enter either True or False required for format-0')
-
-args = parser.parse_args()
-
-# Download image from URL.
+def use(formatObj):
+	image = formatObj.generate()
+	image.show()
 
 def use(formatObj):
 	image = formatObj.generate()
@@ -55,7 +39,7 @@ def random_meme(show='True'):
 
 # Main Function
 
-if __name__ == '__main__':
+def start(args):
     formatObj = None
     if args.mode == '0':
         if args.format == '0':

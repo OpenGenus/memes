@@ -23,7 +23,7 @@ for i in range(0,x):
 		else:
 			t[words] = cnt
 			m[t[words]].append(i)
-			cnt+=1		
+			cnt+=1
 #print(m)
 
 with open(os.path.join(indexpath,'searchtrie.json'), 'w') as f:

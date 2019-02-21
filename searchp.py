@@ -8,22 +8,8 @@ from collections import defaultdict
 import logo
 from difflib import get_close_matches
 
-parser = arg.ArgumentParser('searchp')
 currentpath = os.path.dirname(os.path.abspath(__file__))
 indexpath = os.path.join(currentpath, 'index')
-
-
-if sys.argv[1] == '--help' or sys.argv[1] == '-h':
-	logo.print_logo()
-
-parser.add_argument('--mode', default=0, help='Choose from two modes: 0-Command line 1-Interactive')
-parser.add_argument('--search_str', type=str, default=None, help='Enter search string: ')
-parser.add_argument('--index_search', type=int, default=0, help='Choose 1 to enable searching images from their indices')
-parser.add_argument('--search_idx', default=0, help='Enter image index: ')
-parser.add_argument('--result', type=int, default=0,  help='Enter number of images to display: ')
-parser.add_argument('--display_info', default=0, help='Enter result format 0-image(default) 1-text description: ')
-
-args = parser.parse_args()
 
 l = pygtrie.CharTrie()
 p = defaultdict(list)
@@ -38,7 +24,7 @@ with open(os.path.join(indexpath,'index.json')) as f:
 	data = json.load(f)
 
 
-def str_search(inp):
+def str_search(inp, args):
 	image_idx = list()
 	inp = inp.split(' ')
 
@@ -66,7 +52,7 @@ def str_search(inp):
 			pass
 
 	if len(image_idx)!=0:
-		display(image_idx)
+		display(image_idx, args)
 	else:
 		print("This meme or simmilar doesn't exist in our DB")
 	'''
@@ -75,7 +61,7 @@ def str_search(inp):
 		Image.open(file).show()
 '''
 
-def idx_search(index):
+def idx_search(index, args):
 
 	display(index,string_search=False)
 	'''
@@ -84,7 +70,7 @@ def idx_search(index):
 		Image.open(file).show()
 '''
 
-def display(indices,string_search=True):
+def display(indices,args,string_search=True):
 	search_result_json(indices)
 	#print(args.result)
 	index_count = len(indices)
@@ -125,42 +111,41 @@ def search_result_json(indices):#stores all search results
               for (w, x, y) in zip(data1, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
 
-
-if args.index_search == 0:
-	if args.mode == '0':
-		if args.search_str is not None:
-			inp = args.search_str
-			str_search(inp)
+def start(args):
+	if args.index_search == 0:
+		if args.mode == '0':
+			if args.search_str is not None:
+				inp = args.search_str
+				str_search(inp, args)
+			else:
+				print('Missing arguments')
+		elif args.mode == '1':
+			logo.print_logo()
+			inp = input('Enter the search string: ')
+			str_search(inp, args)
 		else:
-			print('Missing arguments')
-	elif args.mode == '1':
-		logo.print_logo()
-		inp = input('Enter the search string: ')
-		str_search(inp)
-	else:
-		print('Unknown arguments')
+			print('Unknown arguments')
 
-elif args.index_search == 1:
+	elif args.index_search == 1:
 
-	if args.mode == '0':
+		if args.mode == '0':
 
-		if args.search_idx is not None:
-			index = args.search_idx
-			idx_search(index)
+			if args.search_idx is not None:
+				index = args.search_idx
+				idx_search(index, args)
 
+			else:
+				print('Missing arguments')
+
+		elif args.mode == '1':
+			logo.print_logo()
+			index = input('Enter image index: ')
+			idx_search(index, args)
 		else:
-			print('Missing arguments')
-
-	elif args.mode == '1':
-		logo.print_logo()
-		index = input('Enter image index: ')
-		idx_search(index)
+			print('Unknown argument')
 
 	else:
 		print('Unknown argument')
 
-else:
-	print('Unknown argument')
-
-#print(sorted(l['Tyr':]))
-#print(p[str(l['Tyrion'])]))
+	#print(sorted(l['Tyr':]))
+	#print(p[str(l['Tyrion'])]))
