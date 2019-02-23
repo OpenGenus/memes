@@ -1,3 +1,9 @@
+########################
+##### SEARCH PHOTO #####
+########################
+
+
+# This service searches a meme using the available options like search using a string etc.
 import os
 import sys
 import pygtrie as pygtrie
@@ -24,6 +30,7 @@ with open(os.path.join(indexpath,'index.json')) as f:
 	data = json.load(f)
 
 
+# This procedure searches and serves the image index to display procedure
 def str_search(inp, args):
 	image_idx = list()
 	inp = inp.split(' ')
@@ -61,6 +68,7 @@ def str_search(inp, args):
 		Image.open(file).show()
 '''
 
+# This procedure searches meme based on index and serves it to display procedure
 def idx_search(index, args):
 
 	display(index,string_search=False)
@@ -70,6 +78,7 @@ def idx_search(index, args):
 		Image.open(file).show()
 '''
 
+# This procedure displays the meme associated with the index sent to it.
 def display(indices,args,string_search=True):
 	search_result_json(indices)
 	#print(args.result)
@@ -111,6 +120,7 @@ def search_result_json(indices):#stores all search results
               for (w, x, y) in zip(data1, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
 
+# This is the end point for search service
 def start(args):
 	if args.index_search == 0:
 		if args.mode == '0':

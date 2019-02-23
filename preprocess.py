@@ -1,7 +1,12 @@
+########################
+###### PREPROCESS ######
+########################
+
 import os
 from PIL import Image
 import argparse as arg
 
+#This perprocess images so that they can be consumed by other services
 def preprocessImages(imagePath, imageWidth=600):
         img = Image.open(imagePath)
         wpercent = imageWidth / float(img.size[0])
@@ -9,10 +14,14 @@ def preprocessImages(imagePath, imageWidth=600):
         img = img.resize((imageWidth, hsize), Image.ANTIALIAS)
         img.convert('RGB').save(imagePath)
 
+#This is the endpoint of preprocess service for the bridge
 def start(args):
     basewidth = args.width
     rootDir = args.data
 
+    # Iterating through the images present and removing duplicates
+    # and processing them using preprocessImages
+    
     for (dirName, subdirList, fileList) in os.walk(rootDir):
         for fname in fileList:
             ext = os.path.splitext(fname)[-1].lower()

@@ -1,3 +1,9 @@
+########################
+###### INDEXING ########
+########################
+
+#This service contains procedure to generate indexes of certain data to be used by other services
+
 import os
 import argparse as arg
 import json
@@ -40,6 +46,8 @@ for (subdir, dirs, files) in os.walk(dirName):
 cat = []
 path_cat = []
 description_cat=[]
+
+#Indexing data based on categories 
 def category_index():
   for (subdir, dirs, files) in os.walk(dirName):
     for file in files:
@@ -54,7 +62,6 @@ child_cat = []
 parent = []
 
 def heirarchy():
-
   for (subdir, dirs, files) in os.walk(dirName):
     for file in files:
         if os.path.exists(subdir + os.sep + 'data.txt'):
@@ -86,6 +93,7 @@ with open(os.path.join(indexpath, 'index.json'), 'w') as f:
 
 updateTime = time.ctime(max(os.stat(root).st_mtime for root,_,_ in os.walk('.\\data')))
 
+#This is the procedure to generate memedb json, that stores the meme data as json {meme_desc : index}
 def UpdateMemeDb():
     with open(os.path.join(indexpath,'memedb.json')) as f:
         index=0
@@ -107,6 +115,8 @@ def UpdateMemeDb():
     with open(os.path.join(indexpath,'memedb.json'), 'w') as f:
             json.dump(memeData, f, sort_keys=False, indent=4, ensure_ascii=False)
 
+#This is the endpoint for force_index flag
+#This forces openmemes to log changes with the use of timestamp
 def start(force):
     try:
         with open(os.path.join(indexpath,'timestamp.json')) as f:

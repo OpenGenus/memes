@@ -1,3 +1,11 @@
+########################
+#### MEME_GENERATOR ####
+########################
+
+'''
+This service is the backbone for generating the memes
+This service uses format specifications from ./formats to generate memes
+'''
 import argparse as arg
 import os
 import random
@@ -10,10 +18,7 @@ from preprocess import preprocessImages
 import urllib.request
 import logo
 
-def use(formatObj):
-	image = formatObj.generate()
-	image.show()
-
+# This function uses formatObj returned from the format based on choice and uses it to show the image
 def use(formatObj):
 	image = formatObj.generate()
 	image.show()
@@ -37,8 +42,7 @@ def random_meme(show='True'):
                            num_of_images)]['description'])
 
 
-# Main Function
-
+# End point for this service
 def start(args):
     formatObj = None
     if args.mode == '0':

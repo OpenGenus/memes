@@ -1,3 +1,8 @@
+########################
+#####  STATISTICS ######
+########################
+
+# This service generates graphical stats for a directory
 import os
 import argparse
 import math
@@ -18,7 +23,7 @@ def pieChart(display,fileSizes):
         count = 0              #for moving through colorSequence
         font = ImageFont.truetype("calibri.ttf",size = 25)
         magnitude = size/4
-        
+
         for formatName in fileSizes:
                 if fileSizes[formatName] != 0:
                         newAngle = (fileSizes[formatName]/total)*360
@@ -84,5 +89,3 @@ def main():
 
 if __name__ == "__main__":
         main()
-
-

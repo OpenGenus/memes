@@ -1,3 +1,15 @@
+########################
+###### UTILITIES #######
+########################
+
+'''
+This service provides additional services to users
+# 1. Setting image as desktop background
+# 2. Uploading image to Imgur
+# 3. Uploading image to twitter
+# 4. Uploading image to facebook
+'''
+
 import os
 import sys
 import ctypes
@@ -16,6 +28,7 @@ from TwitterAPI import TwitterAPI
 # imports for facebook
 from facebook import GraphAPI
 
+# Sets meme to desktop background
 def set_desktop_background(img_path):
     platform = sys.platform
 
@@ -51,6 +64,7 @@ def set_desktop_background(img_path):
             os.system("feh --bg-scale " + img_path)
 
 
+# Upload meme to imgur
 def upload_to_imgur(img_path):
     config = ConfigParser()
     config.read('auth.ini')
@@ -117,6 +131,7 @@ def upload_to_imgur(img_path):
             print('Upload Successful! Check at', response['link'])
 
 
+# Uploads meme to twitter
 def upload_to_twitter(img_path):
 
     headers = {
@@ -197,6 +212,7 @@ def upload_to_twitter(img_path):
         else:
             print('Status upload failed:', res.text)
 
+# Upload meme to facebook
 def upload_to_facebook(img_path):
     config = ConfigParser()
     config.read('auth.ini')
@@ -205,7 +221,7 @@ def upload_to_facebook(img_path):
     app_key_secret = config.get('facebook_credentials', 'app_key_secret')
     user_access_token = config.get('facebook_credentials', 'user_access_token')
     page_id = config.get('facebook_credentials', 'page_id')
-    
+
     graph = GraphAPI(user_access_token)
 
     resp = graph.get('me/accounts')

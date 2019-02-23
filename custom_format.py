@@ -1,3 +1,8 @@
+########################
+#### Custom_Formats ####
+########################
+
+# This uses manipulation service giving life to a meme by putting picture and text in various arrangements (Custom)
 from manipulation import *
 
 class CustomFormat:

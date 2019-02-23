@@ -1,3 +1,7 @@
+########################
+### RECOMMENDATIONS ####
+########################
+
 import argparse as arg
 import os
 import time
@@ -7,6 +11,7 @@ import colorama
 
 colorama.init()
 
+# Procedure for generating a match score for two images
 def matchScore(first, second, secondPath, json_fail, descExist):
     score = 0
     #creating a match score based on common descriptions
@@ -35,6 +40,7 @@ def matchScore(first, second, secondPath, json_fail, descExist):
 
     return score
 
+# This procedure generates a list of recommended memes based on their matchScore
 def createRecommendations(final):
     memes_map = {}
     for item in final:
@@ -55,11 +61,15 @@ def createRecommendations(final):
         recommended.append(value)
     return recommended
 
+# Returns name of file present on a path
 def fileName(path):
     path = path[:path.rindex('.'):]
     name = path.split('\\')[-1]
     return name
 
+# This is the endpoint for recommend service
+# It takes a path and from the image present on the meme,
+# Uses matchScore and createRecommendations to present the list of recommendations to the user
 
 def start(path):
     image_name = fileName(path)
