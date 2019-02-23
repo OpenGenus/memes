@@ -60,8 +60,9 @@ class Format3:
 
             final_img = image_join_along_breadth(img1, img2)
 
-        final_img.save('meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split(
-			'.')[0], os.path.basename(self.image2_path).split('.')[0]))
+        final_img.filename ='meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split(
+			'.')[0], os.path.basename(self.image2_path).split('.')[0])
+        final_img.save(final_img.filename)
         return final_img
 
 format3type1 = """

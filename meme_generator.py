@@ -33,7 +33,11 @@ args = parser.parse_args()
 
 def use(formatObj):
     image = formatObj.generate()
-    img = logo_img(image.filename, 'data/got_memes/OpenGenus.png')
+    add_logo(image)
+
+
+def add_logo(image):
+    img = logo_img(image.filename, 'data/OpenGenus.png')
     img = logo_txt(img.filename, 'OpenGenus')
     img.show()
 
@@ -248,7 +252,7 @@ if __name__ == '__main__':
 									image2_path=img2,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            use(formatobj)
+            use(formatObj)
 
     if args.mode == '2':
         if args.format is not None:
