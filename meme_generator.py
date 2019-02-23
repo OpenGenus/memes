@@ -10,47 +10,43 @@ from preprocess import preprocessImages
 import urllib.request
 import logo
 
-
 def use(formatObj):
-    image = formatObj.generate()
-    meme_with_logo = add_logo(image)
+    meme_img = formatObj.generate()
+    meme_with_logo = add_logo(meme_img)
+    meme_with_logo.save(meme_with_logo.filename)
     meme_with_logo.show()
 
 
-def add_logo(image):
-    img = logo_img(image.filename, 'data/OpenGenus.png')
-    img = logo_txt(img.filename, 'OpenGenus')
+def add_logo(img):
+    img = add_logo_img(img, 'data/OpenGenus.png')
+    img = add_logo_txt(img, 'OpenGenus')
     return img
 
 
-
-def logo_img(meme_img_path, logo_img_path):
-    base_image = Image.open(meme_img_path)
+def add_logo_img(meme_img, logo_img_path):
     logo_img = Image.open(logo_img_path)
     w, h = logo_img.size
     logo_img = logo_img.resize((int(w/2), int(h/2)), Image.ANTIALIAS)
-    width, height = base_image.size
-    mbox = base_image.getbbox()
+    width, height = meme_img.size
+    mbox = meme_img.getbbox()
     sbox = logo_img.getbbox()
-    transparent = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+    meme_logo = Image.new('RGBA', (width, height), (0, 0, 0, 0))
     position = (mbox[2] - sbox[2] - 5, mbox[3] - sbox[3] - 30)
-    transparent.paste(base_image, (0, 0))
-    transparent.paste(logo_img, position, mask=logo_img)
-    transparent.filename = meme_img_path[:-4]+'.png'
-    transparent.save(transparent.filename)
-    return transparent
+    meme_logo.paste(meme_img, (0, 0))
+    meme_logo.paste(logo_img, position, mask=logo_img)
+    meme_logo.filename = meme_img.filename[:-4]+'.png'
+    return meme_logo
 
 
-def logo_txt(img_path, txt):
-    base = Image.open(img_path).convert('RGBA')
-    new_img = Image.new('RGBA', base.size, (255, 255, 255, 0))
+def add_logo_txt(meme_logo, txt):
+    meme_logo_opengenus = Image.new('RGBA', meme_logo.size, (255, 255, 255, 0))
     fnt = ImageFont.truetype('./impact/impact.ttf', 20)
-    d = ImageDraw.Draw(new_img)
-    y = base.size[0] - 100
-    x = base.size[1] - 35
+    d = ImageDraw.Draw(meme_logo_opengenus)
+    y = meme_logo.size[0] - 100
+    x = meme_logo.size[1] - 35
     d.text((y, x), txt, font=fnt, fill=(255, 255, 255, 200))
-    out_img = Image.alpha_composite(base, new_img)
-    out_img.save(img_path)
+    out_img = Image.alpha_composite(meme_logo, meme_logo_opengenus)
+    out_img.filename = meme_logo.filename
     return out_img
 
 def download(url, img_name):
