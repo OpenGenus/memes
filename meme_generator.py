@@ -12,12 +12,10 @@ import logo
 
 parser = arg.ArgumentParser('Meme Generator')
 
-
 if sys.argv[1] == '--help' or sys.argv[1] == '-h':
 	logo.print_logo()
 
 parser.add_argument('--mode', default=0, help='Choose from two modes: 0-Command line 1-Interactive 2-URL')
-
 parser.add_argument('--url1', default=None, help='Enter URL for first image')
 parser.add_argument('--url2', default=None, help='Enter URL for second image')
 parser.add_argument('--format', default=None, help='Enter the format type')
@@ -30,7 +28,6 @@ parser.add_argument('--random', type=str, default=None, help='Enter either True 
 args = parser.parse_args()
 
 # Download image from URL.
-
 
 def use(formatObj):
     meme_img = formatObj.generate()
@@ -71,6 +68,7 @@ def add_logo_txt(meme_logo, txt):
     out_img.filename = meme_logo.filename
     return out_img
 
+  
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
 
@@ -92,7 +90,7 @@ def random_meme(show='True'):
 
 # Main Function
 
-if __name__ == '__main__':
+def start(args):
     formatObj = None
     if args.mode == '0':
         if args.format == '0':

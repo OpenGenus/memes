@@ -4,15 +4,8 @@ import time
 import json
 from termcolor import *
 import colorama
-from index_data import invokeUpdate
 
 colorama.init()
-parser = arg.ArgumentParser('Recommendation')
-
-parser.add_argument('--meme', type=str, default=None, help='Enter Image path for the meme')
-parser.add_argument('--force_index', type=int, default=0, help="Enter 1 to force indexing")
-args = parser.parse_args()
-path = args.meme
 
 def matchScore(first, second, secondPath, json_fail, descExist):
     score = 0
@@ -67,55 +60,57 @@ def fileName(path):
     name = path.split('\\')[-1]
     return name
 
-image_name = fileName(path)
 
-json_path = path[:path.rindex('.'):] + '.json' # Removing image extension and adding json to make path for json file
+def start(path):
+    image_name = fileName(path)
 
-json_fail = False
-# Trying to set description assuming json file exists for the Image
-try:
-    with open(json_path) as f:
-        data = json.load(f)
-        description = data[image_name]['description']
+    json_path = path[:path.rindex('.'):] + '.json' # Removing image extension and adding json to make path for json file
 
-# Setting path as description if json is not present
-except:
-    description = path
-    json_fail = True
+    json_fail = False
+    # Trying to set description assuming json file exists for the Image
+    try:
+        with open(json_path) as f:
+            data = json.load(f)
+            description = data[image_name]['description']
 
-# Now we have got the description to match with other images and create some Recommendations
-final = []
+    # Setting path as description if json is not present
+    except:
+        description = path
+        json_fail = True
 
-for root, dirs, files in os.walk('.\\data'):
-    for file in files:
-        descExist = False
-        cur_file = os.path.join(root, file)
-        if file.endswith("json") and json_fail == False:
-            with open(cur_file) as f:
-                data = json.load(f)
-                cur_description = data[fileName(cur_file)]['description']
-                descExist = True
+    # Now we have got the description to match with other images and create some Recommendations
+    final = []
 
-        elif file.endswith(("jpg", "jpeg", "png")):
-            cur_description = os.path.join(root, file)
-        else:
-            continue
-        score = matchScore(cur_description, description, path, json_fail, descExist)
-        if(score > 0):
-            final.append((score, fileName(file), cur_file))
+    for root, dirs, files in os.walk('.\\data'):
+        for file in files:
+            descExist = False
+            cur_file = os.path.join(root, file)
+            if file.endswith("json") and json_fail == False:
+                with open(cur_file) as f:
+                    data = json.load(f)
+                    cur_description = data[fileName(cur_file)]['description']
+                    descExist = True
 
-recommended = createRecommendations(final)
-recommended.sort(reverse=True) #based on score
+            elif file.endswith(("jpg", "jpeg", "png")):
+                cur_description = os.path.join(root, file)
+            else:
+                continue
+            score = matchScore(cur_description, description, path, json_fail, descExist)
+            if(score > 0):
+                final.append((score, fileName(file), cur_file))
 
-# Indexing recommended memes
+    recommended = createRecommendations(final)
+    recommended.sort(reverse=True) #based on score
 
-if(len(recommended))==0:
-    cprint("\n** Sorry, We have no recommendations for you currently ** \n", 'red')
-else:
-    cprint("\n** We have generated some recommendations, have a look on these memes ** \n", 'green')
-    cprint("Index \t Name \t\t\t Location \n", 'green')
-    index=1
-    for meme in recommended:
-        if meme[1]!=path:
-            print(index,' --> ', fileName(meme[1]), '\t', meme[1], '\n')
-            index+=1
+    # Indexing recommended memes
+
+    if(len(recommended))==0:
+        cprint("\n** Sorry, We have no recommendations for you currently ** \n", 'red')
+    else:
+        cprint("\n** We have generated some recommendations, have a look on these memes ** \n", 'green')
+        cprint("Index \t Name \t\t\t Location \n", 'green')
+        index=1
+        for meme in recommended:
+            if meme[1]!=path:
+                print(index,' --> ', fileName(meme[1]), '\t', meme[1], '\n')
+                index+=1
