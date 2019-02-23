@@ -40,9 +40,8 @@ class Format1:
 
         #image.save('meme-' + img.filename.split(os.sep)[-1])
         path, imagename =  os.path.split(img.filename)
-        image.filename = os.path.join(path,'meme-' + imagename)
-        image.save(image.filename)
-        return image
+        img.filename = os.path.join(path,'meme-' + imagename)
+        return img
 
 format1type1 = """
 Type 1: __________________

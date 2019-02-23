@@ -28,7 +28,7 @@ class Format2:
         top_text_image = text_on_top(self.top_text, merge_image)
         final_img = text_in_bottom(self.bottom_text, top_text_image)
         final_img.filename = 'meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split('.')[0], os.path.basename(self.image2_path).split('.')[0])
-        final_img.save(final_img.filename)
+        # final_img.save(final_img.filename)
         return final_img
 
     # def generate(self):
