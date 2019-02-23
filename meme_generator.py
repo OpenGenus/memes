@@ -49,6 +49,7 @@ def add_logo_txt(meme_logo, txt):
     out_img.filename = meme_logo.filename
     return out_img
 
+
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
 
