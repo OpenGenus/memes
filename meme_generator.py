@@ -43,7 +43,6 @@ def add_logo(image):
     return img
 
 
-
 def logo_img(meme_img_path, logo_img_path):
     base_image = Image.open(meme_img_path)
     logo_img = Image.open(logo_img_path)
