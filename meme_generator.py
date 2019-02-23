@@ -10,20 +10,18 @@ from preprocess import preprocessImages
 import urllib.request
 import logo
 
-def use(formatObj):
-	image = formatObj.generate()
-	image.show()
-
 
 def use(formatObj):
     image = formatObj.generate()
-    add_logo(image)
+    meme_with_logo = add_logo(image)
+    meme_with_logo.show()
 
 
 def add_logo(image):
     img = logo_img(image.filename, 'data/OpenGenus.png')
     img = logo_txt(img.filename, 'OpenGenus')
-    img.show()
+    return img
+
 
 
 def logo_img(meme_img_path, logo_img_path):
