@@ -24,13 +24,11 @@ class Format2:
     def generate(self):
         img01 = Image.open(self.image1_path)
         img02 = Image.open(self.image2_path)
-
         merge_image = image_join_along_length(img01, img02, (320, 360), (320, 360))
         top_text_image = text_on_top(self.top_text, merge_image)
         final_img = text_in_bottom(self.bottom_text, top_text_image)
-
-
-        final_img.save('meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split('.')[0], os.path.basename(self.image2_path).split('.')[0]))
+        final_img.filename = 'meme-{}{}.jpg'.format(os.path.basename(self.image1_path).split('.')[0], os.path.basename(self.image2_path).split('.')[0])
+        # final_img.save(final_img.filename)
         return final_img
 
     # def generate(self):
