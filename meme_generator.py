@@ -20,8 +20,10 @@ import logo
 
 # This function uses formatObj returned from the format based on choice and uses it to show the image
 def use(formatObj):
+	# formatObj is recieved, contains information about text and image arrangements
 	image = formatObj.generate()
 	image.show()
+	#Shows the generated meme
 
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
@@ -29,6 +31,7 @@ def download(url, img_name):
 # Generates random meme.
 
 def random_meme(show='True'):
+	# Random meme generation with a show flag
     with open('index.json') as f:
         data = json.load(f)
     num_of_images = len(data['data'])
@@ -37,13 +40,21 @@ def random_meme(show='True'):
         random_idx = random.randint(1, num_of_images)
         folder = data['data'][random_idx]['location']
         Image.open(folder).show()
+
+		#If show flag is set, Image is shown
     else:
         print (data['data'][random.randint(1,
                            num_of_images)]['description'])
+		#information about random meme is shown
 
 
 # End point for this service
 def start(args):
+	'''
+	Uses args from bridge to select format and mode and,
+	based on themes args. A mode and format is selected,
+	generating a meme.
+	'''
     formatObj = None
     if args.mode == '0':
         if args.format == '0':
@@ -105,7 +116,7 @@ def start(args):
                 print("Missing arguements")
 
     if args.mode == '1':
-        logo.print_logo()
+        logo.print_logo() # Adds logo to Interactive mode
         if args.format is not None:
             format = args.format
         else:
@@ -328,3 +339,5 @@ def start(args):
 									top_text=top_text,
 									bottom_text=bottom_text)
             use(formatobj)
+
+			# This procedure calls use procedure to use formatObj ans generate and show the image

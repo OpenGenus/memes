@@ -47,7 +47,7 @@ cat = []
 path_cat = []
 description_cat=[]
 
-#Indexing data based on categories 
+#Indexing data based on categories
 def category_index():
   for (subdir, dirs, files) in os.walk(dirName):
     for file in files:
@@ -95,6 +95,7 @@ updateTime = time.ctime(max(os.stat(root).st_mtime for root,_,_ in os.walk('.\\d
 
 #This is the procedure to generate memedb json, that stores the meme data as json {meme_desc : index}
 def UpdateMemeDb():
+    # Walks through the data directory to update memedb
     with open(os.path.join(indexpath,'memedb.json')) as f:
         index=0
         memeData = json.load(f)
@@ -118,6 +119,7 @@ def UpdateMemeDb():
 #This is the endpoint for force_index flag
 #This forces openmemes to log changes with the use of timestamp
 def start(force):
+    # Takes force flag and based on flag value, memedb generation is managed
     try:
         with open(os.path.join(indexpath,'timestamp.json')) as f:
             data = json.load(f)

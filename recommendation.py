@@ -13,6 +13,14 @@ colorama.init()
 
 # Procedure for generating a match score for two images
 def matchScore(first, second, secondPath, json_fail, descExist):
+    '''
+    # Takes in certain arguments
+        1- First --> First meme's path/description
+        2- Second --> Second meme's path/description
+        3- secondPath --> Path of second image in case description does not exist
+        4- json_fail --> If first and second both are paths, this is set to True
+        5- descExist --> Flag showing that description for meme exist or not
+    '''
     score = 0
     #creating a match score based on common descriptions
     if (json_fail): # Both first and second are paths
@@ -39,9 +47,11 @@ def matchScore(first, second, secondPath, json_fail, descExist):
             pass
 
     return score
+    # Returns score of two image match
 
 # This procedure generates a list of recommended memes based on their matchScore
 def createRecommendations(final):
+    # Takes in final (A list of items to form meme_map and fill recommendation list)
     memes_map = {}
     for item in final:
         try:
@@ -61,6 +71,8 @@ def createRecommendations(final):
         recommended.append(value)
     return recommended
 
+    #Returns recommendation list
+
 # Returns name of file present on a path
 def fileName(path):
     path = path[:path.rindex('.'):]
@@ -72,6 +84,7 @@ def fileName(path):
 # Uses matchScore and createRecommendations to present the list of recommendations to the user
 
 def start(path):
+    # Takes path of meme
     image_name = fileName(path)
 
     json_path = path[:path.rindex('.'):] + '.json' # Removing image extension and adding json to make path for json file
@@ -124,3 +137,5 @@ def start(path):
             if meme[1]!=path:
                 print(index,' --> ', fileName(meme[1]), '\t', meme[1], '\n')
                 index+=1
+
+        # Generating a list of recommended memes

@@ -22,6 +22,7 @@ class CustomFormat:
         self.font_size = font_size
 
     def generate(self):
+        # Uses text_stack and image_stack and put_text procedure to form meme
         text_stack = self.texts.split(',')
         image_stack= list(map(Image.open,self.images.split(',')))
         operation_stack = self.operations.split(',')
@@ -53,7 +54,10 @@ class CustomFormat:
 
         img_col[0].show()
 
+        # Shows generated image
+
     def put_text(self, image):
+        # Requires an image to put text on
 
         res = input('Do you want to enter text to it?(top/bottom/no)')
 
@@ -69,6 +73,8 @@ class CustomFormat:
             pass
 
         return image
+
+        # Generates the image based on custom format.
 
     # def generate(self):
     #     conf, img = self.sequence()
