@@ -1,3 +1,9 @@
+########################
+####### BRIDGE #########
+########################
+
+# This acts as a bridge between the services and the launcher for the application
+
 import argparse as arg
 import sys
 import logo
@@ -47,7 +53,9 @@ parser.add_argument('--random', type=str, default=None, help='Enter either True 
 
 args = parser.parse_args()
 
+# This is the endpoint for setup to work and communicate to services
 def cli():
+	#uses command line args to invoke sevices
     if args.recommend:
         recommendation.start(args.meme)
     if args.force_index:

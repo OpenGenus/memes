@@ -1,3 +1,8 @@
+########################
+#####  STATISTICS ######
+########################
+
+# This service generates graphical stats for a directory
 import os
 import argparse
 import math
@@ -9,6 +14,8 @@ print()
 #print(fileSizes)
 #creates pie chart for fileSizes
 def pieChart(display,fileSizes):
+        # Display flag to show image
+        # List of file sizes for generating statistical data
         colorSequence = ["white","red","blue","green","yellow","brown","orange"]
         total = sum(fileSizes.values())
         size = 2000
@@ -18,7 +25,7 @@ def pieChart(display,fileSizes):
         count = 0              #for moving through colorSequence
         font = ImageFont.truetype("calibri.ttf",size = 25)
         magnitude = size/4
-        
+
         for formatName in fileSizes:
                 if fileSizes[formatName] != 0:
                         newAngle = (fileSizes[formatName]/total)*360
@@ -47,6 +54,8 @@ def pieChart(display,fileSizes):
         del draw
         image = image.resize((size//2,size//2))
         image.save('pieChart.png','PNG')
+
+        # Saving pieChart generated
 
 def main():
         parser = argparse.ArgumentParser('Statistics')
@@ -82,7 +91,7 @@ def main():
         print('Total data size:', data_size, 'bytes')
         print('Number of sub folders:', sub_dirs)
 
+        # Generates data about a directory's i
+
 if __name__ == "__main__":
         main()
-
-

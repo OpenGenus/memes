@@ -1,3 +1,9 @@
+########################
+######## SETUP #########
+########################
+
+# This serves as an installer for openmemes
+
 from setuptools import setup
 #-e,--editable <path/url>
 #Install a project in editable mode (i.e.  setuptools "develop mode") from a local project path.

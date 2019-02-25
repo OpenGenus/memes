@@ -1,3 +1,9 @@
+########################
+### RECOMMENDATIONS ####
+########################
+
+# Services for manipulating images
+
 from PIL import Image, ImageFont, ImageDraw
 import textwrap
 import os
