@@ -6,6 +6,7 @@
 This service is the backbone for generating the memes
 This service uses format specifications from ./formats to generate memes
 '''
+
 import argparse as arg
 import os
 import random
@@ -25,8 +26,7 @@ def use(formatObj):
     meme_with_logo.save(meme_with_logo.filename)
     meme_with_logo.show()
 
-
-# Takes img Nnd returns meme with logo image and text
+# Takes image and returns meme with logo image and text
 def add_logo(img):
     img = add_logo_img(img, 'data/OpenGenus.png')
     img = add_logo_txt(img, 'OpenGenus')
@@ -75,15 +75,15 @@ def random_meme(show='True'):
         random_idx = random.randint(1, num_of_images)
         folder = data['data'][random_idx]['location']
         Image.open(folder).show()
-
 		#If show flag is set, Image is shown
     else:
         print (data['data'][random.randint(1,
                            num_of_images)]['description'])
-		#information about random meme is shown
+		# Information about random meme is printed
 
 
 # End point for this service
+
 def start(args):
 	'''
 	Uses args from bridge to select format and mode and,
@@ -151,7 +151,7 @@ def start(args):
                 print("Missing arguements")
 
     if args.mode == '1':
-        logo.print_logo() # Adds logo to Interactive mode
+        logo.print_logo()  # Adds logo to Interactive mode
         if args.format is not None:
             format = args.format
         else:
@@ -192,7 +192,7 @@ def start(args):
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            use(formatobj)
+            use(formatObj)
 
         if format == '3':
             img1 = input('Enter image 1 path: ')
@@ -249,7 +249,7 @@ def start(args):
 									image2_path=img2,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            use(formatobj)
+            use(formatObj)
 
     if args.mode == '2':
         if args.format is not None:
@@ -374,5 +374,4 @@ def start(args):
 									top_text=top_text,
 									bottom_text=bottom_text)
             use(formatobj)
-
 			# This procedure calls use procedure to use formatObj ans generate and show the image
