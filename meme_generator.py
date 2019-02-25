@@ -18,13 +18,48 @@ from preprocess import preprocessImages
 import urllib.request
 import logo
 
-# This function uses formatObj returned from the format based on choice and uses it to show the image
+# Recieves formatObj and adds logo to the meme to save the meme
 def use(formatObj):
-	# formatObj is recieved, contains information about text and image arrangements
-	image = formatObj.generate()
-	image.show()
-	#Shows the generated meme
+    meme_img = formatObj.generate()
+    meme_with_logo = add_logo(meme_img)
+    meme_with_logo.save(meme_with_logo.filename)
+    meme_with_logo.show()
 
+
+# Takes img Nnd returns meme with logo image and text
+def add_logo(img):
+    img = add_logo_img(img, 'data/OpenGenus.png')
+    img = add_logo_txt(img, 'OpenGenus')
+    return img
+
+# Procedure for adding logo
+def add_logo_img(meme_img, logo_img_path):
+    logo_img = Image.open(logo_img_path)
+    w, h = logo_img.size
+    logo_img = logo_img.resize((int(w/2), int(h/2)), Image.ANTIALIAS)
+    width, height = meme_img.size
+    mbox = meme_img.getbbox()
+    sbox = logo_img.getbbox()
+    meme_logo = Image.new('RGBA', (width, height), (0, 0, 0, 0))
+    position = (mbox[2] - sbox[2] - 5, mbox[3] - sbox[3] - 30)
+    meme_logo.paste(meme_img, (0, 0))
+    meme_logo.paste(logo_img, position, mask=logo_img)
+    meme_logo.filename = meme_img.filename[:-4]+'.png'
+    return meme_logo
+
+# Procedure for adding logo text
+def add_logo_txt(meme_logo, txt):
+    meme_logo_opengenus = Image.new('RGBA', meme_logo.size, (255, 255, 255, 0))
+    fnt = ImageFont.truetype('./impact/impact.ttf', 20)
+    d = ImageDraw.Draw(meme_logo_opengenus)
+    y = meme_logo.size[0] - 100
+    x = meme_logo.size[1] - 35
+    d.text((y, x), txt, font=fnt, fill=(255, 255, 255, 200))
+    out_img = Image.alpha_composite(meme_logo, meme_logo_opengenus)
+    out_img.filename = meme_logo.filename
+    return out_img
+
+# Utility function to download image using an adress (URL)
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
 
