@@ -1,3 +1,9 @@
+########################
+#### MEME GENERATOR ####
+########################
+
+# This service contains procedure to generate memes
+
 import argparse as arg
 import os
 import random
@@ -10,19 +16,20 @@ from preprocess import preprocessImages
 import urllib.request
 import logo
 
+# This procedure uses formatObj to generate and show meme
 def use(formatObj):
     meme_img = formatObj.generate()
     meme_with_logo = add_logo(meme_img)
     meme_with_logo.save(meme_with_logo.filename)
     meme_with_logo.show()
 
-
+# Adds logo image and text to a meme
 def add_logo(img):
     img = add_logo_img(img, 'data/OpenGenus.png')
     img = add_logo_txt(img, 'OpenGenus')
     return img
 
-
+# Procedure for adding logo image
 def add_logo_img(meme_img, logo_img_path):
     logo_img = Image.open(logo_img_path)
     w, h = logo_img.size
@@ -37,7 +44,7 @@ def add_logo_img(meme_img, logo_img_path):
     meme_logo.filename = meme_img.filename[:-4]+'.png'
     return meme_logo
 
-
+# Procedure for adding logo text
 def add_logo_txt(meme_logo, txt):
     meme_logo_opengenus = Image.new('RGBA', meme_logo.size, (255, 255, 255, 0))
     fnt = ImageFont.truetype('./impact/impact.ttf', 20)
@@ -49,29 +56,33 @@ def add_logo_txt(meme_logo, txt):
     out_img.filename = meme_logo.filename
     return out_img
 
-
+# Utility function to download image from an address (URL)
 def download(url, img_name):
     urllib.request.urlretrieve(url, img_name+".jpg")
 
 # Generates random meme.
-
 def random_meme(show='True'):
     with open('index.json') as f:
         data = json.load(f)
     num_of_images = len(data['data'])
 
-    if show == 'True':
+    if show == 'True': # When show flag is set, the generated image is shown
         random_idx = random.randint(1, num_of_images)
         folder = data['data'][random_idx]['location']
         Image.open(folder).show()
-    else:
+    else: # When show flag is not set, Information about meme is printed
         print (data['data'][random.randint(1,
                            num_of_images)]['description'])
 
 
 # Main Function
-
+# End point of this service
 def start(args):
+    '''
+    Generates meme with different arrangement of text and image based on arguments.
+    # Mode - 0, 1
+    # Formats
+    '''
     formatObj = None
     if args.mode == '0':
         if args.format == '0':
@@ -356,3 +367,5 @@ def start(args):
 									top_text=top_text,
 									bottom_text=bottom_text)
             use(formatobj)
+
+            # Calls use function to generate and show images corresponging to formatObj generated
