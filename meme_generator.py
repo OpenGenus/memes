@@ -23,6 +23,17 @@ def use(formatObj):
     meme_with_logo.save(meme_with_logo.filename)
     meme_with_logo.show()
 
+#Includes Logo in Memes
+def add_logo_opaque(image):
+        logo = Image.open('opengenus_logo.png')
+        size= logo.size
+        nimg = logo.resize((int(size[0]/4),int(size[1]/4)))
+        n=image.size
+        k=int((n[0]-int(size[0]/4)))
+        g=int((n[1]-int(size[1]/4)))
+        image.paste(nimg, ((k),(g)))
+        return image
+
 # Adds logo image and text to a meme
 def add_logo(img):
     img = add_logo_img(img, 'data/OpenGenus.png')
