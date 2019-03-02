@@ -14,7 +14,11 @@ import preprocess
 import meme_generator
 
 
-if sys.argv[1] == '-h' or sys.argv[1] == '--help':
+if len(sys.argv)==1:
+	logo.print_logo()
+	print("Please refer to help section using openmemes --help / openmemes -h")
+
+elif sys.argv[1] == '-h' or sys.argv[1] == '--help':
 	logo.print_logo()
 
 parser = arg.ArgumentParser('bridge')
