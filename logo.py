@@ -12,3 +12,8 @@ def print_logo():
     print()
     cprint(figlet_format('OPENGENUS', font='basic'), 'yellow')
     cprint(figlet_format('MEMES', font='starwars'), 'green')
+
+def test_logo():
+    colorama.init()
+    print()
+    cprint(figlet_format('TEST', font='basic'), 'red')
