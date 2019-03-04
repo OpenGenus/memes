@@ -73,7 +73,7 @@ def str_search(inp, args):
 def idx_search(index, args):
 	# Takes index and args , index correspond to a unique meme
 	# This enables instand display of meme and setting string_search to False
-	display(index,string_search=False)
+	display(index,args,string_search=False)
 	'''
 	for idx in index:
 		file = data["data"][int(idx)]["location"]

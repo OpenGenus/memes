@@ -12,6 +12,7 @@ import index_data
 import searchp
 import preprocess
 import meme_generator
+import tests
 
 
 if len(sys.argv)==1:
@@ -55,6 +56,10 @@ parser.add_argument('--text1', type=str, default=None, help='Enter text1')
 parser.add_argument('--text2', type=str, default=None, help='Enter text2')
 parser.add_argument('--random', type=str, default=None, help='Enter either True or False required for format-0')
 
+## Test Services ##
+parser.add_argument('--test',type=int, default=0, help='Set this to 1 for running a diagnostic')
+parser.add_argument('--module', type=str, default=None, help='Enter module to run test')
+
 args = parser.parse_args()
 
 # This is the endpoint for setup to work and communicate to services
@@ -70,3 +75,5 @@ def cli():
         preprocess.start(args)
     if args.generate:
         meme_generator.start(args)
+    if args.test:
+        tests.start(args)
