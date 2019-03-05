@@ -160,7 +160,7 @@ def checkIndexing(args):
 
 def start(args):
 	logo.test_logo()
-	print(args.module)
+	print()
 	if args.module == 'indexing' or args.module==None:
 		checkIndexing(args)
 	if args.module == 'search' or args.module==None:
