@@ -7,19 +7,86 @@ from termcolor import *
 import colorama
 import index_data
 import time
+import os
+import meme_generator
 import searchp
+import preprocess
 import recommendation
 import logo
 
-logo.test_logo()
+def cleanup():
+	try:
+		for file in os.listdir('./'):
+			if file.endswith('.png') or file.endswith('.jpg'):
+				os.remove(file)
+		success()
+		print(currentTime(), '# Cleanup Success ')
+	except:
+		failed()
+		print(currentTime(), 'Cleanup Failed')
+
 def success():
 	cprint('# Success | ', 'green'),
+
 def failed():
 	cprint('> Failed | ', 'red'),
 
 def currentTime():
 	return time.ctime()
 
+def checkGeneration(args):
+	args.generate=1
+	args.mode = '0'
+	args.image1 = '.\\data\\got_memes\\images\\got01.jpg'
+	args.image2 = '.\\data\\got_memes\\images\\got02.jpg'
+	args.text1 = 'text 1'
+	args.text2 = 'text 2'
+
+	try:
+		args.format = '1'
+		meme_generator.start(args)
+		success()
+		print(currentTime(), 'Generation using format 1')
+		print(' \t + Meme Generated using format 1')
+	except:
+		failed()
+		print(currentTime(), 'Generation using format 1')
+		print(' \t + Resolve errors - meme_generator.py [start], formats/Format1')
+
+	try:
+		args.format = '2'
+		meme_generator.start(args)
+		success()
+		print(currentTime(), 'Generation using format 2')
+		print(' \t + Meme Generated using format 2')
+	except:
+		failed()
+		print(currentTime(), 'Generation using format 2')
+		print(' \t + Resolve errors - meme_generator.py [start], formats/Format2')
+
+	try:
+		args.format = '3'
+		meme_generator.start(args)
+		success()
+		print(currentTime(), 'Generation using format 3')
+		print(' \t + Meme Generated using format 3')
+	except:
+		failed()
+		print(currentTime(), 'Generation using format 3')
+		print(' \t + Resolve errors - meme_generator.py [start], formats/format3')
+
+def checkPreprocess(args):
+	args.width = 600
+	args.data = '.\\data'
+
+	try:
+		preprocess.start(args)
+		success()
+		print(currentTime(), 'Preprocessing')
+		print(' \t + Preprocessing files from .\\data directory')
+	except:
+		failed()
+		print(' \t + Preprocessing failed')
 def checkRecommendations(args):
 	# Checks for recommendation service
 	args.recommend=1
@@ -46,9 +113,6 @@ def checkRecommendations(args):
 		failed()
 		print(currentTime(), 'Recommendations for meme with string\n')
 		print(' \t + Resolve errors - Recommendation.py [*]\n')
-
-
-
 
 def checkSearch(args):
 	#Checking keyword based searching
@@ -95,6 +159,7 @@ def checkIndexing(args):
 		print(" \t + Resolve errors - index_data.py [start()] \n")
 
 def start(args):
+	logo.test_logo()
 	print()
 	if args.module == 'indexing' or args.module==None:
 		checkIndexing(args)
@@ -102,3 +167,8 @@ def start(args):
 		checkSearch(args)
 	if args.module == 'recommend' or args.module==None:
 		checkRecommendations(args)
+	if args.module == 'generate' or args.module==None:
+		checkGeneration(args)
+	if args.module == 'preprocess' or args.module==None:
+		checkPreprocess(args)
+	cleanup()
