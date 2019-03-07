@@ -77,16 +77,17 @@ def checkGeneration(args):
 
 def checkPreprocess(args):
 	args.width = 600
-	args.data = '.\\data'
+	args.data = '.\\data\\got_memes'
 
 	try:
 		preprocess.start(args)
 		success()
 		print(currentTime(), 'Preprocessing')
-		print(' \t + Preprocessing files from .\\data directory')
+		print(' \t + Preprocessing files from .\\data\\got_memes directory')
 	except:
 		failed()
 		print(' \t + Preprocessing failed')
+
 def checkRecommendations(args):
 	# Checks for recommendation service
 	args.recommend=1
@@ -161,6 +162,8 @@ def checkIndexing(args):
 def start(args):
 	logo.test_logo()
 	print()
+	if args.module == 'preprocess' or args.module==None:
+		checkPreprocess(args)
 	if args.module == 'indexing' or args.module==None:
 		checkIndexing(args)
 	if args.module == 'search' or args.module==None:
@@ -169,6 +172,4 @@ def start(args):
 		checkRecommendations(args)
 	if args.module == 'generate' or args.module==None:
 		checkGeneration(args)
-	if args.module == 'preprocess' or args.module==None:
-		checkPreprocess(args)
 	cleanup()
