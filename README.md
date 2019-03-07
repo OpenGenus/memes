@@ -104,6 +104,21 @@ Above formats can also be accessed interactively using mode=1
 ```
 openmemes --generate=1 --mode=1 --format=1
 ```
+## Testing
+The project can be tested for errors using the command
+```
+openmemes --test=1 --module=<module_name>
+```
+if all services are to be tested, --module argument is not required
+For testing a specific service set it to module args. example-
+```
+openmemes --test=1 --module=generate
+```
+Response - If something fails, expected point of error is also mentioned
+Example -
+1. Resolve - recommendation.py [ * ], * means check all part of recommendation.py file
+2. Resolve - meme_generator[start()],formats/format2 means error is expected in start() function of meme_generator
+	 and formats/format2
 
 ## Note
 Even after porting to package, all the functionalities can be accessed using the bridge.py file without installation
