@@ -116,8 +116,8 @@ openmemes --test=1 --module=generate
 ```
 Response - If something fails, expected point of error is also mentioned
 Example -
-1. Resolve - recommendation.py [ * ], * means check all part of recommendation.py file
-2. Resolve - meme_generator[start()],formats/format2 means error is expected in start() function of meme_generator
+* Resolve - recommendation.py [ * ], * means check all part of recommendation.py file
+* Resolve - meme_generator[start()],formats/format2 means error is expected in start() function of meme_generator
 	 and formats/format2
 
 ## Note
