@@ -14,6 +14,10 @@ import preprocess
 import recommendation
 import logo
 
+global failed_tests
+global passed_tests
+failed_tests = set([])
+passed_tests = set([])
 # Clean up routine
 def cleanup():
 	'''
@@ -51,6 +55,8 @@ def checkGeneration(args):
 		# image1, image2 -> Image paths (Set to arbitrary images)
 		# text1, text2 -> Texts (Set to sample texts)
 	'''
+	global failed_tests
+	global passed_tests
 	args.generate=1
 	args.mode = '0'
 	args.image1 = '.\\data\\got_memes\\images\\got01.jpg'
@@ -64,10 +70,13 @@ def checkGeneration(args):
 		success()
 		print(currentTime(), 'Generation using format 1')
 		print(' \t + Meme Generated using format 1')
+		passed_tests.add('Generate - Format1')
+
 	except:
 		failed()
 		print(currentTime(), 'Generation using format 1')
 		print(' \t + Resolve errors - meme_generator.py [start], formats/Format1')
+		failed_tests.add('Generate - Format1')
 
 	try:
 		args.format = '2'
@@ -75,10 +84,12 @@ def checkGeneration(args):
 		success()
 		print(currentTime(), 'Generation using format 2')
 		print(' \t + Meme Generated using format 2')
+		passed_tests.add('Generate - Format2')
 	except:
 		failed()
 		print(currentTime(), 'Generation using format 2')
 		print(' \t + Resolve errors - meme_generator.py [start], formats/Format2')
+		failed_tests.add('Generate - Format2')
 
 	try:
 		args.format = '3'
@@ -86,10 +97,12 @@ def checkGeneration(args):
 		success()
 		print(currentTime(), 'Generation using format 3')
 		print(' \t + Meme Generated using format 3')
+		passed_tests.add('Generate - Format3')
 	except:
 		failed()
 		print(currentTime(), 'Generation using format 3')
 		print(' \t + Resolve errors - meme_generator.py [start], formats/format3')
+		failed_tests.add('Generate - Format3')
 
 # Routine to check preprocessing service
 def checkPreprocess(args):
@@ -106,9 +119,11 @@ def checkPreprocess(args):
 		success()
 		print(currentTime(), 'Preprocessing')
 		print(' \t + Preprocessing files from .\\data\\got_memes directory')
+		passed_tests.add('preprocess')
 	except:
 		failed()
 		print(' \t + Preprocessing failed')
+		failed_tests.add('preprocess')
 
 # Routine to check recommendation service
 def checkRecommendations(args):
@@ -121,10 +136,12 @@ def checkRecommendations(args):
 		success()
 		print(currentTime(), 'Recommendations for meme with path')
 		print(' \t + Recommendations generated \n')
+		passed_tests.add('Recommendation - Path')
 	except:
 		failed()
 		print(currentTime(), 'Recommendations for meme with path')
 		print(' \t + Resolve errors - Recommendation.py [*]\n')
+		failed_tests.add('Recommendation - Path')
 
 	# Check with args.meme as string
 	try:
@@ -133,10 +150,12 @@ def checkRecommendations(args):
 		success()
 		print(currentTime(), 'Recommendations for meme with string')
 		print(' \t + Recommendations generated\n')
+		passed_tests.add('Recommendation - String')
 	except:
 		failed()
 		print(currentTime(), 'Recommendations for meme with string\n')
 		print(' \t + Resolve errors - Recommendation.py [*]\n')
+		failed_tests.add('Recommendation - String')
 
 # Routine to check search service
 def checkSearch(args):
@@ -150,10 +169,12 @@ def checkSearch(args):
 		success()
 		print(currentTime(), 'Search with mode 0 , keyword Tyrion')
 		print(' \t + Photo displayed\n')
+		passed_tests.add('search - keyword')
 	except:
 		failed()
 		print(currentTime(), 'Search with mode 0, keyword Tyrion')
 		print(" \t + Resolve errors - search.py [start() & str_search ]\n")
+		failed_tests.add('search - keyword')
 
 	# Checking index based searching
 	try:
@@ -166,10 +187,12 @@ def checkSearch(args):
 		success()
 		print(currentTime(), "--> Search with mode 0 , index value 1")
 		print(" \t + Photo displayed\n")
+		passed_tests.add('search - index')
 	except:
 		failed()
 		print(currentTime(), 'Search with mode 0, index_search with value 1')
 		print(' \t + Resolve errors - search.py [start() & idx_search ]\n')
+		failed_tests.add('search - index')
 
 # Routine to check indexing
 def checkIndexing(args):
@@ -179,13 +202,17 @@ def checkIndexing(args):
 		index_data.start(args.force_index)
 		success()
 		print(currentTime(), 'Indexing\n')
+		passed_tests.add('Indexing')
 	except:
 		failed()
 		print(currentTime(), 'Indexing')
 		print(" \t + Resolve errors - index_data.py [start()] \n")
+		failed_tests.add('Indexing')
 
 # End point for test (Accessed by bridge)
 def start(args):
+	global passed_tests
+	global failed_tests
 	'''
 	Checks are run in this order to avoid missing content and support other services
 	'''
@@ -202,3 +229,18 @@ def start(args):
 	if args.module == 'recommend' or args.module==None:
 		checkRecommendations(args)
 	cleanup()
+
+	# Generating test report
+	failedTests = len(failed_tests)
+	passedTests = len(passed_tests)
+	totalTests = failedTests + passedTests
+
+	print()
+	cprint('---- Test Report ---- ' + str(passedTests) + '/' + str(totalTests), 'yellow')
+	cprint('Passed Tests ', 'green')
+	for test in passed_tests:
+		cprint(' + '+test, 'green')
+	print()
+	cprint('Failed Tests', 'red')
+	for test in failed_tests:
+		cprint(' - '+test, 'red')
