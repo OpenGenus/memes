@@ -231,9 +231,12 @@ def start(args):
 	cleanup()
 
 	# Generating test report
+	failedTests = len(failed_tests)
+	passedTests = len(passed_tests)
+	totalTests = failedTests + passedTests
 
 	print()
-	cprint('---- Test Report ----', 'yellow')
+	cprint('---- Test Report ---- ' + str(passedTests) + '/' + str(totalTests), 'yellow')
 	cprint('Passed Tests ', 'green')
 	for test in passed_tests:
 		cprint(' + '+test, 'green')
