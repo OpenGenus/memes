@@ -11,6 +11,11 @@ import colorama
 
 colorama.init()
 
+if os.sep == '\':
+    seperation = '\\'
+else:
+    seperation = os.sep
+
 # Procedure for generating a match score for two images
 def matchScore(first, second, secondPath, json_fail, descExist):
     '''
@@ -24,15 +29,15 @@ def matchScore(first, second, secondPath, json_fail, descExist):
     score = 0
     #creating a match score based on common descriptions
     if (json_fail): # Both first and second are paths
-        first = first.split('\\')
-        second = second.split('\\')
+        first = first.split(seperation)
+        second = second.split(seperation)
     else: # second is a description and first may or may not be a description
         if descExist:
             first = first.split()
             second = second.split()
         else:
-            first = first.split('\\')
-            second = secondPath.split('\\')
+            first = first.split(seperation)
+            second = secondPath.split(seperation)
     word_map = {}
     for word in first:
         try:
@@ -76,7 +81,7 @@ def createRecommendations(final):
 # Returns name of file present on a path
 def fileName(path):
     path = path[:path.rindex('.'):]
-    name = path.split('\\')[-1]
+    name = path.split(seperation)[-1]
     return name
 
 # This is the endpoint for recommend service
@@ -104,7 +109,7 @@ def start(path):
     # Now we have got the description to match with other images and create some Recommendations
     final = []
 
-    for root, dirs, files in os.walk('.\\data'):
+    for root, dirs, files in os.walk('.' + seperation + 'data'):
         for file in files:
             descExist = False
             cur_file = os.path.join(root, file)
