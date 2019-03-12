@@ -8,6 +8,7 @@ import time
 import json
 from termcolor import *
 import colorama
+import searchp
 
 colorama.init()
 
@@ -85,7 +86,17 @@ def fileName(path):
 
 def start(path):
     # Takes path of meme
-    image_name = fileName(path)
+    if  not path:
+        print ("Enter the name or path of meme and try again")
+        exit()
+    else:
+        try:
+            image_name = fileName(path)
+
+        except:
+            path = searchp.getPathByDesc(path)
+            image_name = fileName(path)
+
 
     json_path = path[:path.rindex('.'):] + '.json' # Removing image extension and adding json to make path for json file
 

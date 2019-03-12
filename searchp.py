@@ -31,7 +31,7 @@ with open(os.path.join(indexpath,'index.json')) as f:
 
 
 # This procedure searches and serves the image index to display procedure
-def str_search(inp, args):
+def str_search(inp, args=False, hook=False):
 	# Takes in input string and args
 	image_idx = list()
 	inp = inp.split(' ')
@@ -43,6 +43,9 @@ def str_search(inp, args):
 
 			for str_idx in indices:
 				image_idx += p[str(str_idx)]
+
+			if hook==True:
+				return image_idx
 	except:
 		try:
 			with open(os.path.join(indexpath,'memedb.json')) as f:
@@ -73,7 +76,7 @@ def str_search(inp, args):
 def idx_search(index, args):
 	# Takes index and args , index correspond to a unique meme
 	# This enables instand display of meme and setting string_search to False
-	display(index,args,string_search=False)
+	display(index,args=False, string_search=False)
 	'''
 	for idx in index:
 		file = data["data"][int(idx)]["location"]
@@ -81,13 +84,30 @@ def idx_search(index, args):
 	'''
 
 # This procedure displays the meme associated with the index sent to it.
-def display(indices,args,string_search=True):
+def display(indices,args=False, string_search=True, hook=False):
 	# Takes indices for the memes
-	# Arg to select which options to enables
+	# Arg here restrict the function from using any options
 	# string_search to get strigs needs to be searched or not
 	search_result_json(indices)
 	#print(args.result)
 	index_count = len(indices)
+	if hook==True:
+		if string_search:
+			for str_idx in indices:
+				if index_count > 0:
+					file = data["data"][str_idx]["location"]
+					#Image.open(file).show()
+				index_count -=1
+
+		else:
+			for idx in indices:
+				if index_count > 0:
+					file = data["data"][int(idx)]["location"]
+					#Image.open(file).show()
+				index_count -=1
+
+		return file
+
 	if args.result != 0:
 		index_count = min(args.result,len(indices))
 
@@ -126,6 +146,16 @@ def search_result_json(indices):
 		json.dump({'data': [{'name': w, 'description': x, 'location': y}
               for (w, x, y) in zip(data1, description, path)]}, f,
               sort_keys=False, indent=4, ensure_ascii=False)
+
+def getPathByDesc(path):
+	idx = (str_search(path, hook=True))
+	if len(idx)!=0:
+		return display(idx, hook=True)
+	elif len(idx)==0:
+		return (idx)
+	else:
+		print("Meme doesn't exist")
+
 
 # This is the end point for search service
 def start(args):

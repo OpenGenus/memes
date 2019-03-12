@@ -29,7 +29,7 @@ parser.add_argument('--recommend', default=0, help='Generate recommendations')
 parser.add_argument('--search', default=0, help='Search a photo')
 parser.add_argument('--preprocess', default=0, help='Preprocessing Data')
 parser.add_argument('--generate', default=0, help="Meme Generation service " )
-parser.add_argument('--meme', type=str, default=None, help='Enter Image path for the meme')
+parser.add_argument('--meme', type=str, default=None, help='Enter Image path or name for the meme')
 
 ## Indexing Services ##
 parser.add_argument('--force_index', type=int, default=0, help="Enter 1 to force indexing")
