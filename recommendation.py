@@ -85,15 +85,19 @@ def fileName(path):
 # Uses matchScore and createRecommendations to present the list of recommendations to the user
 
 def start(path):
-    # Takes path of meme
+    # Path/Name arguments is recieved
+    # if recieved path is empty then exit procedure should be called
     if  not path:
         print ("Enter the name or path of meme and try again")
         exit()
+        # Exiting program with a help message
     else:
+        # Detecting path/name from the arg
         try:
+            # If it's a path then a fileName can be generated
             image_name = fileName(path)
-
         except:
+            # If it's not a path, we are assuming it to be a name
             path = searchp.getPathByDesc(path)
             image_name = fileName(path)
 
