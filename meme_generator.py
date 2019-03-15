@@ -36,7 +36,7 @@ def add_logo_opaque(image):
 
 # Adds logo image and text to a meme
 def add_logo(img):
-    img = add_logo_img(img, 'data/OpenGenus.png')
+    img = add_logo_img(img, 'logos/OpenGenus.png')
     img = add_logo_txt(img, 'OpenGenus')
     return img
 
