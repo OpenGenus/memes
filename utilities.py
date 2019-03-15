@@ -28,6 +28,30 @@ from TwitterAPI import TwitterAPI
 # imports for facebook
 from facebook import GraphAPI
 
+# Image tagging API
+def tag_image(image_path, limit=5):
+    # Limit is set to 5 as default no of maximum tags
+
+    config = ConfigParser()
+    config.read('auth.ini')
+
+    # Configuring key to communicate with imagga API
+    api_key = config.get('imagga_credentials', 'api_key')
+    api_secret = config.get('imagga_credentials', 'api_secret')
+    response = requests.post('https://api.imagga.com/v2/tags',
+    auth=(api_key, api_secret),
+    files={'image': open(image_path, 'rb')})
+
+    result = response.json()
+    status = result['status']
+    tags = result['result']['tags']
+    tags = [tag['tag'] for tag in tags]
+
+    # Getting classification tag values and generating a tagList
+    tags = [list(item.values())[0] for item in tags]
+
+    return tags[:limit:]
+
 # Sets meme to desktop background
 def set_desktop_background(img_path):
     # Takes image path
@@ -284,4 +308,8 @@ def upload_to_facebook(img_path):
     #     access_token = data['access_token']
 
 if __name__ == '__main__':
-    set_desktop_background(sys.argv[1])
+    try:
+        set_desktop_background(sys.argv[1])
+    except:
+        # No args to get sys.argv
+        pass
