@@ -25,7 +25,7 @@ def use(formatObj):
 
 #Includes Logo in Memes
 def add_logo_opaque(image):
-    logo = Image.open('opengenus_logo.png')
+    logo = Image.open('logos/opengenus_logo.png')
     size= logo.size
     nimg = logo.resize((int(size[0]/4),int(size[1]/4)))
     n=image.size
