@@ -4,6 +4,7 @@
 
 import argparse as arg
 import os
+from sys import platform
 import time
 import json
 from termcolor import *
@@ -102,6 +103,9 @@ def start(path):
         except:
             # If it's not a path, we are assuming it to be a name
             path = searchp.getPathByDesc(path)
+            
+            if platform == 'linux':
+                path = path.replace('\\', '/')
             image_name = fileName(path)
 
 
