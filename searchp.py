@@ -118,13 +118,21 @@ def display(indices,args=False, string_search=True, hook=False):
 			for str_idx in indices:
 				if index_count > 0:
 					file = data["data"][str_idx]["location"]
-					Image.open(file).show()
+					try:
+						Image.open(file).show()
+					except:
+						file = file.replace('\\', '/')
+						Image.open(file).show()
 				index_count -=1
 		else:
 			for idx in indices:
 				if index_count > 0:
 					file = data["data"][int(idx)]["location"]
-					Image.open(file).show()
+					try:
+						Image.open(file).show()
+					except:
+						file = file.replace('\\', '/')
+						Image.open(file).show()
 				index_count -=1
 	else:
 		for str_idx in indices:

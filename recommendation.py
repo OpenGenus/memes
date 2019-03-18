@@ -4,6 +4,7 @@
 
 import argparse as arg
 import os
+from sys import platform
 import time
 import json
 from termcolor import *
@@ -12,10 +13,8 @@ import searchp
 
 colorama.init()
 
-if os.sep == '\':
-    seperation = '\\'
-else:
-    seperation = os.sep
+
+seperation = os.sep
 
 # Procedure for generating a match score for two images
 def matchScore(first, second, secondPath, json_fail, descExist):
@@ -104,6 +103,9 @@ def start(path):
         except:
             # If it's not a path, we are assuming it to be a name
             path = searchp.getPathByDesc(path)
+            
+            if platform == 'linux':
+                path = path.replace('\\', '/')
             image_name = fileName(path)
 
 
