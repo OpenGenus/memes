@@ -12,10 +12,8 @@ import time
 currentpath = os.path.dirname(os.path.abspath(__file__))
 indexpath = os.path.join(currentpath, 'index')
 
-if os.sep == '\':
-    seperation = '\\'
-else:
-    seperation = os.sep
+# Separator detection to eliminate platform dependency
+seperation = os.sep
 
 dirName = 'data'
 

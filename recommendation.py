@@ -12,10 +12,8 @@ import searchp
 
 colorama.init()
 
-if os.sep == '\':
-    seperation = '\\'
-else:
-    seperation = os.sep
+
+seperation = os.sep
 
 # Procedure for generating a match score for two images
 def matchScore(first, second, secondPath, json_fail, descExist):
