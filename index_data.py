@@ -12,7 +12,10 @@ import time
 currentpath = os.path.dirname(os.path.abspath(__file__))
 indexpath = os.path.join(currentpath, 'index')
 
-
+if os.sep == '\':
+    seperation = '\\'
+else:
+    seperation = os.sep
 
 dirName = 'data'
 
@@ -67,7 +70,7 @@ def category_index():
             m = f.read()
             description_cat.append(m)
             path_cat.append(subdir + os.sep + 'data.txt')
-            cat.append(subdir.split('\\')[-1])
+            cat.append(subdir.split(seperation)[-1])
 
     with open(os.path.join(indexpath, 'category_index.json'), 'w') as f:
         json.dump({'data': [{'name': w, 'description': x, 'location': y}
@@ -83,8 +86,8 @@ def heirarchy():
             if os.path.exists(subdir + os.sep + 'data.txt'):
                 f = open(subdir + os.sep + 'data.txt', "r")
                 m = f.read()
-                parent.append(subdir.split('\\')[-2])
-                child_cat.append(subdir.split('\\')[-1])
+                parent.append(subdir.split(seperation)[-2])
+                child_cat.append(subdir.split(seperation)[-1])
 
     with open(os.path.join(indexpath, 'heirarchy.json'), 'w') as f:
         json.dump({'data': [{'parent': w, 'name': x}
