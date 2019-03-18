@@ -59,8 +59,8 @@ def checkGeneration(args):
 	global passed_tests
 	args.generate=1
 	args.mode = '0'
-	args.image1 = '.\\data\\got_memes\\images\\got01.jpg'
-	args.image2 = '.\\data\\got_memes\\images\\got02.jpg'
+	args.image1 = '.' + os.sep + 'data' + os.sep + 'got_memes' + os.sep + 'images' + os.sep + 'got01.jpg'
+	args.image2 = '.' + os.sep + 'data' + os.sep + 'got_memes' + os.sep + 'images' + os.sep + 'got02.jpg'
 	args.text1 = 'text 1'
 	args.text2 = 'text 2'
 
@@ -112,7 +112,7 @@ def checkPreprocess(args):
 		# data -> directory for preprocessing (Set to ./data/got_memes/)
 	'''
 	args.width = 600
-	args.data = '.\\data\\got_memes'
+	args.data = '.' + os.sep + 'data' + os.sep + 'got_memes'
 
 	try:
 		preprocess.start(args)
@@ -131,7 +131,7 @@ def checkRecommendations(args):
 	args.recommend=1
 	# Check with args.meme as path
 	try:
-		args.meme = '.\\data\\got_memes\\images\\got01.jpg'
+		args.meme = '.' + os.sep + 'data' + os.sep + 'got_memes' + os.sep + 'images' + os.sep + 'got01.jpg'
 		recommendation.start(args.meme)
 		success()
 		print(currentTime(), 'Recommendations for meme with path')
@@ -160,6 +160,7 @@ def checkRecommendations(args):
 # Routine to check search service
 def checkSearch(args):
 	#Checking keyword based searching
+	args.display_info = 0
 	try:
 		args.search=1
 		args.mode='0'
