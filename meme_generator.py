@@ -17,22 +17,13 @@ import urllib.request
 import logo
 
 # This procedure uses formatObj to generate and show meme
-def use(formatObj, args):
+def use(formatObj, metaData):
     meme_img = formatObj.generate()
     meme_with_logo = add_logo(meme_img)
     meme_with_logo.save(meme_with_logo.filename)
     path = meme_with_logo.filename.split(os.sep)
 
     fileName = path[-1].split('.')[0]
-
-    # generating meta-data for memes based on args
-    metaData = {}
-    metaData[fileName] = {}
-    metaData[fileName]['mode'] = args.mode
-    metaData[fileName]['format'] = args.format
-    metaData[fileName]['description'] = args.description
-    metaData[fileName]['rating'] = args.rating
-
     if len(path) != 1:
         json_name = '.'+meme_with_logo.filename.split('.')[1] + '.json'
     else:
@@ -113,6 +104,13 @@ def start(args):
     # Formats
     '''
 
+    # Generating metaData for meme
+    metaData = {}
+    metaData['mode'] = args.mode
+    metaData['format'] = args.format
+    metaData['description'] = args.description
+    metaData['rating'] = args.rating
+
     formatObj = None
     if args.mode == '0':
         if args.format == '0':
@@ -127,21 +125,21 @@ def start(args):
                 formatObj = Format1(image_path=args.image1,
 									top_text=args.text1,
 									bottom_text=args.text2)
-                use(formatObj, args)
+                use(formatObj, metaData)
 
             elif args.text1 and args.image1:
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,
 									top_text=args.text1,
                                     bottom_text=None)
-                use(formatObj, args)
+                use(formatObj, metaData)
 
             elif args.text2 and args.image1:
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,
 									top_text=None,
 									bottom_text=args.text2)
-                use(formatObj, args)
+                use(formatObj, metaData)
             else:
                 print('Missing arguments')
 
@@ -151,7 +149,7 @@ def start(args):
                 preprocessImages(args.image1)
                 preprocessImages(args.image2)
                 formatObj = Format2(args.image1, args.image2, args.text1, args.text2)
-                use(formatObj, args)
+                use(formatObj, metaData)
             else:
                 print ('Missing arguments')
 
@@ -169,7 +167,7 @@ def start(args):
 										image2_path=args.image2,
 										top_text=text_top,
 										bottom_text=text_bottom)
-                    use(formatObj, args)
+                    use(formatObj, metaData)
             else:
                 print("Missing arguements")
 
@@ -205,7 +203,7 @@ def start(args):
                 formatObj = Format1(image_path=img,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            use(formatObj, args)
+            use(formatObj, metaData)
 
         if format == '2':
             img1 = input('Enter image 1 path: ')
@@ -215,7 +213,7 @@ def start(args):
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            use(formatObj, args)
+            use(formatObj, metaData)
 
         if format == '3':
             img1 = input('Enter image 1 path: ')
@@ -272,7 +270,7 @@ def start(args):
 									image2_path=img2,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            use(formatObj, args)
+            use(formatObj, metaData)
 
     if args.mode == '2':
         if args.format is not None:
@@ -311,7 +309,7 @@ def start(args):
                 formatObj = Format1(image_path=img,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            use(formatObj, args)
+            use(formatObj, metaData)
 
         if format == '2':
             if args.url1 is not None:
@@ -331,7 +329,7 @@ def start(args):
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            use(formatObj, args)
+            use(formatObj, metaData)
 
         if format == '3':
             if args.url1 is not None:
@@ -397,5 +395,5 @@ def start(args):
 									image2_path=img2,
 									top_text=top_text,
 									bottom_text=bottom_text)
-            use(formatObj, args)
+            use(formatObj, metaData)
             # Calls use function to generate and show images corresponging to formatObj generated

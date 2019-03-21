@@ -27,17 +27,18 @@ def matchScore(first, second, secondPath, json_fail, descExist):
         5- descExist --> Flag showing that description for meme exist or not
     '''
     score = 0
+
     #creating a match score based on common descriptions
     if (json_fail): # Both first and second are paths
-        first = first.split(seperation)
-        second = second.split(seperation)
+        first = first.split(os.sep)
+        second = second.split(os.sep)
     else: # second is a description and first may or may not be a description
         if descExist:
             first = first.split()
             second = second.split()
         else:
-            first = first.split(seperation)
-            second = secondPath.split(seperation)
+            first = first.split(os.sep)
+            second = secondPath.split(os.sep)
     word_map = {}
     for word in first:
         try:
@@ -103,7 +104,7 @@ def start(path):
         except:
             # If it's not a path, we are assuming it to be a name
             path = searchp.getPathByDesc(path)
-            
+
             if platform == 'linux':
                 path = path.replace('\\', '/')
             image_name = fileName(path)
@@ -116,7 +117,7 @@ def start(path):
     try:
         with open(json_path) as f:
             data = json.load(f)
-            description = data[image_name]['description']
+            description = data['description']
 
     # Setting path as description if json is not present
     except:
@@ -133,13 +134,14 @@ def start(path):
             if file.endswith("json") and json_fail == False:
                 with open(cur_file) as f:
                     data = json.load(f)
-                    cur_description = data[fileName(cur_file)]['description']
+                    cur_description = data['description']
                     descExist = True
 
             elif file.endswith(("jpg", "jpeg", "png")):
                 cur_description = os.path.join(root, file)
             else:
                 continue
+
             score = matchScore(cur_description, description, path, json_fail, descExist)
             if(score > 0):
                 final.append((score, fileName(file), cur_file))
@@ -148,7 +150,6 @@ def start(path):
     recommended.sort(reverse=True) #based on score
 
     # Indexing recommended memes
-
     if(len(recommended))==0:
         cprint("\n** Sorry, We have no recommendations for you currently ** \n", 'red')
     else:
