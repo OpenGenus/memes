@@ -17,9 +17,7 @@ Format of *img.json*
 
 ```
 {
-	"img_name": {
-		"description": "img_description"
-	}
+	"description": "img_description"
 }
 
 ```
@@ -104,6 +102,18 @@ Above formats can also be accessed interactively using mode=1
 ```
 openmemes --generate=1 --mode=1 --format=1
 ```
+### Ratings
+Meme_generation also supports ratings now , and these ratings can be used subjectively for setting trending memes and creating recommendations.
+```
+--generate=1 --mode=0 --format=3 --image1=path --image2 =path --text1=text --text2=text --rating=value_from_0_to_5
+```
+
+### Description
+At the time of meme generation a description can be assigned to the meme for lookup and classification based use cases.
+```
+--generate=1 --mode=0 --format=3 --image1=path --image2 =path --text1=text --text2=text --description=description_text
+```
+
 ## Testing
 The project can be tested for errors using the command
 ```
