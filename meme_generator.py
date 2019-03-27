@@ -122,24 +122,19 @@ def start(args):
         if args.format == '1':
             if args.text1 and args.text2 and args.image1:
                 preprocessImages(args.image1)
-                formatObj = Format1(image_path=args.image1,
-									top_text=args.text1,
-									bottom_text=args.text2)
+                formatObj = Format1(image_path=args.image1,top_text=args.text1,bottom_text=args.text2)
                 use(formatObj, metaData)
 
             elif args.text1 and args.image1:
                 preprocessImages(args.image1)
-                formatObj = Format1(image_path=args.image1,
-									top_text=args.text1,
-                                    bottom_text=None)
+                formatObj = Format1(image_path=args.image1,top_text=args.text1,bottom_text=None)
                 use(formatObj, metaData)
 
             elif args.text2 and args.image1:
                 preprocessImages(args.image1)
-                formatObj = Format1(image_path=args.image1,
-									top_text=None,
-									bottom_text=args.text2)
+                formatObj = Format1(image_path=args.image1,top_text=None,bottom_text=args.text2)
                 use(formatObj, metaData)
+		
             else:
                 print('Missing arguments')
 
@@ -163,10 +158,7 @@ def start(args):
                 else:
                     preprocessImages(args.image1)
                     preprocessImages(args.image2)
-                    formatObj = Format3(image1_path=args.image1,
-										image2_path=args.image2,
-										top_text=text_top,
-										bottom_text=text_bottom)
+                    formatObj = Format3(image1_path=args.image1, image2_path=args.image2, top_text=text_top, bottom_text=text_bottom)
                     use(formatObj, metaData)
             else:
                 print("Missing arguements")
@@ -189,20 +181,16 @@ def start(args):
             if user_res == '1':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text)
+                formatObj = Format1(image_path=img,top_text=top_text)
             elif user_res == '2':
                 preprocessImages(img)
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									bottom_text= bottom_text)
+                formatObj = Format1(image_path=img, bottom_text= bottom_text)
             elif user_res == '3':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format1(image_path=img,top_text=top_text, bottom_text=bottom_text)
             use(formatObj, metaData)
 
         if format == '2':
@@ -231,10 +219,8 @@ def start(args):
                 text2 = input('Input the bottom spreading text: ')
                 top_text.append(text1)
                 bottom_text.append(text2)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+		
             elif type == '2':
                 text1 = input('Input the top spreading text: ')
                 text2 = input('Input the line for first image: ')
@@ -242,21 +228,17 @@ def start(args):
                 top_text.append(text1)
                 bottom_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
-            elif type == '3':
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+            
+	    elif type == '3':
                 text1 = input('Input the line for first image: ')
                 text2 = input('Input the line for second image: ')
                 text3 = input('Input the bottom spreading line: ')
                 top_text.append(text1)
                 top_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+		
             elif type == '4':
                 text1 = input('Input the top line for first image: ')
                 text2 = input('Input the top line for second image: ')
@@ -266,10 +248,7 @@ def start(args):
                 top_text.append(text2)
                 bottom_text.append(text3)
                 bottom_text.append(text4)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
             use(formatObj, metaData)
 
     if args.mode == '2':
@@ -295,20 +274,16 @@ def start(args):
             if user_res == '1' or user_res == '':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text)
+                formatObj = Format1(image_path=img,top_text=top_text)
             elif user_res == '2':
                 preprocessImages(img)
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									bottom_text=top_text)
+                formatObj = Format1(image_path=img,bottom_text=top_text)
             elif user_res == '3':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format1(image_path=img,top_text=top_text,bottom_text=bottom_text)
             use(formatObj, metaData)
 
         if format == '2':
@@ -356,10 +331,8 @@ def start(args):
                 text2 = input('Input the bottom spreading text: ')
                 top_text.append(text1)
                 bottom_text.append(text2)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+		
             elif type == '2':
                 text1 = input('Input the top spreading text: ')
                 text2 = input('Input the line for first image: ')
@@ -367,10 +340,7 @@ def start(args):
                 top_text.append(text1)
                 bottom_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
             elif type == '3':
                 text1 = input('Input the line for first image: ')
                 text2 = input('Input the line for second image: ')
@@ -378,10 +348,7 @@ def start(args):
                 top_text.append(text1)
                 top_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
             elif type == '4':
                 text1 = input('Input the top line for first image: ')
                 text2 = input('Input the top line for second image: ')
@@ -391,9 +358,6 @@ def start(args):
                 top_text.append(text2)
                 bottom_text.append(text3)
                 bottom_text.append(text4)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
             use(formatObj, metaData)
             # Calls use function to generate and show images corresponging to formatObj generated
