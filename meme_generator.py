@@ -121,20 +121,23 @@ def start(args):
 
         if args.format == '1':
             if args.text1 and args.text2 and args.image1:
+                metaData['format'] += '.1'
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,top_text=args.text1,bottom_text=args.text2)
                 use(formatObj, metaData)
 
             elif args.text1 and args.image1:
+                metaData['format'] += '.2'
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,top_text=args.text1,bottom_text=None)
                 use(formatObj, metaData)
 
             elif args.text2 and args.image1:
+                metaData['format'] += '.3'
                 preprocessImages(args.image1)
                 formatObj = Format1(image_path=args.image1,top_text=None,bottom_text=args.text2)
                 use(formatObj, metaData)
-		
+
             else:
                 print('Missing arguments')
 
@@ -178,6 +181,7 @@ def start(args):
             img = input('Enter the image path: ')
             print(format1type1, format1type2, format1type3)
             user_res = input('Select one of the formats (default : 1): ')
+            metaData['format'] += user_res
             if user_res == '1':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
@@ -210,6 +214,7 @@ def start(args):
             preprocessImages(img2)
             print(format3type1, format3type2, format3type3, format3type4)
             type = input('Select the layout of meme (default : 1): ')
+            metaData['format'] += type
 
             top_text = list()
             bottom_text = list()
@@ -220,7 +225,7 @@ def start(args):
                 top_text.append(text1)
                 bottom_text.append(text2)
                 formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
-		
+
             elif type == '2':
                 text1 = input('Input the top spreading text: ')
                 text2 = input('Input the line for first image: ')
@@ -229,8 +234,8 @@ def start(args):
                 bottom_text.append(text2)
                 bottom_text.append(text3)
                 formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
-            
-	    elif type == '3':
+
+            elif type == '3':
                 text1 = input('Input the line for first image: ')
                 text2 = input('Input the line for second image: ')
                 text3 = input('Input the bottom spreading line: ')
@@ -238,7 +243,7 @@ def start(args):
                 top_text.append(text2)
                 bottom_text.append(text3)
                 formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
-		
+
             elif type == '4':
                 text1 = input('Input the top line for first image: ')
                 text2 = input('Input the top line for second image: ')
@@ -270,6 +275,7 @@ def start(args):
             img = 'meme_img.jpg'
             print(format1type1, format1type2, format1type3)
             user_res = input('Select one of the formats (default : 1): ')
+            metaData['format'] += user_res
 
             if user_res == '1' or user_res == '':
                 preprocessImages(img)
@@ -322,6 +328,7 @@ def start(args):
 
             print(format3type1, format3type2, format3type3, format3type4)
             type = input('Select the layout of meme (default : 1): ')
+            metaData['format'] += type
 
             top_text = list()
             bottom_text = list()
@@ -332,7 +339,7 @@ def start(args):
                 top_text.append(text1)
                 bottom_text.append(text2)
                 formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
-		
+
             elif type == '2':
                 text1 = input('Input the top spreading text: ')
                 text2 = input('Input the line for first image: ')
