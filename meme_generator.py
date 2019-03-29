@@ -17,10 +17,19 @@ import urllib.request
 import logo
 
 # This procedure uses formatObj to generate and show meme
-def use(formatObj):
+def use(formatObj, metaData):
     meme_img = formatObj.generate()
     meme_with_logo = add_logo(meme_img)
     meme_with_logo.save(meme_with_logo.filename)
+    path = meme_with_logo.filename.split(os.sep)
+
+    fileName = path[-1].split('.')[0]
+    if len(path) != 1:
+        json_name = '.'+meme_with_logo.filename.split('.')[1] + '.json'
+    else:
+        json_name = meme_with_logo.filename.split('.')[0] + '.json'
+    with open(json_name, 'w') as f:
+        json.dump(metaData, f, indent=4)
     meme_with_logo.show()
 
 #Includes Logo in Memes
@@ -94,6 +103,14 @@ def start(args):
     # Mode - 0, 1
     # Formats
     '''
+
+    # Generating metaData for meme
+    metaData = {}
+    metaData['mode'] = args.mode
+    metaData['format'] = args.format
+    metaData['description'] = args.description
+    metaData['rating'] = args.rating
+
     formatObj = None
     if args.mode == '0':
         if args.format == '0':
@@ -104,25 +121,23 @@ def start(args):
 
         if args.format == '1':
             if args.text1 and args.text2 and args.image1:
+                metaData['format'] += '.1'
                 preprocessImages(args.image1)
-                formatObj = Format1(image_path=args.image1,
-									top_text=args.text1,
-									bottom_text=args.text2)
-                use(formatObj)
+                formatObj = Format1(image_path=args.image1,top_text=args.text1,bottom_text=args.text2)
+                use(formatObj, metaData)
 
             elif args.text1 and args.image1:
+                metaData['format'] += '.2'
                 preprocessImages(args.image1)
-                formatObj = Format1(image_path=args.image1,
-									top_text=args.text1,
-                                    bottom_text=None)
-                use(formatObj)
+                formatObj = Format1(image_path=args.image1,top_text=args.text1,bottom_text=None)
+                use(formatObj, metaData)
 
             elif args.text2 and args.image1:
+                metaData['format'] += '.3'
                 preprocessImages(args.image1)
-                formatObj = Format1(image_path=args.image1,
-									top_text=None,
-									bottom_text=args.text2)
-                use(formatObj)
+                formatObj = Format1(image_path=args.image1,top_text=None,bottom_text=args.text2)
+                use(formatObj, metaData)
+
             else:
                 print('Missing arguments')
 
@@ -132,7 +147,7 @@ def start(args):
                 preprocessImages(args.image1)
                 preprocessImages(args.image2)
                 formatObj = Format2(args.image1, args.image2, args.text1, args.text2)
-                use(formatObj)
+                use(formatObj, metaData)
             else:
                 print ('Missing arguments')
 
@@ -146,11 +161,8 @@ def start(args):
                 else:
                     preprocessImages(args.image1)
                     preprocessImages(args.image2)
-                    formatObj = Format3(image1_path=args.image1,
-										image2_path=args.image2,
-										top_text=text_top,
-										bottom_text=text_bottom)
-                    use(formatObj)
+                    formatObj = Format3(image1_path=args.image1, image2_path=args.image2, top_text=text_top, bottom_text=text_bottom)
+                    use(formatObj, metaData)
             else:
                 print("Missing arguements")
 
@@ -169,24 +181,21 @@ def start(args):
             img = input('Enter the image path: ')
             print(format1type1, format1type2, format1type3)
             user_res = input('Select one of the formats (default : 1): ')
+            metaData['format'] += user_res
             if user_res == '1':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text)
+                formatObj = Format1(image_path=img,top_text=top_text)
             elif user_res == '2':
                 preprocessImages(img)
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									bottom_text= bottom_text)
+                formatObj = Format1(image_path=img, bottom_text= bottom_text)
             elif user_res == '3':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text,
-									bottom_text=bottom_text)
-            use(formatObj)
+                formatObj = Format1(image_path=img,top_text=top_text, bottom_text=bottom_text)
+            use(formatObj, metaData)
 
         if format == '2':
             img1 = input('Enter image 1 path: ')
@@ -196,7 +205,7 @@ def start(args):
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            use(formatObj)
+            use(formatObj, metaData)
 
         if format == '3':
             img1 = input('Enter image 1 path: ')
@@ -205,6 +214,7 @@ def start(args):
             preprocessImages(img2)
             print(format3type1, format3type2, format3type3, format3type4)
             type = input('Select the layout of meme (default : 1): ')
+            metaData['format'] += type
 
             top_text = list()
             bottom_text = list()
@@ -214,10 +224,8 @@ def start(args):
                 text2 = input('Input the bottom spreading text: ')
                 top_text.append(text1)
                 bottom_text.append(text2)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+
             elif type == '2':
                 text1 = input('Input the top spreading text: ')
                 text2 = input('Input the line for first image: ')
@@ -225,10 +233,8 @@ def start(args):
                 top_text.append(text1)
                 bottom_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+
             elif type == '3':
                 text1 = input('Input the line for first image: ')
                 text2 = input('Input the line for second image: ')
@@ -236,10 +242,8 @@ def start(args):
                 top_text.append(text1)
                 top_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+
             elif type == '4':
                 text1 = input('Input the top line for first image: ')
                 text2 = input('Input the top line for second image: ')
@@ -249,11 +253,8 @@ def start(args):
                 top_text.append(text2)
                 bottom_text.append(text3)
                 bottom_text.append(text4)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
-            use(formatObj)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+            use(formatObj, metaData)
 
     if args.mode == '2':
         if args.format is not None:
@@ -274,24 +275,22 @@ def start(args):
             img = 'meme_img.jpg'
             print(format1type1, format1type2, format1type3)
             user_res = input('Select one of the formats (default : 1): ')
+            metaData['format'] += user_res
+
             if user_res == '1' or user_res == '':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text)
+                formatObj = Format1(image_path=img,top_text=top_text)
             elif user_res == '2':
                 preprocessImages(img)
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									bottom_text=top_text)
+                formatObj = Format1(image_path=img,bottom_text=top_text)
             elif user_res == '3':
                 preprocessImages(img)
                 top_text = input('Input the top line here: ')
                 bottom_text = input('Input the bottom line here: ')
-                formatObj = Format1(image_path=img,
-									top_text=top_text,
-									bottom_text=bottom_text)
-            use(formatobj)
+                formatObj = Format1(image_path=img,top_text=top_text,bottom_text=bottom_text)
+            use(formatObj, metaData)
 
         if format == '2':
             if args.url1 is not None:
@@ -311,7 +310,7 @@ def start(args):
             preprocessImages(img1)
             preprocessImages(img2)
             formatObj = Format2(img1, img2, top_text, bottom_text)
-            use(formatobj)
+            use(formatObj, metaData)
 
         if format == '3':
             if args.url1 is not None:
@@ -329,6 +328,7 @@ def start(args):
 
             print(format3type1, format3type2, format3type3, format3type4)
             type = input('Select the layout of meme (default : 1): ')
+            metaData['format'] += type
 
             top_text = list()
             bottom_text = list()
@@ -338,10 +338,8 @@ def start(args):
                 text2 = input('Input the bottom spreading text: ')
                 top_text.append(text1)
                 bottom_text.append(text2)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+
             elif type == '2':
                 text1 = input('Input the top spreading text: ')
                 text2 = input('Input the line for first image: ')
@@ -349,10 +347,7 @@ def start(args):
                 top_text.append(text1)
                 bottom_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
             elif type == '3':
                 text1 = input('Input the line for first image: ')
                 text2 = input('Input the line for second image: ')
@@ -360,10 +355,7 @@ def start(args):
                 top_text.append(text1)
                 top_text.append(text2)
                 bottom_text.append(text3)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
             elif type == '4':
                 text1 = input('Input the top line for first image: ')
                 text2 = input('Input the top line for second image: ')
@@ -373,10 +365,6 @@ def start(args):
                 top_text.append(text2)
                 bottom_text.append(text3)
                 bottom_text.append(text4)
-                formatObj = Format3(image1_path=img1,
-									image2_path=img2,
-									top_text=top_text,
-									bottom_text=bottom_text)
-            use(formatobj)
-
+                formatObj = Format3(image1_path=img1,image2_path=img2,top_text=top_text,bottom_text=bottom_text)
+            use(formatObj, metaData)
             # Calls use function to generate and show images corresponging to formatObj generated
