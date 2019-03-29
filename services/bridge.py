@@ -6,13 +6,13 @@
 
 import argparse as arg
 import sys
-import logo
-import recommendation
-import index_data
-import searchp
-import preprocess
-import meme_generator
-import tests
+from . import logo
+from . import recommendation
+from . import index_data
+from . import searchp
+from . import preprocess
+from . import meme_generator
+from . import tests
 
 
 if len(sys.argv)==1:
@@ -55,8 +55,6 @@ parser.add_argument('--image2', type=str, default=None, help='Enter the image pa
 parser.add_argument('--text1', type=str, default=None, help='Enter text1')
 parser.add_argument('--text2', type=str, default=None, help='Enter text2')
 parser.add_argument('--random', type=str, default=None, help='Enter either True or False required for format-0')
-parser.add_argument('--description', type=str, default='NewMeme', help='Enter description for meme')
-parser.add_argument('--rating', type=int, default=0, help='Set a rating (1->5)')
 
 ## Test Services ##
 parser.add_argument('--test',type=int, default=0, help='Set this to 1 for running a diagnostic')

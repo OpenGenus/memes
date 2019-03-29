@@ -5,14 +5,14 @@
 # Diagnostics for project
 from termcolor import *
 import colorama
-import index_data
 import time
 import os
-import meme_generator
-import searchp
-import preprocess
-import recommendation
-import logo
+from . import index_data
+from . import meme_generator
+from . import searchp
+from . import preprocess
+from . import recommendation
+from . import logo
 
 global failed_tests
 global passed_tests
@@ -63,6 +63,8 @@ def checkGeneration(args):
 	args.image2 = '.' + os.sep + 'data' + os.sep + 'got_memes' + os.sep + 'images' + os.sep + 'got02.jpg'
 	args.text1 = 'text 1'
 	args.text2 = 'text 2'
+	args.description = 'newMeme'
+	args.rating='0'
 
 	try:
 		args.format = '1'

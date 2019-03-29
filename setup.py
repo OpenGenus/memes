@@ -27,8 +27,9 @@ setup(
         'facebook-sdk>=3.1.0',
         'pygtrie'
     ],
-    entry_points='''
-        [console_scripts]
-        openmemes=bridge:cli
-    ''',
+    entry_points={
+        'console_scripts': [
+            'openmemes=services.bridge:cli'
+        ]
+    },
 )
