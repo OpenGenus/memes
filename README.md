@@ -21,6 +21,17 @@ Format of *img.json*
 }
 
 ```
+
+Format of *memes.json*
+```
+{
+    "mode": "generation_mode",
+    "format": "meme_rating",
+    "description": "meme_description",
+    "rating": 0
+}
+```
+
 ### Installation
 Project memes has been ported to package, now it can be installed using the following command from the memes directory.
 ```
