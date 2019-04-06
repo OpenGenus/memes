@@ -10,7 +10,7 @@ import json
 import time
 
 currentpath = os.path.dirname(os.path.abspath(__file__))
-indexpath = os.path.join(currentpath, 'index')
+indexpath = os.path.join(currentpath, '../index')
 
 # Separator detection to eliminate platform dependency
 seperation = os.sep

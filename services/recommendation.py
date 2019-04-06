@@ -9,7 +9,7 @@ import time
 import json
 from termcolor import *
 import colorama
-import searchp
+from . import searchp
 
 colorama.init()
 

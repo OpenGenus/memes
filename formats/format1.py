@@ -1,4 +1,6 @@
-from manipulation import *
+import sys
+sys.path.append("..")
+from services.manipulation import *
 
 class Format1:
 
