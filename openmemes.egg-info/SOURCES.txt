@@ -1,0 +1,6 @@
+openmemes.egg-info/PKG-INFO
+openmemes.egg-info/SOURCES.txt
+openmemes.egg-info/dependency_links.txt
+openmemes.egg-info/entry_points.txt
+openmemes.egg-info/requires.txt
+openmemes.egg-info/top_level.txt

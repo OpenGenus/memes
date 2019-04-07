@@ -24,22 +24,9 @@ for i in range(0,x):
 			t[words] = cnt
 			m[t[words]].append(i)
 			cnt+=1
-#print(m)
 
 with open(os.path.join(indexpath,'searchtrie.json'), 'w') as f:
 	json.dump(t._root.__getstate__(),f,indent=2)
 with open(os.path.join(indexpath,'searchdict.json'), 'w') as f:
 	json.dump(m,f,indent=2)
 
-'''
-Reloading the json files
-l = pygtrie.CharTrie()
-p = defaultdict(list)
-with open('searchtrie.json') as f:
-	l._root.__setstate__(json.load(f))
-with open('searchdict.json') as f:
-	p = json.load(f)
-
-print(sorted(l['tyr':]))
-print(p[str(l['tyrion'])])
-'''
