@@ -10,11 +10,20 @@ import json
 from termcolor import *
 import colorama
 from . import searchp
+from . import utilities
 
 colorama.init()
 
 
 seperation = os.sep
+
+def tag_score(base_image_tags, meme_tags):
+    count=0
+    for i in range(0,10):
+        if base_image_tags[i]==meme_tags[i]:
+            count=count+1
+
+    return count
 
 # Procedure for generating a match score for two images
 def matchScore(first, second, secondPath, json_fail, descExist):
@@ -126,9 +135,10 @@ def start(path):
 
     # Now we have got the description to match with other images and create some Recommendations
     final = []
-
+    base_image_tags = utilities.tag_image(path, 10)
     for root, dirs, files in os.walk('.' + seperation + 'data'):
         for file in files:
+            tagScore = 0
             descExist = False
             cur_file = os.path.join(root, file)
             if file.endswith("json") and json_fail == False:
@@ -139,10 +149,13 @@ def start(path):
 
             elif file.endswith(("jpg", "jpeg", "png")):
                 cur_description = os.path.join(root, file)
+                meme_tags = utilities.tag_image(cur_file, 10)
+                tagScore = tag_score(base_image_tags, meme_tags)
+                #print ('tagScore',tagScore)
             else:
                 continue
 
-            score = matchScore(cur_description, description, path, json_fail, descExist)
+            score = matchScore(cur_description, description, path, json_fail, descExist) + tagScore
             if(score > 0):
                 final.append((score, fileName(file), cur_file))
 

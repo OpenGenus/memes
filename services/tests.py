@@ -129,6 +129,8 @@ def checkPreprocess(args):
 
 # Routine to check recommendation service
 def checkRecommendations(args):
+	args.meme = '.' + os.sep + 'data' + os.sep + 'got_memes' + os.sep + 'images' + os.sep + 'got01.jpg'
+	recommendation.start(args.meme)
 	# Checks for recommendation service
 	args.recommend=1
 	# Check with args.meme as path
