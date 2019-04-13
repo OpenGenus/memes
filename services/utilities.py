@@ -31,13 +31,8 @@ from facebook import GraphAPI
 # Image tagging API
 def tag_image(image_path, limit=5):
     # Limit is set to 5 as default no of maximum tags
-
-    config = ConfigParser()
-    config.read('auth.ini')
-
-    # Configuring key to communicate with imagga API
-    api_key = config.get('imagga_credentials', 'api_key')
-    api_secret = config.get('imagga_credentials', 'api_secret')
+    api_key = 'acc_c3b083251e16281'
+    api_secret = '587fcd3f035a8503470f297fc708ca07'
     response = requests.post('https://api.imagga.com/v2/tags',
     auth=(api_key, api_secret),
     files={'image': open(image_path, 'rb')})
