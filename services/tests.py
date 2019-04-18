@@ -13,6 +13,7 @@ from . import searchp
 from . import preprocess
 from . import recommendation
 from . import logo
+from . import utilities
 
 global failed_tests
 global passed_tests
@@ -214,6 +215,22 @@ def checkIndexing(args):
 		print(" \t + Resolve errors - index_data.py [start()] \n")
 		failed_tests.add('Indexing')
 
+
+def CheckImgAapi(args):
+	path='.' + os.sep + 'data' + os.sep + 'got_memes' + os.sep + 'images' + os.sep + 'got01.jpg'
+	try:
+		utilities.tag_image(path)
+		success()
+		print(currentTime(),'Img_api')
+		print(" \t + Image Tags Generated\n")
+		passed_tests.add('Img_api')
+	except:
+		failed()
+		print(currentTime(),'Img_api')
+		print(" \t + Resolve errors - utilities.py [tag_image()] \n")
+		failed_tests.add('Img_api')
+
+
 # End point for test (Accessed by bridge)
 def start(args):
 	global passed_tests
@@ -223,6 +240,8 @@ def start(args):
 	'''
 	logo.test_logo()
 	print()
+	if args.module == 'Img_api' or args.module==None:
+		CheckImgAapi(args)
 	if args.module == 'preprocess' or args.module==None:
 		checkPreprocess(args)
 	if args.module == 'indexing' or args.module==None:
