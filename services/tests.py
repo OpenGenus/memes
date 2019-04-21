@@ -221,12 +221,12 @@ def CheckImgAapi(args):
 	try:
 		utilities.tag_image(path)
 		success()
-		print(currentTime(),'Img_api')
+		print(currentTime(),'Generating Tags for Image')
 		print(" \t + Image Tags Generated\n")
 		passed_tests.add('Img_api')
 	except:
 		failed()
-		print(currentTime(),'Img_api')
+		print(currentTime(),'Generating Tags for Image')
 		print(" \t + Resolve errors - utilities.py [tag_image()] \n")
 		failed_tests.add('Img_api')
 
