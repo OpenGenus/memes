@@ -30,3 +30,4 @@ with open(os.path.join(indexpath,'searchtrie.json'), 'w') as f:
 	json.dump(t._root.__getstate__(),f,indent=2)
 with open(os.path.join(indexpath,'searchdict.json'), 'w') as f:
 	json.dump(m,f,indent=2)
+
