@@ -27,7 +27,7 @@ def cleanup():
 	'''
 	try:
 		for file in os.listdir('./'):
-			if file.endswith('.png') or file.endswith('.jpg'):
+			if file.endswith('.png') or file.endswith('.jpg') or file.endswith('.json'):
 				os.remove(file)
 		success()
 		print(currentTime(), '# Cleanup Success ')
